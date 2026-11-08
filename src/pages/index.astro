@@ -17,7 +17,13 @@ const imgFor = (t: string) => { const f = `/media/tiles/${tileSlug(t)}.jpg`; ret
 const iconFor = (t: string) => { const l = t.toLowerCase(); return /ramadan|spiritual/.test(l) ? 'dove' : /disaster|climate/.test(l) ? 'disaster-relief' : /legal|justice|rights/.test(l) ? 'helping-hand' : /educat|career/.test(l) ? 'education-support' : /medic|health/.test(l) ? 'medical-aid' : /water/.test(l) ? 'water-charity' : /hunger|food/.test(l) ? 'donation-jar' : 'community'; };
 const tileColors = ['var(--teal)', 'var(--olive)', 'var(--teal-dark)', 'var(--raspberry)', 'var(--teal)', 'var(--olive)', 'var(--teal-dark)'];
 const wipes = ['var(--raspberry)', 'var(--charcoal)', 'var(--raspberry)', 'var(--charcoal)', 'var(--raspberry)', 'var(--charcoal)', 'var(--raspberry)'];
-const pillarColors = ['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--teal-dark)', 'var(--charcoal)'];
+// Backgrounds for the hero sentence, one per phrase after "Free legal aid" (which uses the justice video).
+// A real photo in public/media/tiles/<tile>.jpg replaces the illustration automatically.
+const stageBgs = [['health', 'medical-camps'], ['hunger', 'fighting-hunger'], ['disaster', 'disaster-relief'], ['education', 'education-counseling']].map(([art, tile]) => {
+  const real = `/media/tiles/${tile}.jpg`;
+  return fs.existsSync(`public${real}`) ? { d: real, m: real } : { d: `/media/art/pillar-${art}.jpg`, m: `/media/art/tile-${tile}.jpg` };
+});
+const pillarColors =['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--teal-dark)', 'var(--charcoal)'];
 ---
 <Base title="Takweyat International Organization" description="A coalition of lawyers, doctors, educators and social workers who give their own time and skills to people who cannot afford help." overlay>
   <style is:global>
@@ -26,7 +32,9 @@ const pillarColors = ['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--
     .pattern { position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='%23000' fill-opacity='.11'%3E%3Cpath d='M100 36l13 29 29-13-13 29 29 13-29 13 13 29-29-13-13 29-13-29-29 13 13-29-29-13 29-13-13-29 29 13z'/%3E%3Cpath d='M0 0l14 0-14 14zM200 0l-14 0 14 14zM0 200l14 0-14-14zM200 200l-14 0 14-14z'/%3E%3Ccircle cx='0' cy='100' r='12'/%3E%3Ccircle cx='200' cy='100' r='12'/%3E%3Ccircle cx='100' cy='0' r='12'/%3E%3Ccircle cx='100' cy='200' r='12'/%3E%3C/g%3E%3C/svg%3E"); background-size: 200px 200px; }
     @media (max-width: 759px) { .pattern { background-size: 150px 150px; } }
     .stage { position: absolute; inset: 0; opacity: 0; background: var(--teal-dark); display: grid; place-items: center; }
-    .stage::after { content: ""; position: absolute; inset: auto 0 0 0; height: 62%; background: linear-gradient(to top, rgb(11 9 2 / .6), rgb(11 9 2 / 0)); }
+    .stage::after { content: ""; position: absolute; inset: auto 0 0 0; height: 72%; background: linear-gradient(to top, rgb(11 9 2 / .78), rgb(11 9 2 / 0)); }
+    .stage .lay { position: absolute; inset: 0; opacity: 0; }
+    .stage .lay img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.82); }
     .stage .cap { position: absolute; z-index: 1; right: max(20px, 4vw); top: 100px; font-size: .8125rem; font-weight: 600; opacity: .8; }
     .h1x { position: relative; text-align: center; max-width: 1080px; padding-inline: 20px; font-family: var(--display); font-size: clamp(2.3rem, 1rem + 4.8vw, 5rem); line-height: 1.04; letter-spacing: -.01em; text-wrap: balance; }
     .word { position: relative; display: inline-block; color: var(--paper); }
@@ -34,7 +42,6 @@ const pillarColors = ['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--
     .oph { position: absolute; background: transparent; border-radius: 50%; }
     .h2x { position: absolute; z-index: 2; left: 0; right: 0; bottom: clamp(56px, 10vh, 130px); font-family: var(--display); font-size: clamp(2.2rem, 1rem + 4.4vw, 4.8rem); line-height: 1.05; letter-spacing: -.01em; opacity: 0; color: var(--white); max-width: 1240px; margin-inline: auto; }
     .h2x em { font-style: normal; }
-    .h2x em .ch { background: var(--raspberry); }
     .h2x em .ch:first-child { padding-left: .12em; } .h2x em .ch:last-child { padding-right: .12em; }
     .h2x .ch { opacity: 0; }
     .down { position: absolute; z-index: 3; left: 50%; bottom: clamp(24px, 5vh, 52px); transform: translateX(-50%); width: 54px; height: 54px; border-radius: 50%; border: 0; background: var(--paper); cursor: pointer; display: grid; place-items: center; transition: transform .3s var(--ease); }
@@ -66,9 +73,11 @@ const pillarColors = ['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--
   <section class="hero" id="hero">
     <div class="pin" id="pin">
       <video class="bgv" autoplay muted loop playsinline preload="auto" poster="/media/islamabad.jpg" aria-hidden="true"><source src="/media/islamabad.mp4" type="video/mp4" /></video><div class="bgv-tint"></div>
-      <div class="stage" id="stage"><video class="bgv" autoplay muted loop playsinline preload="metadata" poster="/media/justice.jpg" aria-hidden="true"><source src="/media/justice.mp4" type="video/mp4" /></video></div>
+      <div class="stage" id="stage"><video class="bgv" autoplay muted loop playsinline preload="metadata" poster="/media/justice.jpg" aria-hidden="true"><source src="/media/justice.mp4" type="video/mp4" /></video>
+        {stageBgs.map((b) => <picture class="lay" aria-hidden="true"><source media="(max-width: 759px)" srcset={b.m} /><img src={b.d} alt="" width="1000" height="750" decoding="async" /></picture>)}
+      </div>
       <h1 class="h1x" id="h1"><span class="dim">Lawyers, doctors and teachers turning their skills into </span><span class="word" id="word">acti<span id="wo">o</span>n<i class="bl" id="bl"></i><i class="oph" id="oph"></i></span><span class="dim"> for people in need.</span></h1>
-      <p class="h2x wrap" id="h2"><em>Free legal aid,</em> medical camps, meals, disaster relief and education.</p>
+      <p class="h2x wrap" id="h2"><em>Free legal aid,</em> <em>medical camps,</em> <em>meals,</em> <em>disaster relief</em> <em>and education.</em></p>
       <button class="down" id="down" aria-label="Scroll down"><svg viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6"/></svg></button>
     </div>
   </section>
@@ -209,6 +218,7 @@ const pillarColors = ['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     $('#down').addEventListener('click', () => scrollTo({ top: innerHeight * (reduce ? 1 : 1.2), behavior: reduce ? 'auto' : 'smooth' }));
 
+    const STEP = 0.11; // seconds of timeline per character of the closing sentence
     function buildHero() {
       const word = $('#word'), wo = $('#wo'), bl = $('#bl'), oph = $('#oph'), h2 = $('#h2');
       if (reduce) {
@@ -243,15 +253,26 @@ const pillarColors = ['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--
         Object.assign(oph.style, { left: cx - pw / 2 + 'px', top: cy - ph / 2 + 'px', width: pw + 'px', height: ph + 'px' });
         gsap.set(word, { transformOrigin: `${cx}px ${cy}px` });
         const S = Math.max(innerWidth / pw, innerHeight / ph) * 1.25;
-        const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '#pin', start: 'top top', end: () => '+=' + Math.round(innerHeight * (mob ? 2.6 : 3.8)), scrub: 0.6, pin: true, anticipatePin: 1, invalidateOnRefresh: true } });
+        const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '#pin', start: 'top top', end: () => '+=' + Math.round(innerHeight * (mob ? 4.2 : 5.6)), scrub: 0.6, pin: true, anticipatePin: 1, invalidateOnRefresh: true } });
         tl.to('#down', { opacity: 0, duration: 0.4 }, 0)
           .to('.dim', { opacity: 0, duration: 3.4 }, 0.4)
           .to(word, { scale: S, duration: 5.2, ease: 'power3.in' }, 0)
                     .to('#stage', { opacity: 1, duration: 1.2 }, 4.2)
           .to(word, { opacity: 0, duration: 0.8 }, 4.9)
           .set('#h2', { opacity: 1 }, 5.4)
-          .to('#h2 .ch', { opacity: 1, duration: 0.02, stagger: 0.07 }, 5.5)
-          .to({}, { duration: 1.6 });
+          .to('#h2 .ch', { opacity: 1, duration: 0.02, stagger: STEP }, 5.5);
+        // each phrase brings its own background and moves the marker: legal = raspberry, the rest = charcoal
+        const root = getComputedStyle(document.documentElement), mk = [root.getPropertyValue('--raspberry').trim(), root.getPropertyValue('--charcoal').trim()];
+        const chars = [...h2.querySelectorAll('.ch')], lays = [...document.querySelectorAll('#stage .lay')];
+        const ems = [...h2.querySelectorAll('em')];
+        const starts = ems.map((em) => 5.5 + STEP * chars.indexOf(em.querySelector('.ch')!));
+        ems.forEach((em, i) => {
+          const cs2 = em.querySelectorAll('.ch');
+          if (i > 0) tl.to(lays[i - 1], { opacity: 1, duration: 0.8 }, starts[i]);
+          tl.to(cs2, { backgroundColor: mk[i === 0 ? 0 : 1], duration: 0.01 }, starts[i]);
+          if (i < ems.length - 1) tl.to(cs2, { backgroundColor: 'rgba(0,0,0,0)', duration: 0.01 }, starts[i + 1]);
+        });
+        tl.to({}, { duration: 1.6 });
       });
     }
     (document.fonts?.ready ?? Promise.resolve()).then(buildHero);
