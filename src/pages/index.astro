@@ -14,6 +14,7 @@ const netWipes = ['var(--teal-dark)','var(--teal)','var(--teal)','var(--teal-dar
 const tileSlug = (t: string) => { const l = t.toLowerCase(); return /hunger|food/.test(l) ? 'fighting-hunger' : /ramadan|spiritual/.test(l) ? 'ramadan' : /disaster|climate/.test(l) ? 'disaster-relief' : /legal|justice|rights/.test(l) ? 'free-legal-aid' : /educat|career/.test(l) ? 'education-counseling' : /medic|health/.test(l) ? 'medical-camps' : 'community-support'; };
 // real photographs go in public/media/tiles/<slug>.jpg (see assets-in/README.md); until then the tile is colour plus icon
 const imgFor = (t: string) => { const f = `/media/tiles/${tileSlug(t)}.jpg`; return fs.existsSync(`public${f}`) ? f : ''; };
+const tileHref = (t: string) => { const s = tileSlug(t); return s === 'free-legal-aid' ? '/free-legal-aid/' : s === 'education-counseling' ? `/what-we-do/${coreSlugs[0]}/` : s === 'fighting-hunger' || s === 'ramadan' ? `/what-we-do/${coreSlugs[1]}/` : s === 'disaster-relief' ? `/what-we-do/${coreSlugs[3]}/` : s === 'medical-camps' ? `/what-we-do/${coreSlugs[4]}/` : '/what-we-do/'; };
 const iconFor = (t: string) => { const l = t.toLowerCase(); return /ramadan|spiritual/.test(l) ? 'dove' : /disaster|climate/.test(l) ? 'disaster-relief' : /legal|justice|rights/.test(l) ? 'helping-hand' : /educat|career/.test(l) ? 'education-support' : /medic|health/.test(l) ? 'medical-aid' : /water/.test(l) ? 'water-charity' : /hunger|food/.test(l) ? 'donation-jar' : 'community'; };
 const tileColors = ['var(--teal)', 'var(--olive)', 'var(--teal-dark)', 'var(--raspberry)', 'var(--teal)', 'var(--olive)', 'var(--teal-dark)'];
 const wipes = ['var(--raspberry)', 'var(--charcoal)', 'var(--raspberry)', 'var(--charcoal)', 'var(--raspberry)', 'var(--charcoal)', 'var(--raspberry)'];
@@ -61,9 +62,10 @@ const pillarColors =['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--t
       .sticky-cta .btn { width: 100%; }
     }
     .legal-spot .facts { display: grid; gap: 14px; margin: 28px 0 32px; }
-    @media (min-width: 640px) { .legal-spot .facts { grid-template-columns: repeat(3, 1fr); } }
+    .legal-spot .facts div { display: grid; grid-template-columns: 1fr; gap: 4px; align-items: baseline; }
     .legal-spot .facts div { border-top: 2px solid rgb(255 255 255 / .55); padding-top: 12px; }
-    .legal-spot .facts b { display: block; font: 400 clamp(1.5rem, 1.1rem + 1.3vw, 2.2rem)/1.05 var(--display); margin-bottom: 4px; }
+    @media (min-width: 640px) { .legal-spot .facts div { grid-template-columns: 15rem 1fr; gap: 16px; } }
+    .legal-spot .facts b { white-space: nowrap; display: block; font: 400 clamp(1.5rem, 1.2rem + 1vw, 2rem)/1.05 var(--display); margin: 0; }
     .planbig { display: flex; flex-direction: column; gap: 16px; padding: clamp(28px, 4vw, 52px); min-height: 400px; border-radius: var(--r); text-decoration: none; position: relative; isolation: isolate; overflow: hidden; }
     .planbig::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--charcoal); transform: translateY(101%); transition: transform .4s var(--ease); }
     .planbig:hover::before, .planbig:focus-visible::before { transform: none; }
@@ -110,7 +112,7 @@ const pillarColors =['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--t
       <h2 class="h2" style="margin-bottom:40px">What we do</h2>
       <div class="tiles">
         {core.achievements.map((a, i) => (
-          <a class="tile" href="/what-we-do/" style={`--c:${tileColors[i]};--w:${wipes[i]};--ic:url(/icons/${iconFor(a.title)}.svg)${imgFor(a.title) ? `;--img:url(${imgFor(a.title)})` : ''}`} data-rise><span class="tile-ic" aria-hidden="true"></span><h3>{a.title}</h3></a>
+          <a class="tile" href={tileHref(a.title)} style={`--c:${tileColors[i]};--w:${wipes[i]};--ic:url(/icons/${iconFor(a.title)}.svg)${imgFor(a.title) ? `;--img:url(${imgFor(a.title)})` : ''}`} data-rise><span class="tile-ic" aria-hidden="true"></span><h3>{a.title}</h3></a>
         ))}
         <a class="tile last" href="/what-we-do/" data-rise><h3 style="display:flex;align-items:center;gap:10px">All our work <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 5l7 7-7 7"/></svg></h3></a>
       </div>
@@ -152,7 +154,7 @@ const pillarColors =['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--t
       </div>
       <div class="nets">
         {networks.map((n, i) => (
-          <a class="net" href="/get-involved/" style={`--c:${netColors[i]};--w:${netWipes[i]};--ic:url(/icons/${netIcons[i]}.svg)`} data-rise>
+          <a class="net" href={i === 4 ? '/partner/' : '/volunteer/'} style={`--c:${netColors[i]};--w:${netWipes[i]};--ic:url(/icons/${netIcons[i]}.svg)`} data-rise>
             <span class="net-ic" aria-hidden="true"></span>
             <span class="meta">{n.who}</span>
             <h3>{n.title}</h3>
