@@ -1,27 +1,29 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHead from '../components/PageHead.astro';
-import Photo from '../components/Photo.astro';
 import Arrow from '../components/Arrow.astro';
 ---
 <Base title="About us" description="Takweyat International Organization is a dynamic collective of civil society members: lawyers, doctors, educators, and social workers.">
-  <PageHead img="/media/banners/about.jpg" title="A Coalition of Professionals. A Commitment to Society." tone="teal" crumbs={[{ label: 'About us', href: '/about/' }]} />
-
-  <section class="band">
-    <div class="wrap cols2 wide-left">
-      <div class="prose lede" data-rise>
-        <p>Takweyat International Organization (تقویت) is a dynamic collective of civil society members originating from diverse professional backgrounds. We are lawyers, doctors, educators, and social workers who believe that true societal strength comes from active, on-ground participation rather than passive observation. Grounded in core Islamic values of justice, ethical responsibility, and brotherhood, we pool our own professional expertise and time to intervene where society needs it most. Whether it is providing pro-bono legal defense, setting up medical camps, or executing disaster relief, Takweyat is driven purely by the power of human capital and community dedication.</p>
-      </div>
-      <Photo caption="Photo: Takweyat members at work" ratio="4 / 5" />
+  <section class="bighero" style="--img:url(/media/banners/about.jpg)">
+    <div class="wrap bh-in">
+      <h1 class="bh-title">A Coalition of Professionals. A Commitment to Society.</h1>
+      <div class="btns"><a class="btn white" href="/join/"><span>Join the movement</span><Arrow /></a></div>
     </div>
   </section>
 
+  <section class="field-teal">
+    <div class="wrap">
+      <p class="field-big" data-rise>Takweyat International Organization (تقویت) is a dynamic collective of civil society members originating from diverse professional backgrounds. We are lawyers, doctors, educators, and social workers who believe that true societal strength comes from active, on-ground participation rather than passive observation. Grounded in core Islamic values of justice, ethical responsibility, and brotherhood, we pool our own professional expertise and time to intervene where society needs it most. Whether it is providing pro-bono legal defense, setting up medical camps, or executing disaster relief, Takweyat is driven purely by the power of human capital and community dedication.</p>
+    </div>
+  </section>
+
+  <section class="bleed-video" aria-hidden="true">
+    <video src="/media/islamabad.mp4" poster="/media/islamabad.jpg" autoplay muted loop playsinline preload="none"></video>
+  </section>
+
   <section class="band bg-white">
-    <div class="wrap cols2">
-      <h2 class="h2">Our Structure: The Power of Civil Society</h2>
-      <div class="prose lede" data-rise>
-        <p>We are not a traditional charity; we are a multidisciplinary movement. Our main organizational body is composed of respected members of civil society who volunteer their specialized skills to create systemic, long-term change. By uniting different professions under one banner, we ensure that every challenge—from human rights violations to climate disasters—is met with expert, actionable solutions.</p>
-      </div>
+    <div class="wrap cols2 wide-left" style="align-items:start">
+      <h2 class="h2 big-h2">Our Structure: The Power of Civil Society</h2>
+      <p class="lede" data-rise>We are not a traditional charity; we are a multidisciplinary movement. Our main organizational body is composed of respected members of civil society who volunteer their specialized skills to create systemic, long-term change. By uniting different professions under one banner, we ensure that every challenge—from human rights violations to climate disasters—is met with expert, actionable solutions.</p>
     </div>
   </section>
 
@@ -34,12 +36,12 @@ import Arrow from '../components/Arrow.astro';
     </div>
   </section>
 
-  <section class="band">
-    <div class="wrap cols2 wide-left">
-      <h2 class="h2">Join us in this mission</h2>
-      <div class="btns">
-        <a class="btn" href="/get-involved/"><span>Get involved</span><Arrow /></a>
-        <a class="btn outline" href="/join/"><span>Join the movement</span></a>
+  <section class="field-raspberry">
+    <div class="wrap">
+      <h2 class="field-huge">Join us in this mission</h2>
+      <div class="btns" style="margin-top:36px">
+        <a class="btn white" href="/get-involved/"><span>Get involved</span><Arrow /></a>
+        <a class="btn ghost" href="/join/"><span>Join the movement</span></a>
       </div>
     </div>
   </section>
