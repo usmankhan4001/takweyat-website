@@ -538,3 +538,27 @@ a.card { transition: transform .3s var(--ease); } a.card:hover { transform: tran
 .qwrap figure { max-width: 62rem; margin: 0; padding-left: clamp(0px, 3vw, 36px); border-left: 4px solid var(--raspberry); }
 .quote blockquote.long { font: 400 clamp(1.3rem, 1.05rem + 1vw, 1.9rem)/1.5 var(--display); max-width: 46ch; text-wrap: pretty; }
 .quote .qwrap .small { text-transform: uppercase; letter-spacing: .08em; opacity: .85; }
+
+/* Big-photo heroes and colour fields (About, What we do) */
+.bighero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; color: var(--white); background: var(--charcoal) var(--img) center / cover no-repeat; }
+.bighero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgb(5 12 11 / .82) 0%, rgb(5 12 11 / .35) 45%, rgb(5 12 11 / .15) 100%); }
+.bh-in { width: 100%; position: relative; padding-top: 120px; padding-bottom: clamp(40px, 6vw, 80px); display: grid; gap: 24px; }
+.bh-title { font: 400 clamp(3rem, 1.2rem + 8vw, 9rem)/.95 var(--display); letter-spacing: -.03em; max-width: 14ch; text-wrap: balance; margin: 0; }
+.bh-lede { font-size: clamp(1.1rem, 1rem + .6vw, 1.5rem); max-width: 40ch; margin: 0; }
+.field-teal { background: var(--teal); color: var(--white); padding: clamp(80px, 12vw, 180px) 0; }
+.field-big { font: 400 clamp(1.4rem, 1rem + 1.5vw, 2.4rem)/1.35 var(--display); max-width: 30em; margin: 0; text-wrap: pretty; }
+.bleed-video { height: clamp(320px, 62vh, 640px); background: var(--charcoal); }
+.bleed-video video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.big-h2 { font-size: clamp(2.4rem, 1.4rem + 4vw, 5rem); line-height: 1; text-wrap: balance; }
+.field-raspberry { background: var(--raspberry); color: var(--white); padding: clamp(80px, 12vw, 180px) 0; }
+.field-huge { font: 400 clamp(3rem, 1rem + 8vw, 9rem)/.95 var(--display); letter-spacing: -.03em; max-width: 12ch; margin: 0; }
+.today { padding: clamp(72px, 10vw, 140px) 0 0; }
+.today > .wrap { margin-bottom: clamp(40px, 6vw, 80px); }
+.trow { background: var(--paper); }
+.trow.alt { background: var(--white); }
+.trow-in { display: grid; gap: 28px; padding-top: clamp(40px, 6vw, 80px); padding-bottom: clamp(40px, 6vw, 80px); align-items: center; }
+.trow img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+.trow-text h3 { font: 400 clamp(2rem, 1.2rem + 3vw, 4rem)/1.02 var(--display); letter-spacing: -.02em; margin: 0 0 16px; border-top: 6px solid var(--c); padding-top: 18px; }
+.trow-text p { font-size: clamp(1.1rem, 1rem + .5vw, 1.4rem); line-height: 1.55; max-width: 34ch; margin: 0; }
+@media (min-width: 900px) { .trow-in { grid-template-columns: 1.1fr .9fr; gap: 80px; } .trow.alt .trow-in img { order: 2; } }
+@media (prefers-reduced-motion: reduce) { .bleed-video video { display: none; } .bleed-video { background: var(--charcoal) url(/media/islamabad.jpg) center / cover; } }
