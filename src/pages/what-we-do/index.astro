@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Arrow from '../../components/Arrow.astro';
+import PageHead from '../../components/PageHead.astro';
 import PillarList from "../../components/PillarList.astro";
 import core from '../../../content/core-pillars.json';
 import { coreSlugs } from '../../data/initiatives';
@@ -10,22 +10,12 @@ const tileColors = ['var(--teal)', 'var(--olive)', 'var(--teal-dark)', 'var(--ra
 const wipes = ['var(--raspberry)', 'var(--teal)', 'var(--raspberry)', 'var(--teal)', 'var(--olive)', 'var(--raspberry)', 'var(--teal)'];
 ---
 <Base title="What we do" description="Seven kinds of on-the-ground work and five pillars that guide the Takweyat International Organization.">
-  <section class="pillar-hero" style="--c:var(--teal)">
-    <div class="wrap phg-grid">
-      <div class="ph-text">
-        <p class="crumbs"><a href="/what-we-do/">What we do</a></p>
-        <h1 class="h1">What we do</h1>
-        <p class="lede">Our on-the-ground work today, and the five pillars that guide everything we plan.</p>
-        <div class="btns"><a class="btn white" href="#today"><span>What we do today</span><Arrow /></a><a class="btn ghost" href="#pillars"><span>Our five pillars</span></a></div>
-      </div>
-      <div class="ph-art"><img src="/media/banners/what-we-do.jpg" alt="" width="2400" height="1350" fetchpriority="high" /></div>
-    </div>
-  </section>
+  <PageHead img="/media/banners/what-we-do.jpg" title="What we do" lede="Our on-the-ground work today, and the five pillars that guide everything we plan." tone="teal" />
 
-  <section class="band" id="today">
+  <section class="band">
     <div class="wrap">
       <h2 class="h2" style="margin-bottom:36px">What We Do Today</h2>
-      <div class="wd-grid">
+      <div class="grid g3">
         {core.achievements.map((a, i) => (
           <div class="artcard" style={`--c:${tileColors[i]}`} data-rise>
             <img src={artFor(a.title)} alt="" width="1000" height="1250" loading="lazy" />
@@ -36,7 +26,7 @@ const wipes = ['var(--raspberry)', 'var(--teal)', 'var(--raspberry)', 'var(--tea
     </div>
   </section>
 
-  <section class="band bg-white" id="pillars">
+  <section class="band bg-white">
     <div class="wrap">
       <div class="cols2 wide-left" style="margin-bottom:40px">
         <h2 class="h2">Our Five Pillars</h2>
