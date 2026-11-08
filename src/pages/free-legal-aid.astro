@@ -15,7 +15,7 @@ const [headOffice, chamber] = site.offices;
 ---
 <Base title="Free legal aid" description="Justice is a fundamental right, not a privilege. Takweyat's Legal Aid Network provides free legal counseling and court representation.">
   <PageHead img="/media/banners/legal-aid.jpg" title="Justice is a Fundamental Right, Not a Privilege." tone="raspberry" crumbs={[{ label: 'Free legal aid', href: '/free-legal-aid/' }]}>
-    <div class="btns" style="margin-top:32px"><a class="btn white" href="#apply"><span>Apply for legal aid</span></a></div>
+    <div class="btns" style="margin-top:32px"><a class="btn white" href="#apply"><span>Apply for Legal Aid</span></a></div>
   </PageHead>
 
   <section class="band">
@@ -28,9 +28,13 @@ const [headOffice, chamber] = site.offices;
   <section class="band bg-white">
     <div class="wrap">
       <h2 class="h2" style="margin-bottom:32px">Scope of Cases We Take</h2>
-      <ul class="ticks" style="--c:var(--raspberry);max-width:80ch">
-        {scope.map(([t, d]) => <li data-rise><b>{t}:</b> {d}</li>)}
-      </ul>
+      <ul class="glance" style="--c:var(--raspberry)">{scope.map(([t]) => <li>{t}</li>)}</ul>
+      <details class="seeall">
+        <summary>See what each covers</summary>
+        <ul class="ticks" style="--c:var(--raspberry)">
+          {scope.map(([t, d]) => <li><b>{t}:</b> {d}</li>)}
+        </ul>
+      </details>
       <p class="small" style="margin-top:28px;max-width:80ch"><b>Note:</b> We do not accept commercial, corporate, or property/land disputes unless they involve the direct exploitation of a highly vulnerable individual.</p>
     </div>
   </section>

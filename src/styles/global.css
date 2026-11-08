@@ -473,3 +473,14 @@ a.card { transition: transform .3s var(--ease); } a.card:hover { transform: tran
 .artcard img { height: auto; aspect-ratio: 4 / 5; }
 @media (max-width: 600px) { .artcard img { aspect-ratio: 1 / 1; } }
 .feat img, .pillar-art { height: auto; }
+
+/* Collapsed long lists: titles stay visible, full verbatim text opens on demand. */
+.seeall { max-width: 80ch; }
+.seeall > summary { cursor: pointer; font: 500 1rem var(--sans); color: var(--teal); padding: 14px 0; list-style: none; display: flex; align-items: center; gap: 10px; }
+.seeall > summary::-webkit-details-marker { display: none; }
+.seeall > summary::after { content: "+"; font-size: 1.3rem; line-height: 1; }
+.seeall[open] > summary::after { content: "\2212"; }
+.seeall > summary:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.glance { list-style: none; padding: 0; margin: 0 0 8px; display: grid; gap: 6px; }
+.glance li { font: 500 1.05rem var(--sans); padding-left: 1.1em; position: relative; }
+.glance li::before { content: ""; position: absolute; left: 0; top: .6em; width: 6px; height: 6px; background: var(--c, var(--teal)); }

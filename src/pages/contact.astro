@@ -12,7 +12,7 @@ import { professions, subjects } from '../data/networks';
     <div class="wrap cols2 wide-left">
       <div>
         <h2 class="h2" style="margin-bottom:28px">Digital Contact & Membership Form</h2>
-        <LeadForm id="contact" submit="Send message" fields={[
+        <LeadForm id="contact" submit="Send Message" fields={[
           { name: 'name', label: 'Full Name', short: 'Name', help: 'So we know who to reply to.', ph: 'Your full name', required: true },
           { name: 'email', label: 'Email Address', short: 'Email', help: 'We will reply to this address.', ph: 'name@example.com', type: 'email', required: true },
           { name: 'phone', label: 'Phone Number', short: 'Phone', help: 'Only if you would like a call. You can skip this.', ph: '03XX XXXXXXX', type: 'tel' },

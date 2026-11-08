@@ -43,9 +43,15 @@ const onboarding = [
         <h2 class="h2">Code of Conduct: Our Operational Ethics</h2>
         <p class="lede" style="margin-top:20px">Every volunteer, member, and partner acting under the banner of Takweyat is bound by this Code of Conduct.</p>
       </div>
-      <ul class="ticks" style="--c:var(--teal)">
-        {conduct.map(([t, d]) => <li data-rise><b>{t}:</b> {d}</li>)}
-      </ul>
+      <div>
+        <ul class="glance" style="--c:var(--teal)">{conduct.map(([t]) => <li>{t}</li>)}</ul>
+        <details class="seeall">
+          <summary>See the full code of conduct</summary>
+          <ul class="ticks" style="--c:var(--teal)">
+            {conduct.map(([t, d]) => <li><b>{t}:</b> {d}</li>)}
+          </ul>
+        </details>
+      </div>
     </div>
   </section>
 
@@ -55,7 +61,7 @@ const onboarding = [
       <ol class="steps" style="max-width:860px">
         {onboarding.map(([t, d]) => <li data-rise><div><b>{t}:</b> {d}</div></li>)}
       </ol>
-      <div class="btns" style="margin-top:40px"><a class="btn" href="/contact/"><span>Apply through the contact form</span><Arrow /></a></div>
+      <div class="btns" style="margin-top:40px"><a class="btn" href="/contact/"><span>Apply Through the Contact Form</span><Arrow /></a></div>
     </div>
   </section>
 </Base>
