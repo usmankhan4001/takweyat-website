@@ -562,3 +562,8 @@ a.card { transition: transform .3s var(--ease); } a.card:hover { transform: tran
 .trow-text p { font-size: clamp(1.1rem, 1rem + .5vw, 1.4rem); line-height: 1.55; max-width: 34ch; margin: 0; }
 @media (min-width: 900px) { .trow-in { grid-template-columns: 1.1fr .9fr; gap: 80px; } .trow.alt .trow-in img { order: 2; } }
 @media (prefers-reduced-motion: reduce) { .bleed-video video { display: none; } .bleed-video { background: var(--charcoal) url(/media/islamabad.jpg) center / cover; } }
+
+/* Brand kit swatches */
+.swatches { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.swatches li { background: var(--sw); color: #fff; padding: 56px 18px 18px; display: grid; gap: 2px; }
+.swatches b { font-weight: 500; } .swatches span { opacity: .85; }
