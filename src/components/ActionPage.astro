@@ -1,0 +1,19 @@
+---
+// A dedicated page for one action: what it is, what happens next, and its own stepped form.
+import Base from '../layouts/Base.astro';
+import PageHead from './PageHead.astro';
+import LeadForm from './LeadForm.astro';
+interface Props { title: string; headline: string; lede: string; img: string; id: string; submit: string; fields: any[]; tone?: 'teal' | 'raspberry'; note?: string; minutes?: number; points: { h: string; t: string }[]; }
+const { title, headline, lede, img, id, submit, fields, points, tone = 'teal', note, minutes } = Astro.props;
+---
+<Base title={title} description={lede}>
+  <PageHead img={img} title={headline} lede={lede} tone={tone} crumbs={[{ label: 'Take action', href: '/take-action/' }]} />
+  <section class="band">
+    <div class="wrap">
+      <div class="apoints">
+        {points.map((p, i) => <div data-rise><span class="n">{String(i + 1).padStart(2, '0')}</span><div><h3>{p.h}</h3><p>{p.t}</p></div></div>)}
+      </div>
+      <div id="form" style="scroll-margin-top:96px"><LeadForm id={id} submit={submit} fields={fields} tone={tone === 'raspberry' ? 'raspberry' : 'teal'} note={note} minutes={minutes} /></div>
+    </div>
+  </section>
+</Base>

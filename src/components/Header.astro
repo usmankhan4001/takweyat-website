@@ -1,0 +1,101 @@
+---
+import CtaRoll from './CtaRoll.astro';
+import { site } from '../data/site';
+import { coreSlugs } from '../data/initiatives';
+import core from '../../content/core-pillars.json';
+import fs from 'node:fs';
+import nodePath from 'node:path';
+const { overlay = false } = Astro.props;
+const path = Astro.url.pathname;
+const svg = (n: string) => {
+  const f = nodePath.join(process.cwd(), 'node_modules/@phosphor-icons/core/assets/regular', n + '.svg');
+  return fs.existsSync(f) ? fs.readFileSync(f, 'utf8').replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '') : '';
+};
+// each pillar gets the icon that matches its subject
+const pillarIcon = (t: string) => { const l = t.toLowerCase(); return /hunger|food/.test(l) ? 'bowl-food' : /ramadan|spiritual/.test(l) ? 'moon-stars' : /disaster|climate/.test(l) ? 'lifebuoy' : /legal|rights|justice/.test(l) ? 'scales' : /educat/.test(l) ? 'graduation-cap' : /medic|health/.test(l) ? 'stethoscope' : 'hand-heart'; };
+type Link = { label: string; href: string; icon: string; d?: string; all?: boolean };
+const pillarDesc = (t: string) => { const l = t.toLowerCase(); return /hunger|food/.test(l) ? 'Meals and food relief for families in need.' : /ramadan|spiritual/.test(l) ? 'Ramadan drives and spiritual programmes.' : /disaster|climate/.test(l) ? 'Help when floods and earthquakes strike.' : /legal|rights|justice/.test(l) ? 'Rights protection and access to justice.' : /educat/.test(l) ? 'Schools, mentoring and youth skills.' : /medic|health/.test(l) ? 'Free medical camps and care.' : 'Our work in the community.'; };
+type Menu = { layout: 'list' | 'cards'; links: Link[]; visual: { title: string; text: string; img?: string; icon: string; bg: string; href: string } };
+const menus: Record<string, Menu> = {
+  '/about/': { layout: 'list', links: [
+    { label: 'Who we are', href: '/about/', icon: 'users-three', d: 'Lawyers, doctors, educators and social workers.' },
+    { label: 'Join the movement', href: '/join/', icon: 'hand-waving', d: 'Who can join, and our code of conduct.' },
+    { label: 'Media kit', href: '/media-kit/', icon: 'download-simple', d: 'Logos, colours and downloads.' },
+    { label: 'Press', href: '/press/', icon: 'newspaper', d: 'News and releases from Takweyat.' },
+    { label: 'Contact us', href: '/contact/', icon: 'envelope-simple', d: 'Write to our team.' },
+  ], visual: { title: 'Who we are', text: 'Lawyers, doctors, educators and social workers.', img: '/media/islamabad.jpg', icon: 'users-three', bg: 'var(--teal-dark)', href: '/about/' } },
+  '/what-we-do/': { layout: 'cards', links: [
+    ...core.pillars.map((p: { title: string }, i: number) => ({ label: p.title, href: `/what-we-do/${coreSlugs[i]}/`, icon: pillarIcon(p.title), d: pillarDesc(p.title) })),
+    { label: 'Free legal aid', href: '/free-legal-aid/', icon: 'gavel', d: 'Apply for free legal help.' },
+    { label: 'Our initiatives', href: '/initiatives/', icon: 'buildings', d: 'Projects now running or planned.' },
+    { label: 'All our work', href: '/what-we-do/', icon: 'arrow-right', d: 'See every area of work.', all: true },
+  ], visual: { title: 'Five pillars of work', text: 'Hunger, Ramadan, disaster relief, legal aid, education and medical camps.', icon: 'hand-heart', bg: 'var(--teal)', href: '/what-we-do/' } },
+  '/plans/': { layout: 'list', links: [
+    { label: 'The Educational Plan', href: '/plans/education/', icon: 'graduation-cap', d: 'The global vision for education.' },
+    { label: 'The Legal Aid and Justice Plan', href: '/plans/justice/', icon: 'scales', d: 'The manifesto of rights.' },
+    { label: 'Whitepapers to download', href: '/whitepapers/', icon: 'file-pdf', d: 'Both plans as PDFs.' },
+    { label: 'Both plans at a glance', href: '/plans/', icon: 'compass', d: 'Phases and goals side by side.', all: true },
+  ], visual: { title: 'Where we are heading', text: 'Two long-term plans, four phases each.', img: '/media/justice.jpg', icon: 'compass', bg: 'var(--charcoal)', href: '/plans/' } },
+  '/get-involved/': { layout: 'cards', links: [
+    { label: 'Take action', href: '/take-action/', icon: 'megaphone', d: 'Pick the way you want to help.' },
+    { label: 'Become a volunteer', href: '/volunteer/', icon: 'hand-heart', d: 'Give your time and skills.' },
+    { label: 'Partner with us', href: '/partner/', icon: 'handshake', d: 'For businesses and organisations.' },
+    { label: 'Stay updated', href: '/stay-updated/', icon: 'envelope-simple', d: 'News by email.' },
+    { label: 'How to get involved', href: '/get-involved/', icon: 'info', d: 'The five volunteer networks.', all: true },
+  ], visual: { title: 'Give your expertise', text: 'We do not ask for funds. We ask for your skills.', icon: 'handshake', bg: 'var(--raspberry)', href: '/take-action/' } },
+};
+---
+<header class={`hdr${overlay ? ' over' : ''}`} id="hdr">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label={`${site.name}, home`}><img src="/logo-cream.png" alt={site.short} width="196" height="46" /></a>
+    <nav class="nav" aria-label="Main">
+      <ul>
+        {site.nav.map((n) => {
+          const m = menus[n.href];
+          return (
+            <li class={m ? 'has' : undefined}>
+              <a href={n.href} aria-current={path.startsWith(n.href) ? 'page' : undefined}>{n.label}</a>
+              {m && (
+                <div class="mega" role="group" aria-label={n.label}>
+                  <div class="mega-in">
+                    <ul class={`mega-links ${m.layout}`}>
+                      {m.links.map((k) => (
+                        <li><a class={k.all ? 'all' : undefined} href={k.href}><i><svg viewBox="0 0 256 256" aria-hidden="true" set:html={svg(k.icon)} /></i><span><b>{k.label}</b>{k.d && <small>{k.d}</small>}</span></a></li>
+                      ))}
+                    </ul>
+                    <a class="mega-vis" href={m.visual.href} style={`--bg:${m.visual.bg}${m.visual.img ? `;background-image:url(${m.visual.img})` : ''}`}>
+                      {!m.visual.img && <svg viewBox="0 0 256 256" aria-hidden="true" set:html={svg(m.visual.icon)} />}
+                      <b>{m.visual.title}</b><span>{m.visual.text}</span>
+                    </a>
+                  </div>
+                </div>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+    <CtaRoll variant="top" />
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-controls="menu"><i></i></button>
+  </div>
+</header>
+<CtaRoll variant="bar" />
+<div class="menu" id="menu" role="dialog" aria-label="Menu">
+  <button class="x" id="menuX" aria-label="Close menu">&times;</button>
+  <div class="menu-body">
+    {site.nav.map((n) => {
+      const m = menus[n.href];
+      return (
+        <details name="mm">
+          <summary>{n.label}<svg viewBox="0 0 256 256" aria-hidden="true" set:html={svg('caret-down')} /></summary>
+          {m.links.map((k) => <a href={k.href}><svg viewBox="0 0 256 256" aria-hidden="true" set:html={svg(k.icon)} />{k.label}</a>)}
+        </details>
+      );
+    })}
+  </div>
+  <div class="menu-cta">
+    <a class="btn" href="/free-legal-aid/"><span>Get free legal aid</span></a>
+    <a class="btn ghost" href="/volunteer/"><span>Become a volunteer</span></a>
+    <p>{site.email}</p>
+  </div>
+</div>

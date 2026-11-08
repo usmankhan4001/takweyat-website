@@ -1,0 +1,66 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHead from '../../../components/PageHead.astro';
+import Arrow from '../../../components/Arrow.astro';
+import legal from '../../../../content/legal-plan.json';
+import { justiceGroups, groupOf } from '../../../data/groups';
+
+export function getStaticPaths() {
+  return legal.pillars.map((p) => ({ params: { n: String(p.number) }, props: { p } }));
+}
+const { p } = Astro.props;
+const group = groupOf(justiceGroups, p.number);
+const P = new Map(legal.pillars.map((x) => [x.number, x]));
+const prev = P.get(p.number - 1), next = P.get(p.number + 1);
+const related = group.pillars.filter((n) => n !== p.number);
+---
+<Base title={`Pillar ${p.number}: ${p.title}`} description={p.items[0].title + '. ' + p.items[1].title + '.'}>
+  <PageHead title={p.title} tone="raspberry" crumbs={[{ label: 'Our plans', href: '/plans/' }, { label: 'The Legal Aid and Justice Plan', href: '/plans/justice/' }]} tag={`Pillar ${p.number} of 50 · ${group.name} · Planned`} />
+
+  <section class="band tight">
+    <div class="wrap">
+      <p class="small" style="margin-bottom:12px">Jump to a section</p>
+      <div class="toc">
+        {p.items.map((it) => <a href={`#s${it.id.replace('.', '-')}`}>{it.id}</a>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="band tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="items">
+        {p.items.map((it) => (
+          <article class="item" id={`s${it.id.replace('.', '-')}`} style="--c:var(--raspberry)">
+            <h3><em>{it.id}</em>{it.title}</h3>
+            <p>{it.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="band bg-white tight">
+      <div class="wrap">
+        <h2 class="h3" style="margin-bottom:20px">More in {group.name}</h2>
+        <div class="grid g2">
+          {related.map((n) => <a class="pcard" href={`/plans/justice/${n}/`} style="--c:var(--raspberry)"><b>{n}</b><span>{P.get(n)!.title}</span></a>)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="band tight">
+    <div class="wrap">
+      <div class="pn">
+        {prev ? <a href={`/plans/justice/${prev.number}/`}><small>Previous pillar</small><span>{prev.number}. {prev.title}</span></a> : <span style="flex:1 1 280px"></span>}
+        {next ? <a class="next" href={`/plans/justice/${next.number}/`}><small>Next pillar</small><span>{next.number}. {next.title}</span></a> : <span style="flex:1 1 280px"></span>}
+      </div>
+      <div class="btns" style="margin-top:32px">
+        <a class="btn" href="/free-legal-aid/"><span>Ask for free legal aid</span><Arrow /></a>
+        <a class="btn teal" href="/get-involved/"><span>Join the Legal Network</span></a>
+        <a class="btn outline" href="/plans/justice/"><span>All 50 pillars</span></a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,69 @@
+The "Free Legal Aid" Page Layout
+This page needs to look authoritative, highly confidential, and empathetic. It must clearly
+communicate that Takweyat’s legal network provides high-quality, pro-bono (free) representation
+to those who truly cannot afford justice.
+Introduction
+Headline: Justice is a Fundamental Right, Not a Privilege. Body Text: At Takweyat (تقویت), we
+believe that a fair trial and legal protection are constitutional rights that should never be denied
+due to poverty or social status. Led by experienced legal professionals and criminal defense
+advocates, our Legal Aid Network provides absolute pro-bono (free of charge) legal counseling
+and court representation to the marginalized, the oppressed, and the voiceless. If you are facing
+gross injustice, unlawful harassment, or a violation of your basic human rights, our coalition of
+volunteer lawyers stands ready to defend you.
+1. Scope of Cases We Take
+To manage public expectations, clearly define the types of cases your network accepts.
+● Criminal Defense for the Marginalized: Representation for innocent, low-income
+individuals facing wrongful accusations, illegal detention, or those unable to afford a
+lawyer for under-trial proceedings.
+● Human Rights & Constitutional Violations: Fighting cases of unlawful harassment,
+exploitation, missing persons, or severe violations of fundamental citizen rights by state or
+private actors.
+● Domestic Violence & Family Protection: Immediate legal support for victims of
+domestic abuse, including protection orders, maintenance, and child custody support for
+vulnerable women and orphans.
+● Public Interest Litigation (PIL): Challenging unjust laws, systemic corruption, or
+environmental hazards (like climate negligence) that affect the broader community or
+vulnerable populations.
+● Note: We do not accept commercial, corporate, or property/land disputes unless they
+involve the direct exploitation of a highly vulnerable individual.
+2. Eligibility Criteria
+Establish clear boundaries to ensure the service reaches those who genuinely need it. Text:
+Our resources and volunteer hours are dedicated strictly to those in extreme need. To qualify for
+Takweyat’s free legal aid, applicants must meet the following criteria:
+1. Financial Inability: Must be unable to afford standard legal fees (proof of income or a
+genuine declaration of financial hardship is required).
+2. Merit of the Case: The case must involve a genuine violation of rights, a threat to liberty,
+or severe exploitation.
+3. Vulnerability Status: Priority is given to widows, orphans, minorities, under-trial prisoners
+without representation, and victims of extreme physical or mental abuse.
+
+3. How to Apply (The 4-Step Process)
+A simple roadmap so users know exactly what to expect after they reach out.
+1. Initial Submission: Fill out our confidential legal aid form below or contact our dedicated
+helpline.
+2. Merit & Eligibility Review: Our screening committee (comprising senior advocates) will
+review the facts of your case and your financial eligibility within 48 to 72 hours.
+3. Confidential Consultation: If approved, you will be invited to our Islamabad Head Office
+or our Gujar Khan Legal Chamber for a secure, face-to-face consultation.
+4. Legal Action: A dedicated volunteer advocate will be assigned to draft your petition, file
+your case, or represent you in court—completely free of charge.
+4. The Legal Aid Application Form
+Instruct the developer to make this form secure to protect sensitive information.
+● Full Name
+● CNIC Number (Optional but recommended for identity verification)
+● Phone Number & WhatsApp
+● City/District
+● Monthly Income Bracket (Drop-down: Under Rs. 30,000 / Rs. 30k - 60k / Unemployed)
+● Case Category (Drop-down: Criminal Defense / Domestic Abuse / Police Harassment /
+Civil Rights Violation)
+● Brief Case Summary (Text box: Please explain what happened to you in simple words.
+Do not share highly sensitive evidence here; save it for the consultation).
+● Opposing Party (Text box: Who is the case against? e.g., an individual, a department,
+police).
+● [Submit Confidential Application - Button]
+5. Emergency Legal Contacts & Chambers
+Make it clear where they can find you in person if the matter is urgent.
+● 24/7 Legal Aid Helpline: [Insert Phone Number]
+● Rawalpindi / Islamabad Head Office: [Insert full address]
+● Gujar Khan Regional Legal Chamber: Chamber Number 3, Basement, Lawyers
+Complex Building, Kutchery, Gujar Khan.

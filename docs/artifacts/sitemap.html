@@ -1,0 +1,296 @@
+<title>Takweyat Site Structure</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Gloock&display=swap" rel="stylesheet">
+<style>
+  /* Layout concept: a site map read top to bottom. Home, then one card per main menu item, then the big plans band
+     with its groups sized by pillar count, then the two key page templates as wireframes. Colour = page type. */
+  :root {
+    --teal: #007A7A;
+    --raspberry: #A21E66;
+    --olive: #937623;
+    --slate: #7B7B7B;
+    --charcoal: #0B0902;
+    --paper: #F3EFE6;
+    --white: #FFFFFF;
+    --ink-soft: #3a372d;
+    --line: #d9d2c1;
+    --display: "Gloock", Georgia, serif;
+    --sans: "DM Sans", "Trebuchet MS", system-ui, sans-serif;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { font-family: var(--sans); font-size: 1rem; line-height: 1.5; color: var(--charcoal); background: var(--paper); }
+  .wrap { max-width: 1240px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  @media (min-width: 760px) { .wrap { padding-left: max(32px, env(safe-area-inset-left, 0px)); padding-right: max(32px, env(safe-area-inset-right, 0px)); } }
+  h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.05; letter-spacing: -.01em; text-wrap: balance; }
+  section { padding-block: clamp(40px, 6vw, 80px); }
+
+  /* intro */
+  .top { background: var(--charcoal); color: var(--paper); padding-block: clamp(40px, 6vw, 80px); }
+  .top h1 { font-size: clamp(2.4rem, 1.2rem + 4.4vw, 4.6rem); max-width: 14ch; }
+  .top p { margin-top: 20px; max-width: 58ch; font-size: 1.125rem; color: #d8d3c4; }
+  .stats { display: flex; flex-wrap: wrap; gap: 12px 40px; margin-top: 36px; }
+  .stats b { display: block; font: 400 clamp(2.2rem, 1.4rem + 2.6vw, 3.4rem)/1 var(--display); }
+  .stats span { font-size: .9rem; color: #bdb8a9; }
+
+  /* legend */
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: .9rem; margin-bottom: 28px; }
+  .legend span, li { display: flex; align-items: center; gap: 9px; }
+  .d { flex: none; width: 12px; height: 12px; border-radius: 3px; background: var(--c); display: inline-block; }
+  .d.ext { background: none; border: 2px solid var(--raspberry); }
+  .c-page { --c: var(--charcoal); } .c-hub { --c: var(--teal); } .c-detail { --c: var(--raspberry); }
+  .c-file { --c: var(--olive); } .c-form { --c: var(--slate); }
+
+  /* tree */
+  .home { width: fit-content; margin-inline: auto; background: var(--charcoal); color: var(--paper); border-radius: 6px; padding: 14px 34px; text-align: center; }
+  .home h2 { font-size: 1.9rem; }
+  .home small { display: block; font-size: .85rem; color: #bdb8a9; }
+  .stem { width: 2px; height: 28px; background: var(--charcoal); margin-inline: auto; }
+  .grid { display: grid; gap: 16px; grid-template-columns: 1fr; }
+  @media (min-width: 700px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1100px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+  .branch { background: var(--white); border-radius: 6px; border-top: 6px solid var(--c, var(--charcoal)); padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 12px; }
+  .branch header { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+  .branch h3 { font-size: 1.5rem; }
+  .count { font: 700 .8rem var(--sans); color: var(--white); background: var(--c, var(--charcoal)); border-radius: 99px; padding: 2px 10px; white-space: nowrap; }
+  .branch ul { list-style: none; padding: 0; display: grid; gap: 8px; font-size: .95rem; }
+  .branch li { align-items: flex-start; } .branch li .d { margin-top: 5px; }
+  .branch li small { display: block; color: var(--ink-soft); font-size: .82rem; line-height: 1.35; }
+  .branch .note { font-size: .82rem; color: var(--ink-soft); border-top: 1px dashed var(--line); padding-top: 10px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-size: .8rem; background: var(--paper); border-radius: 4px; padding: 3px 8px; }
+
+  /* plans band */
+  .plans { background: var(--white); }
+  .plans h2 { font-size: clamp(1.9rem, 1.2rem + 2.4vw, 3rem); margin-bottom: 8px; }
+  .plans > .wrap > p { max-width: 70ch; color: var(--ink-soft); margin-bottom: 28px; }
+  .plan2 { display: grid; gap: 28px; }
+  @media (min-width: 960px) { .plan2 { grid-template-columns: 1fr 1fr; gap: 40px; } }
+  .plan { border-radius: 6px; background: var(--paper); padding: 22px; }
+  .plan header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 14px; margin-bottom: 6px; }
+  .plan h3 { font-size: 1.7rem; }
+  .plan .sub { font-size: .9rem; color: var(--ink-soft); margin-bottom: 16px; }
+  .groups { display: flex; flex-wrap: wrap; gap: 6px; }
+  .g { flex: var(--n) 1 calc(var(--n) * 14px + 90px); min-height: 78px; background: var(--c); color: var(--white); border-radius: 4px; padding: 10px 12px; display: flex; flex-direction: column; justify-content: space-between; gap: 6px; }
+  .g b { font: 400 1.7rem/1 var(--display); }
+  .g span { font-size: .85rem; line-height: 1.25; }
+  .rule { margin-top: 14px; font-size: .88rem; color: var(--ink-soft); display: flex; align-items: flex-start; gap: 9px; }
+  .rule .d { margin-top: 4px; }
+
+  /* wireframes */
+  .wires { display: grid; gap: 32px; }
+  @media (min-width: 900px) { .wires { grid-template-columns: 1fr 1fr; gap: 40px; } }
+  .wire h3 { font-size: 1.7rem; margin-bottom: 4px; }
+  .wire > p { font-size: .92rem; color: var(--ink-soft); margin-bottom: 16px; }
+  .frame { background: var(--white); border-radius: 6px; padding: 14px; display: grid; gap: 8px; border: 2px solid var(--charcoal); }
+  .blk { border-radius: 4px; background: var(--paper); padding: 10px 12px; font-size: .88rem; display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+  .blk b { font-weight: 700; } .blk em { font-style: normal; color: var(--ink-soft); font-size: .8rem; text-align: right; }
+  .blk.dark { background: var(--teal); color: var(--white); } .blk.dark em { color: #d6ecec; }
+  .blk.pink { background: var(--raspberry); color: var(--white); } .blk.pink em { color: #f3d3e5; }
+  .blk.big { min-height: 96px; align-items: center; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  /* behind the pages */
+  .flow { display: grid; gap: 10px; }
+  @media (min-width: 900px) { .flow { grid-template-columns: repeat(5, 1fr); gap: 0; } }
+  .step { background: var(--white); border-radius: 6px; padding: 16px; position: relative; font-size: .92rem; }
+  .step b { display: block; font-family: var(--display); font-weight: 400; font-size: 1.25rem; margin-bottom: 4px; }
+  @media (min-width: 900px) { .step { border-radius: 0; } .step:first-child { border-radius: 6px 0 0 6px; } .step:last-child { border-radius: 0 6px 6px 0; }
+    .step:not(:last-child)::after { content: ""; position: absolute; right: -9px; top: 50%; width: 18px; height: 18px; background: var(--white); transform: translateY(-50%) rotate(45deg); z-index: 1; border-radius: 2px; } }
+  .alt { background: #ece6d8; }
+  footer { padding-block: 28px 48px; font-size: .9rem; color: var(--ink-soft); }
+</style>
+
+<div class="top">
+  <div class="wrap">
+    <h1>Takweyat website structure</h1>
+    <p>Every page, how the pages group under the main menu, and the shape of the two pages that carry most of the content. Pillar and plan text is shown exactly as written in your documents.</p>
+    <div class="stats">
+      <div><b>123</b><span>pages in total</span></div>
+      <div><b>85</b><span>pillar detail pages from one template</span></div>
+      <div><b>8</b><span>page templates</span></div>
+      <div><b>3</b><span>designed PDF documents</span></div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="legend" aria-label="Legend">
+      <span><i class="d c-page"></i>Standard page</span>
+      <span><i class="d c-hub"></i>Hub or list page</span>
+      <span><i class="d c-detail"></i>Detail page (generated from content)</span>
+      <span><i class="d c-file"></i>Designed PDF</span>
+      <span><i class="d c-form"></i>Page with a lead form</span>
+      <span><i class="d ext"></i>Link out to another site</span>
+    </div>
+
+    <div class="home"><h2>Home</h2><small>Scrolling story, what we do, legal aid, plans, ways to help</small></div>
+    <div class="stem"></div>
+
+    <div class="grid">
+      <article class="branch" style="--c: var(--charcoal)">
+        <header><h3>About us</h3><span class="count">1 page</span></header>
+        <ul>
+          <li><i class="d c-page"></i><span>About Takweyat<small>Who we are, how we are structured, founder's message, values and stance</small></span></li>
+        </ul>
+        <p class="note">Team section is added once names and photos exist.</p>
+      </article>
+
+      <article class="branch" style="--c: var(--teal)">
+        <header><h3>What we do</h3><span class="count">6 pages</span></header>
+        <ul>
+          <li><i class="d c-hub"></i><span>What we do<small>The seven areas of work, current and planned</small></span></li>
+          <li><i class="d c-detail"></i><span>Educational reforms and youth empowerment<small>Summary, then depth in the Educational Plan</small></span></li>
+          <li><i class="d c-detail"></i><span>Hunger eradication and spiritual enrichment</span></li>
+          <li><i class="d c-detail"></i><span>Human rights protection and social justice<small>Summary, then depth in the Legal Plan</small></span></li>
+          <li><i class="d c-detail"></i><span>Disaster management and climate change</span></li>
+          <li><i class="d c-detail"></i><span>Healthcare access and medical security</span></li>
+        </ul>
+      </article>
+
+      <article class="branch" style="--c: var(--raspberry)">
+        <header><h3>Free legal aid</h3><span class="count">1 page</span></header>
+        <ul>
+          <li><i class="d c-form"></i><span>Free legal aid<small>Scope of cases, eligibility, the four steps, emergency contacts and chambers, questions answered</small></span></li>
+        </ul>
+        <p class="note">Enquiry form connects to n8n later. No ID numbers or case evidence are collected on the page.</p>
+      </article>
+
+      <article class="branch" style="--c: var(--olive)">
+        <header><h3>Initiatives</h3><span class="count">15 pages</span></header>
+        <ul>
+          <li><i class="d c-hub"></i><span>Initiatives<small>List with status: live, active, planned</small></span></li>
+          <li><i class="d c-detail ext"></i><span>Boycott Israel Platform<small>Live. Button to the original platform</small></span></li>
+          <li><i class="d c-detail"></i><span>Takweyat Legal Chambers<small>Active. Islamabad and Gujar Khan</small></span></li>
+          <li><i class="d c-detail"></i><span>12 planned initiatives</span></li>
+        </ul>
+        <div class="chips"><span class="chip">Publishing House</span><span class="chip">Schools</span><span class="chip">Colleges</span><span class="chip">Open University</span><span class="chip">Teacher Academy</span><span class="chip">Central Library</span><span class="chip">Vocational Institutes</span><span class="chip">Startup Incubator</span><span class="chip">Learner App</span><span class="chip">Climate Fund</span><span class="chip">Medical Fund</span><span class="chip">Legal Coalition</span></div>
+      </article>
+
+      <article class="branch" style="--c: var(--slate)">
+        <header><h3>Get involved</h3><span class="count">2 pages</span></header>
+        <ul>
+          <li><i class="d c-form"></i><span>Get involved<small>The five volunteer networks: legal, medical, education, field relief, in-kind and institutional</small></span></li>
+          <li><i class="d c-page"></i><span>Join the movement<small>Who can join, code of conduct, the three onboarding steps</small></span></li>
+        </ul>
+      </article>
+
+      <article class="branch" style="--c: var(--teal)">
+        <header><h3>Press</h3><span class="count">3 pages</span></header>
+        <ul>
+          <li><i class="d c-hub"></i><span>Press releases<small>List, ready for future news</small></span></li>
+          <li><i class="d c-file"></i><span>Launch release<small>Stub document to download</small></span></li>
+          <li><i class="d c-page"></i><span>Media kit<small>Logo, short description, contacts</small></span></li>
+        </ul>
+      </article>
+
+      <article class="branch" style="--c: var(--raspberry)">
+        <header><h3>Contact</h3><span class="count">1 page</span></header>
+        <ul>
+          <li><i class="d c-form"></i><span>Contact us<small>Form, helplines, email, both offices</small></span></li>
+        </ul>
+      </article>
+
+      <article class="branch" style="--c: var(--charcoal)">
+        <header><h3>Small print</h3><span class="count">4 pages</span></header>
+        <ul>
+          <li><i class="d c-page"></i><span>Privacy and confidentiality</span></li>
+          <li><i class="d c-page"></i><span>Terms and disclaimer</span></li>
+          <li><i class="d c-page"></i><span>Accessibility</span></li>
+          <li><i class="d c-page"></i><span>Page not found</span></li>
+        </ul>
+        <p class="note">Linked from the footer.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="plans">
+  <div class="wrap">
+    <h2>Our plans: 89 pages</h2>
+    <p>Each plan has one hub page and one detail page per pillar. Groups are tiles sized by how many pillars they hold. The hub page shows the whole plan in these groups, with the roadmap above them.</p>
+    <div class="plan2">
+      <div class="plan">
+        <header><h3>The Educational Plan</h3><span class="count" style="--c: var(--teal)">1 hub + 35 pillars</span></header>
+        <p class="sub">The Global Vision. Four phases, 35 pillars, ten commitments each.</p>
+        <div class="groups">
+          <div class="g" style="--n:4;--c:var(--teal)"><b>4</b><span>Vision and values</span></div>
+          <div class="g" style="--n:3;--c:#2f8f8c"><b>3</b><span>Truth, history and civics</span></div>
+          <div class="g" style="--n:3;--c:var(--teal)"><b>3</b><span>Language and culture</span></div>
+          <div class="g" style="--n:4;--c:#2f8f8c"><b>4</b><span>Technology and skills</span></div>
+          <div class="g" style="--n:9;--c:var(--teal)"><b>9</b><span>Reaching every child</span></div>
+          <div class="g" style="--n:5;--c:#2f8f8c"><b>5</b><span>Teachers and institutions</span></div>
+          <div class="g" style="--n:3;--c:var(--teal)"><b>3</b><span>Knowledge infrastructure</span></div>
+          <div class="g" style="--n:4;--c:#2f8f8c"><b>4</b><span>Society and policy</span></div>
+        </div>
+        <p class="rule"><i class="d c-detail"></i><span>Every pillar page: the ten commitments, exactly as written.</span></p>
+        <p class="rule"><i class="d c-file"></i><span>Whitepaper: the full Educational Plan as a designed PDF.</span></p>
+      </div>
+      <div class="plan">
+        <header><h3>The Legal Aid and Justice Plan</h3><span class="count" style="--c: var(--raspberry)">1 hub + 50 pillars</span></header>
+        <p class="sub">The Manifesto of Rights. Four phases, four targets, 50 pillars, ten sections each, ending with the Charter.</p>
+        <div class="groups">
+          <div class="g" style="--n:9;--c:var(--raspberry)"><b>9</b><span>Rights of people</span></div>
+          <div class="g" style="--n:8;--c:#7d1650"><b>8</b><span>State power, courts and prisons</span></div>
+          <div class="g" style="--n:8;--c:var(--raspberry)"><b>8</b><span>Corporate power and markets</span></div>
+          <div class="g" style="--n:4;--c:#7d1650"><b>4</b><span>Health and medicine</span></div>
+          <div class="g" style="--n:8;--c:var(--raspberry)"><b>8</b><span>Environment, land and resources</span></div>
+          <div class="g" style="--n:6;--c:#7d1650"><b>6</b><span>Technology and information</span></div>
+          <div class="g" style="--n:3;--c:var(--raspberry)"><b>3</b><span>Education, culture and history</span></div>
+          <div class="g" style="--n:4;--c:#7d1650"><b>4</b><span>Global order and peace</span></div>
+        </div>
+        <p class="rule"><i class="d c-detail"></i><span>Every pillar page: the ten sections, exactly as written.</span></p>
+        <p class="rule"><i class="d c-file"></i><span>Whitepaper: the full Legal Plan as a designed PDF.</span></p>
+      </div>
+    </div>
+    <p class="rule" style="margin-top:22px"><i class="d c-hub"></i><span>Plus the plans overview page and a Whitepapers page that lists all three PDFs (the two plans and a Takweyat profile).</span></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap wires">
+    <div class="wire">
+      <h3>Pillar detail page</h3>
+      <p>The template for all 85 plan pillars. The ten items are shown in full, in the document's own words.</p>
+      <div class="frame">
+        <div class="blk dark"><b>Header</b><em>Pillar number, title, group, label "Planned"</em></div>
+        <div class="blk"><b>Contents</b><em>Jump links to the ten items</em></div>
+        <div class="blk big"><b>The ten items, one after another</b><em>Each with its number and title, then the full paragraph</em></div>
+        <div class="blk"><b>More in this group</b><em>Other pillars of the same group</em></div>
+        <div class="two"><div class="blk"><b>Download</b><em>This pillar as PDF</em></div><div class="blk"><b>Previous / Next</b><em>Pillar to pillar</em></div></div>
+        <div class="blk pink"><b>Call to action</b><em>Join the legal network, or ask for legal aid</em></div>
+      </div>
+    </div>
+    <div class="wire">
+      <h3>Initiative detail page</h3>
+      <p>The template for each initiative. The live platform links out to its own site.</p>
+      <div class="frame">
+        <div class="blk dark"><b>Header</b><em>Name, status: live, active or planned</em></div>
+        <div class="blk big"><b>What it is</b><em>The plan's own description</em></div>
+        <div class="two"><div class="blk"><b>Where it comes from</b><em>Links to the pillars that describe it</em></div><div class="blk"><b>Roadmap phase</b><em>When the plan places it</em></div></div>
+        <div class="blk pink"><b>Call to action</b><em>Live: "Visit the platform" to the original site. Planned: "Get involved"</em></div>
+        <div class="blk"><b>Other initiatives</b><em>The rest of the list</em></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2 style="font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);margin-bottom:24px">How it is built</h2>
+    <div class="flow">
+      <div class="step"><b>Your documents</b>Cleaned once, nothing reworded. Already done and checked.</div>
+      <div class="step"><b>Content files</b>One file per plan and page, kept in the project.</div>
+      <div class="step"><b>Page templates</b>Eight templates turn the files into 123 pages.</div>
+      <div class="step"><b>Static website</b>Fast, no database, published on Dokploy.</div>
+      <div class="step"><b>Designed PDFs</b>Made from the same content, so they never drift apart.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">Forms (volunteer, legal aid, partnership, press, newsletter, whitepaper) connect to n8n after launch. Urdu is not part of this version.</div>
+</footer>

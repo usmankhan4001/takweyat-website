@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import LeadForm from '../components/LeadForm.astro';
+import Photo from '../components/Photo.astro';
+import { site } from '../data/site';
+import { legalAid } from '../data/forms';
+import { scope, steps } from '../data/legalAid';
+const eligibility = [
+  ['Financial Inability', 'Must be unable to afford standard legal fees (proof of income or a genuine declaration of financial hardship is required).'],
+  ['Merit of the Case', 'The case must involve a genuine violation of rights, a threat to liberty, or severe exploitation.'],
+  ['Vulnerability Status', 'Priority is given to widows, orphans, minorities, under-trial prisoners without representation, and victims of extreme physical or mental abuse.'],
+];
+const [headOffice, chamber] = site.offices;
+---
+<Base title="Free legal aid" description="Justice is a fundamental right, not a privilege. Takweyat's Legal Aid Network provides free legal counseling and court representation.">
+  <PageHead img="/media/banners/legal-aid.jpg" title="Justice is a Fundamental Right, Not a Privilege." tone="raspberry" crumbs={[{ label: 'Free legal aid', href: '/free-legal-aid/' }]}>
+    <div class="btns" style="margin-top:32px"><a class="btn white" href="#apply"><span>Apply for legal aid</span></a></div>
+  </PageHead>
+
+  <section class="band">
+    <div class="wrap cols2 wide-left">
+      <p class="lede" data-rise style="max-width:none">At Takweyat (تقویت), we believe that a fair trial and legal protection are constitutional rights that should never be denied due to poverty or social status. Led by experienced legal professionals and criminal defense advocates, our Legal Aid Network provides absolute pro-bono (free of charge) legal counseling and court representation to the marginalized, the oppressed, and the voiceless. If you are facing gross injustice, unlawful harassment, or a violation of your basic human rights, our coalition of volunteer lawyers stands ready to defend you.</p>
+      <Photo caption="Scales of justice, gavel and law books" video="/media/justice.mp4" poster="/media/justice.jpg" ratio="4 / 5" />
+    </div>
+  </section>
+
+  <section class="band bg-white">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:32px">Scope of Cases We Take</h2>
+      <ul class="ticks" style="--c:var(--raspberry);max-width:80ch">
+        {scope.map(([t, d]) => <li data-rise><b>{t}:</b> {d}</li>)}
+      </ul>
+      <p class="small" style="margin-top:28px;max-width:80ch"><b>Note:</b> We do not accept commercial, corporate, or property/land disputes unless they involve the direct exploitation of a highly vulnerable individual.</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap cols2 wide-left">
+      <div>
+        <h2 class="h2">Eligibility Criteria</h2>
+        <p class="lede" style="margin-top:20px">Our resources and volunteer hours are dedicated strictly to those in extreme need. To qualify for Takweyat’s free legal aid, applicants must meet the following criteria:</p>
+      </div>
+      <ol class="steps">
+        {eligibility.map(([t, d]) => <li data-rise><div><b>{t}:</b> {d}</div></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="band bg-white">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:32px">How to Apply: The 4-Step Process</h2>
+      <ol class="steps" style="max-width:860px">
+        {steps.map(([t, d]) => <li data-rise><div><b>{t}:</b> {d}</div></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="band" id="apply">
+    <div class="wrap">
+      <div>
+        <h2 class="h2" style="margin-bottom:12px">The Legal Aid Application Form</h2>
+        <p class="small" style="margin-bottom:28px;max-width:60ch">Everything you write here is confidential. Please explain what happened in simple words and do not share highly sensitive evidence here; save it for the consultation.</p>
+        <LeadForm id="legal-aid" tone="raspberry" note="Private and confidential" minutes={3} submit="Submit Confidential Application" fields={legalAid} />
+      </div>
+      <aside class="card" style="--c:var(--raspberry);margin-top:40px">
+        <h3>Emergency Legal Contacts & Chambers</h3>
+        {site.helpline && <p><b>24/7 Legal Aid Helpline:</b> {site.helpline}</p>}
+        <p><b>{headOffice.name}</b><br />{headOffice.lines.join(', ')}</p>
+        <p><b>{chamber.name}</b><br />{chamber.lines.join(', ')}</p>
+        <p><b>Email</b><br /><a href={`mailto:${site.email}`}>{site.email}</a></p>
+      </aside>
+    </div>
+  </section>
+</Base>

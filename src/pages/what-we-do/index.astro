@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import core from '../../../content/core-pillars.json';
+import { coreSlugs } from '../../data/initiatives';
+const artFor = (t: string) => { const l = t.toLowerCase(); const f = /hunger|food/.test(l) ? 'fighting-hunger' : /ramadan|spiritual/.test(l) ? 'ramadan' : /disaster|climate/.test(l) ? 'disaster-relief' : /legal|justice|rights/.test(l) ? 'free-legal-aid' : /educat|career/.test(l) ? 'education-counseling' : /medic|health/.test(l) ? 'medical-camps' : 'community-support'; return `/media/art/tile-${f}.jpg`; };
+const colors = ['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--teal-dark)', 'var(--charcoal)'];
+const tileColors = ['var(--teal)', 'var(--olive)', 'var(--teal-dark)', 'var(--raspberry)', 'var(--teal)', 'var(--olive)', 'var(--teal-dark)'];
+const wipes = ['var(--raspberry)', 'var(--teal)', 'var(--raspberry)', 'var(--teal)', 'var(--olive)', 'var(--raspberry)', 'var(--teal)'];
+---
+<Base title="What we do" description="Seven kinds of on-the-ground work and five pillars that guide the Takweyat International Organization.">
+  <PageHead img="/media/banners/what-we-do.jpg" title="What we do" lede="Our on-the-ground work today, and the five pillars that guide everything we plan." tone="teal" />
+
+  <section class="band">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:36px">What we do today</h2>
+      <div class="grid g3">
+        {core.achievements.map((a, i) => (
+          <div class="artcard" style={`--c:${tileColors[i]}`} data-rise>
+            <img src={artFor(a.title)} alt="" width="1000" height="1250" loading="lazy" />
+            <div class="ab"><span class="meta">{String(i + 1).padStart(2, '0')}</span><h3>{a.title}</h3><p>{a.text}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band bg-white">
+    <div class="wrap">
+      <div class="cols2 wide-left" style="margin-bottom:40px">
+        <h2 class="h2">Our five pillars</h2>
+        <p class="lede">Each pillar has a goal, a roadmap and a set of strategic objectives.</p>
+      </div>
+      {core.pillars.map((p, i) => (
+        <a class="rowlink" href={`/what-we-do/${coreSlugs[i]}/`} style={`--c:${colors[i]}`} data-rise>
+          <h3>{p.title}</h3>
+          <p>{p.goal}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+</Base>

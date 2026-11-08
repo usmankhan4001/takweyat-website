@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Arrow from '../components/Arrow.astro';
+---
+<Base title="Page not found">
+  <PageHead img="/media/banners/404.jpg" title="We could not find that page." tone="charcoal" lede="It may have moved, or the address may be mistyped.">
+    <div class="btns" style="margin-top:28px"><a class="btn cream" href="/"><span>Go to the home page</span><Arrow /></a><a class="btn ghost" href="/contact/"><span>Contact us</span></a></div>
+  </PageHead>
+</Base>

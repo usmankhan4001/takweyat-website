@@ -1,0 +1,12 @@
+---
+// A photo or looping video slot. Without media it shows a placeholder.
+interface Props { caption: string; color?: string; ratio?: string; video?: string; poster?: string; }
+const { caption, color = 'var(--teal)', ratio = '4 / 3', video, poster } = Astro.props;
+---
+{video ? (
+  <div class="ph media" style={`--c:${color};aspect-ratio:${ratio}`}>
+    <video autoplay muted loop playsinline preload="metadata" poster={poster} aria-label={caption}><source src={video} type="video/mp4" /></video>
+  </div>
+) : (
+  <div class="ph" role="img" aria-label={`Photo placeholder: ${caption}`} style={`--c:${color};aspect-ratio:${ratio}`}><span class="cap">{caption}</span></div>
+)}

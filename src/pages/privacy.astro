@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { site } from '../data/site';
+---
+<Base title="Privacy and confidentiality" description="How Takweyat handles the information you share with us.">
+  <PageHead title="Privacy and confidentiality" tone="charcoal" lede="The dignity and privacy of those we help are non-negotiable." />
+  <section class="band">
+    <div class="wrap prose stack">
+      <h2 class="h3">What we ask for</h2>
+      <p>When you send us a form or an email, we ask for the details needed to respond: your name, a way to reach you, and what you want to tell us. The legal aid form also asks for a short summary of your case. Please do not share highly sensitive evidence there; save it for the confidential consultation.</p>
+      <h2 class="h3">How we use it</h2>
+      <p>We use your details to answer you and, when you apply to volunteer, to match your skills with our current on-ground needs. We do not sell your details and we do not use them for fundraising, because Takweyat does not ask the public for funds.</p>
+      <h2 class="h3">Confidentiality of legal and medical matters</h2>
+      <p>Our legal and medical volunteers are bound to maintain strict attorney-client and doctor-patient confidentiality.</p>
+      <h2 class="h3">This website</h2>
+      <p>This website does not use advertising or tracking cookies, and its fonts are served from this site, so opening a page does not contact any third party.</p>
+      <h2 class="h3">Questions or requests</h2>
+      <p>To ask what we hold about you, or to have it removed, write to <a href={`mailto:${site.email}`}><b>{site.email}</b></a>.</p>
+    </div>
+  </section>
+</Base>

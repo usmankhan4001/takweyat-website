@@ -1,0 +1,52 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHead from '../../../components/PageHead.astro';
+import Arrow from '../../../components/Arrow.astro';
+import edu from '../../../../content/education-plan.json';
+import { eduGroups, groupOf } from '../../../data/groups';
+
+export function getStaticPaths() {
+  return edu.pillars.map((p) => ({ params: { n: String(p.number) }, props: { p } }));
+}
+const { p } = Astro.props;
+const group = groupOf(eduGroups, p.number);
+const P = new Map(edu.pillars.map((x) => [x.number, x]));
+const prev = P.get(p.number - 1), next = P.get(p.number + 1);
+const related = group.pillars.filter((n) => n !== p.number);
+---
+<Base title={`Pillar ${p.number}: ${p.title}`} description={p.items[0]}>
+  <PageHead title={p.title} tone="teal" crumbs={[{ label: 'Our plans', href: '/plans/' }, { label: 'The Educational Plan', href: '/plans/education/' }]} tag={`Pillar ${p.number} of 35 · ${group.name} · Planned`} />
+
+  <section class="band">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:28px">Ten commitments</h2>
+      <ul class="bullets" style="--c:var(--teal)">
+        {p.items.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="band bg-white tight">
+      <div class="wrap">
+        <h2 class="h3" style="margin-bottom:20px">More in {group.name}</h2>
+        <div class="grid g2">
+          {related.map((n) => <a class="pcard" href={`/plans/education/${n}/`} style="--c:var(--teal)"><b>{n}</b><span>{P.get(n)!.title}</span></a>)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="band tight">
+    <div class="wrap">
+      <div class="pn">
+        {prev ? <a href={`/plans/education/${prev.number}/`}><small>Previous pillar</small><span>{prev.number}. {prev.title}</span></a> : <span style="flex:1 1 280px"></span>}
+        {next ? <a class="next" href={`/plans/education/${next.number}/`}><small>Next pillar</small><span>{next.number}. {next.title}</span></a> : <span style="flex:1 1 280px"></span>}
+      </div>
+      <div class="btns" style="margin-top:32px">
+        <a class="btn" href="/get-involved/"><span>Bring your profession to this work</span><Arrow /></a>
+        <a class="btn outline" href="/plans/education/"><span>All 35 pillars</span></a>
+      </div>
+    </div>
+  </section>
+</Base>

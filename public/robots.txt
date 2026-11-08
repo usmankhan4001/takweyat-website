@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://takweyat.org/sitemap.xml

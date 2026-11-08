@@ -1,0 +1,264 @@
+---
+import fs from 'node:fs';
+import Base from '../layouts/Base.astro';
+import Arrow from '../components/Arrow.astro';
+import Photo from '../components/Photo.astro';
+import core from '../../content/core-pillars.json';
+import { networks } from '../data/networks';
+import { coreSlugs } from '../data/initiatives';
+import { site } from '../data/site';
+const netIcons = ['social-impact','medical-aid','education-support','disaster-relief','global-aid'];
+const netColors =['var(--teal)','var(--teal-dark)','var(--teal-dark)','var(--teal)','var(--charcoal)'];
+const netWipes = ['var(--teal-dark)','var(--teal)','var(--teal)','var(--teal-dark)','var(--teal)'];
+const tileSlug = (t: string) => { const l = t.toLowerCase(); return /hunger|food/.test(l) ? 'fighting-hunger' : /ramadan|spiritual/.test(l) ? 'ramadan' : /disaster|climate/.test(l) ? 'disaster-relief' : /legal|justice|rights/.test(l) ? 'free-legal-aid' : /educat|career/.test(l) ? 'education-counseling' : /medic|health/.test(l) ? 'medical-camps' : 'community-support'; };
+// real photographs go in public/media/tiles/<slug>.jpg (see assets-in/README.md); until then the tile is colour plus icon
+const imgFor = (t: string) => { const f = `/media/tiles/${tileSlug(t)}.jpg`; return fs.existsSync(`public${f}`) ? f : ''; };
+const iconFor = (t: string) => { const l = t.toLowerCase(); return /ramadan|spiritual/.test(l) ? 'dove' : /disaster|climate/.test(l) ? 'disaster-relief' : /legal|justice|rights/.test(l) ? 'helping-hand' : /educat|career/.test(l) ? 'education-support' : /medic|health/.test(l) ? 'medical-aid' : /water/.test(l) ? 'water-charity' : /hunger|food/.test(l) ? 'donation-jar' : 'community'; };
+const tileColors = ['var(--teal)', 'var(--olive)', 'var(--teal-dark)', 'var(--raspberry)', 'var(--teal)', 'var(--olive)', 'var(--teal-dark)'];
+const wipes = ['var(--raspberry)', 'var(--charcoal)', 'var(--raspberry)', 'var(--charcoal)', 'var(--raspberry)', 'var(--charcoal)', 'var(--raspberry)'];
+const pillarColors = ['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--teal-dark)', 'var(--charcoal)'];
+---
+<Base title="Takweyat International Organization" description="A coalition of lawyers, doctors, educators and social workers who give their own time and skills to people who cannot afford help." overlay>
+  <style is:global>
+    .hero { background: var(--teal); color: var(--paper); }
+    .pin { position: relative; height: 100vh; height: 100svh; overflow: hidden; display: grid; place-items: center; }
+    .pattern { position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='%23000' fill-opacity='.11'%3E%3Cpath d='M100 36l13 29 29-13-13 29 29 13-29 13 13 29-29-13-13 29-13-29-29 13 13-29-29-13 29-13-13-29 29 13z'/%3E%3Cpath d='M0 0l14 0-14 14zM200 0l-14 0 14 14zM0 200l14 0-14-14zM200 200l-14 0 14-14z'/%3E%3Ccircle cx='0' cy='100' r='12'/%3E%3Ccircle cx='200' cy='100' r='12'/%3E%3Ccircle cx='100' cy='0' r='12'/%3E%3Ccircle cx='100' cy='200' r='12'/%3E%3C/g%3E%3C/svg%3E"); background-size: 200px 200px; }
+    @media (max-width: 759px) { .pattern { background-size: 150px 150px; } }
+    .stage { position: absolute; inset: 0; opacity: 0; background: var(--teal-dark); display: grid; place-items: center; }
+    .stage::after { content: ""; position: absolute; inset: auto 0 0 0; height: 62%; background: linear-gradient(to top, rgb(11 9 2 / .6), rgb(11 9 2 / 0)); }
+    .stage .cap { position: absolute; z-index: 1; right: max(20px, 4vw); top: 100px; font-size: .8125rem; font-weight: 600; opacity: .8; }
+    .h1x { position: relative; text-align: center; max-width: 1080px; padding-inline: 20px; font-family: var(--display); font-size: clamp(2.3rem, 1rem + 4.8vw, 5rem); line-height: 1.04; letter-spacing: -.01em; text-wrap: balance; }
+    .word { position: relative; display: inline-block; color: var(--paper); }
+    .word .bl { display: inline-block; width: 0; height: 0; }
+    .oph { position: absolute; background: transparent; border-radius: 50%; }
+    .h2x { position: absolute; z-index: 2; left: 0; right: 0; bottom: clamp(56px, 10vh, 130px); font-family: var(--display); font-size: clamp(2.2rem, 1rem + 4.4vw, 4.8rem); line-height: 1.05; letter-spacing: -.01em; opacity: 0; color: var(--white); max-width: 1240px; margin-inline: auto; }
+    .h2x em { font-style: normal; }
+    .h2x em .ch { background: var(--raspberry); }
+    .h2x em .ch:first-child { padding-left: .12em; } .h2x em .ch:last-child { padding-right: .12em; }
+    .h2x .ch { opacity: 0; }
+    .down { position: absolute; z-index: 3; left: 50%; bottom: clamp(24px, 5vh, 52px); transform: translateX(-50%); width: 54px; height: 54px; border-radius: 50%; border: 0; background: var(--paper); cursor: pointer; display: grid; place-items: center; transition: transform .3s var(--ease); }
+    .down:hover { transform: translateX(-50%) translateY(4px); }
+    .down svg { width: 20px; height: 20px; fill: none; stroke: var(--raspberry); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    .intro { background: var(--teal); color: var(--paper); overflow: hidden; }
+    .intro .wrap { display: grid; gap: 40px; align-items: center; padding-block: clamp(56px, 8vw, 112px); }
+    @media (min-width: 960px) { .intro .wrap { grid-template-columns: 1.1fr .9fr; gap: 64px; } }
+    .intro .big { font-family: var(--display); font-size: clamp(1.7rem, 1.1rem + 2.2vw, 3rem); line-height: 1.12; max-width: 24ch; margin-bottom: 32px; }
+    .intro .btns { margin: 0; }
+    .intro .ph { min-height: 0; }
+        .sticky-cta { display: none; }
+    @media (max-width: 759px) {
+      .down { bottom: 100px; }
+      .sticky-cta { display: block; position: fixed; z-index: 49; left: 0; right: 0; bottom: 0; padding: 12px max(20px, env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px)); }
+      .sticky-cta .btn { width: 100%; }
+    }
+    .legal-spot .facts { display: grid; gap: 14px; margin: 28px 0 32px; }
+    @media (min-width: 640px) { .legal-spot .facts { grid-template-columns: repeat(3, 1fr); } }
+    .legal-spot .facts div { border-top: 2px solid rgb(255 255 255 / .55); padding-top: 12px; }
+    .legal-spot .facts b { display: block; font: 400 clamp(1.5rem, 1.1rem + 1.3vw, 2.2rem)/1.05 var(--display); margin-bottom: 4px; }
+    .planbig { display: flex; flex-direction: column; gap: 16px; padding: clamp(28px, 4vw, 52px); min-height: 400px; border-radius: var(--r); text-decoration: none; position: relative; isolation: isolate; overflow: hidden; }
+    .planbig::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--charcoal); transform: translateY(101%); transition: transform .4s var(--ease); }
+    .planbig:hover::before, .planbig:focus-visible::before { transform: none; }
+    .planbig .num { font: 400 clamp(5rem, 3rem + 8vw, 10rem)/.8 var(--display); letter-spacing: -.04em; }
+    .planbig p { max-width: 40ch; }
+  </style>
+
+  <section class="hero" id="hero">
+    <div class="pin" id="pin">
+      <video class="bgv" autoplay muted loop playsinline preload="auto" poster="/media/islamabad.jpg" aria-hidden="true"><source src="/media/islamabad.mp4" type="video/mp4" /></video><div class="bgv-tint"></div>
+      <div class="stage" id="stage"><video class="bgv" autoplay muted loop playsinline preload="metadata" poster="/media/justice.jpg" aria-hidden="true"><source src="/media/justice.mp4" type="video/mp4" /></video></div>
+      <h1 class="h1x" id="h1"><span class="dim">Lawyers, doctors and teachers turning their skills into </span><span class="word" id="word">acti<span id="wo">o</span>n<i class="bl" id="bl"></i><i class="oph" id="oph"></i></span><span class="dim"> for people in need.</span></h1>
+      <p class="h2x wrap" id="h2"><em>Free legal aid,</em> medical camps, meals, disaster relief and education.</p>
+      <button class="down" id="down" aria-label="Scroll down"><svg viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6"/></svg></button>
+    </div>
+  </section>
+
+  <section class="intro" id="about">
+    <div class="wrap">
+      <div>
+        <p class="big">Takweyat is a coalition of lawyers, doctors, educators and social workers who give their own time and skills to people who cannot afford help.</p>
+        <div class="btns">
+          <a class="btn cream" href="/free-legal-aid/"><span>Get free legal aid</span><Arrow /></a>
+        </div>
+      </div>
+      <Photo caption="Scales of justice, gavel and law books" video="/media/justice.mp4" poster="/media/justice.jpg" ratio="16 / 10" />
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap cols2 wide-left" style="align-items:end">
+      <h2 class="h2" data-rise>We don't ask for funds. We ask for your <span style="color:var(--raspberry)">expertise.</span></h2>
+      <div data-rise>
+        <p class="lede" style="margin-bottom:28px">Lawyers, doctors, educators and social workers give their own time and skills where society needs them most.</p>
+        <div class="btns"><a class="btn teal" href="/get-involved/"><span>How you can contribute</span></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band bg-white">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:40px">What we do</h2>
+      <div class="tiles">
+        {core.achievements.map((a, i) => (
+          <a class="tile" href="/what-we-do/" style={`--c:${tileColors[i]};--w:${wipes[i]};--ic:url(/icons/${iconFor(a.title)}.svg)${imgFor(a.title) ? `;--img:url(${imgFor(a.title)})` : ''}`} data-rise><span class="tile-ic" aria-hidden="true"></span><h3>{a.title}</h3></a>
+        ))}
+        <a class="tile last" href="/what-we-do/" data-rise><h3 style="display:flex;align-items:center;gap:10px">All our work <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 5l7 7-7 7"/></svg></h3></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="cols2 wide-left" style="margin-bottom:40px;align-items:end">
+        <h2 class="h2">Five pillars of our work</h2>
+        <p class="lede">Each pillar has a goal, a roadmap and a set of strategic objectives.</p>
+      </div>
+      {core.pillars.map((p, i) => (
+        <a class="rowlink" href={`/what-we-do/${coreSlugs[i]}/`} style={`--c:${pillarColors[i]}`} data-rise>
+          <h3>{p.title}</h3>
+          <p>{p.goal}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="band bg-raspberry legal-spot" id="legal">
+    <div class="wrap cols2" style="align-items:center">
+      <Photo caption="Scales of justice, gavel and law books" video="/media/justice.mp4" poster="/media/justice.jpg" ratio="4 / 5" />
+      <div>
+        <p class="small" style="font-weight:700;margin-bottom:10px">Free legal aid</p>
+        <h2 class="h2" style="margin-bottom:20px">Justice is a fundamental right, not a privilege.</h2>
+        <p class="lede">Our network of volunteer lawyers provides free counseling and court representation to people who cannot afford it.</p>
+        <div class="facts">
+          <div><b>Free</b><span>Pro bono counseling and representation</span></div>
+          <div><b>48 to 72 hours</b><span>For our committee to review your case</span></div>
+          <div><b>2 chambers</b><span>Islamabad and Gujar Khan</span></div>
+        </div>
+        <div class="btns"><a class="btn white" href="/free-legal-aid/"><span>Apply for legal aid</span><Arrow /></a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band bg-white">
+    <div class="wrap">
+      <div class="cols2 wide-left" style="margin-bottom:40px;align-items:end">
+        <h2 class="h2">Bring your profession to the cause</h2>
+        <p class="lede">Choose the network that matches your background. There are no membership fees, but we do ask for real time and effort.</p>
+      </div>
+      <div class="nets">
+        {networks.map((n, i) => (
+          <a class="net" href="/get-involved/" style={`--c:${netColors[i]};--w:${netWipes[i]};--ic:url(/icons/${netIcons[i]}.svg)`} data-rise>
+            <span class="net-ic" aria-hidden="true"></span>
+            <span class="meta">{n.who}</span>
+            <h3>{n.title}</h3>
+            <p>{n.text}</p>
+            <span class="net-go" aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band bg-charcoal quote">
+    <div class="wrap cols2 wide-left" style="align-items:center">
+      <figure>
+        <blockquote class="wf">“We do not ask for your funds; we ask for your expertise.”</blockquote>
+        <cite>From the founder’s message</cite>
+        <p style="margin-top:24px"><a class="more" href="/about/">Read the full message <Arrow /></a></p>
+      </figure>
+      <Photo caption="Photo: the founder" color="var(--olive)" ratio="4 / 5" />
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:40px">Our long-term plans</h2>
+      <div class="grid" style="gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))">
+        <a class="planbig" href="/plans/education/" style="background:var(--teal);color:var(--paper)" data-rise>
+          <span class="num">35</span>
+          <h3 class="h3">The Educational Plan: The Global Vision</h3>
+          <p>Thirty-five pillars across four phases, from rural literacy in Pakistan to a global open university.</p>
+          <span class="more" style="margin-top:auto;align-self:flex-start">Read the plan <Arrow /></span>
+        </a>
+        <a class="planbig" href="/plans/justice/" style="background:var(--raspberry);color:var(--white)" data-rise>
+          <span class="num">50</span>
+          <h3 class="h3">The Global Legal Aid and Justice Plan</h3>
+          <p>Fifty pillars across four phases, from domestic legal clinics to international law.</p>
+          <span class="more" style="margin-top:auto;align-self:flex-start">Read the plan <Arrow /></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band bg-white">
+    <div class="wrap cols2 wide-left">
+      <div>
+        <h2 class="h2" style="margin-bottom:20px">Contact us</h2>
+        <p class="lede" style="margin-bottom:28px">Volunteer and membership inquiries, legal aid, and institutional collaboration all start here.</p>
+        <div class="btns"><a class="btn teal" href="/contact/"><span>Send a message</span><Arrow /></a></div>
+      </div>
+      <div class="stack">
+        <div class="card paper"><h3>Email</h3><a href={`mailto:${site.email}`}><b>{site.email}</b></a></div>
+        {site.offices.map((o) => <div class="card paper"><h3>{o.name}</h3><p>{o.lines.join(', ')}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <div class="sticky-cta"><a class="btn" href="/free-legal-aid/"><span>Get free legal aid</span><Arrow /></a></div>
+
+  <script>
+    import { gsap } from 'gsap';
+    import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+    const $ = (s: string) => document.querySelector<HTMLElement>(s)!;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    $('#down').addEventListener('click', () => scrollTo({ top: innerHeight * (reduce ? 1 : 1.2), behavior: reduce ? 'auto' : 'smooth' }));
+
+    function buildHero() {
+      const word = $('#word'), wo = $('#wo'), bl = $('#bl'), oph = $('#oph'), h2 = $('#h2');
+      if (reduce) {
+        // still version: the headline, then the second statement under it
+        const pin = $('#pin'); pin.style.height = 'auto'; pin.style.minHeight = '100svh'; pin.style.padding = '130px 0 150px';
+        h2.style.position = 'static'; h2.style.opacity = '1'; h2.style.marginTop = '48px'; $('#stage').style.display = 'none'; $('#down').style.display = 'none';
+        return;
+      }
+      gsap.registerPlugin(ScrollTrigger);
+      // split the second statement into characters, keeping its highlighted <em>
+      const wrapChars = (n: Node) => {
+        if (n.nodeType === 3) {
+          const f = document.createDocumentFragment();
+          [...(n.textContent ?? '')].forEach((c) => { const s = document.createElement('span'); s.className = 'ch'; s.textContent = c; f.appendChild(s); });
+          (n as ChildNode).replaceWith(f);
+        } else [...n.childNodes].forEach(wrapChars);
+      };
+      [...h2.childNodes].forEach(wrapChars);
+
+      const mm = gsap.matchMedia();
+      mm.add({ desk: '(min-width: 760px)', mob: '(max-width: 759px)' }, (ctx) => {
+        const mob = (ctx.conditions as any).mob;
+        gsap.set(word, { clearProps: 'transform' });
+        // find the o's counter from the real glyph metrics: its centre and size
+        const cs = getComputedStyle(word), fs = parseFloat(cs.fontSize);
+        const c = document.createElement('canvas').getContext('2d')!;
+        c.font = `${cs.fontWeight} ${fs}px ${cs.fontFamily}`;
+        const m = c.measureText('o'), gw = m.actualBoundingBoxLeft + m.actualBoundingBoxRight, gh = m.actualBoundingBoxAscent + m.actualBoundingBoxDescent;
+        const wr = word.getBoundingClientRect(), or = wo.getBoundingClientRect(), br = bl.getBoundingClientRect();
+        const cx = or.left + or.width / 2 - wr.left, cy = br.top - m.actualBoundingBoxAscent + gh / 2 - wr.top;
+        const pw = gw * 0.42, ph = gh * 0.6;
+        Object.assign(oph.style, { left: cx - pw / 2 + 'px', top: cy - ph / 2 + 'px', width: pw + 'px', height: ph + 'px' });
+        gsap.set(word, { transformOrigin: `${cx}px ${cy}px` });
+        const S = Math.max(innerWidth / pw, innerHeight / ph) * 1.25;
+        const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '#pin', start: 'top top', end: () => '+=' + Math.round(innerHeight * (mob ? 2.6 : 3.8)), scrub: 0.6, pin: true, anticipatePin: 1, invalidateOnRefresh: true } });
+        tl.to('#down', { opacity: 0, duration: 0.4 }, 0)
+          .to('.dim', { opacity: 0, duration: 3.4 }, 0.4)
+          .to(word, { scale: S, duration: 5.2, ease: 'power3.in' }, 0)
+                    .to('#stage', { opacity: 1, duration: 1.2 }, 4.2)
+          .to(word, { opacity: 0, duration: 0.8 }, 4.9)
+          .set('#h2', { opacity: 1 }, 5.4)
+          .to('#h2 .ch', { opacity: 1, duration: 0.02, stagger: 0.07 }, 5.5)
+          .to({}, { duration: 1.6 });
+      });
+    }
+    (document.fonts?.ready ?? Promise.resolve()).then(buildHero);
+    addEventListener('load', () => ScrollTrigger.refresh());
+  </script>
+</Base>

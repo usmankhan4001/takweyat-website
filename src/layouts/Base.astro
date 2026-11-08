@@ -1,0 +1,84 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  overlay?: boolean; // transparent header over a full-bleed hero (home page)
+}
+const { title, description = 'A coalition of lawyers, doctors, educators and social workers serving people who cannot afford help.', overlay = false } = Astro.props;
+const full = title === 'Takweyat International Organization' ? title : `${title} | Takweyat`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{full}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0D1716" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/gloock-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/dm-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <meta property="og:title" content={full} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Header overlay={overlay} />
+    <main id="main"><slot /></main>
+    <Footer />
+    <script>
+      // header turns solid once you leave the top; menu; slide-up on arrival
+      const hdr = document.getElementById('hdr');
+      const solid = () => hdr?.classList.toggle('solid', scrollY > 40);
+      addEventListener('scroll', solid, { passive: true }); solid();
+
+      const menu = document.getElementById('menu');
+      const set = (o: boolean) => { menu?.classList.toggle('open', o); document.documentElement.style.overflow = o ? 'hidden' : ''; };
+      document.getElementById('menuBtn')?.addEventListener('click', () => set(true));
+      document.getElementById('menuX')?.addEventListener('click', () => set(false));
+      menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => set(false)));
+      addEventListener('keydown', (e) => { if (e.key === 'Escape') set(false); });
+
+      // word-by-word fill for quotes and long statements marked .wf
+      const wf = [...document.querySelectorAll<HTMLElement>('.wf')];
+      wf.forEach((q) => { q.innerHTML = (q.textContent || '').trim().split(/\s+/).map((w) => `<span class="w">${w}</span>`).join(' '); });
+      const fill = () => wf.forEach((q) => {
+        const r = q.getBoundingClientRect(), vh = innerHeight, ws = q.querySelectorAll('.w');
+        const p = Math.min(1, Math.max(0, (vh * 0.88 - r.top) / (vh * 0.4 + r.height)));
+        ws.forEach((w, k) => w.classList.toggle('on', k < Math.round(p * ws.length)));
+      });
+      if (wf.length) { addEventListener('scroll', fill, { passive: true }); addEventListener('resize', fill); fill(); }
+
+      // long text and card groups arrive on scroll, children one after another
+      document.querySelectorAll('main .band :is(p, blockquote), main :is(.card, .tile, .item, .pcard, .rowlink, .planbig)').forEach((e) => { if (!e.hasAttribute('data-rise') && !e.closest('form, .wf')) e.setAttribute('data-rise', ''); });
+      document.querySelectorAll<HTMLElement>('main [data-rise]').forEach((e) => {
+        const k = [...(e.parentElement?.children ?? [])].indexOf(e);
+        e.style.setProperty('--d', Math.min(k, 6) * 0.08 + 's');
+      });
+      // numbers count up once
+      document.querySelectorAll<HTMLElement>('.num').forEach((n) => {
+        const to = parseInt(n.textContent || '0', 10);
+        if (!to || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const o = new IntersectionObserver(([en]) => {
+          if (!en.isIntersecting) return;
+          o.disconnect();
+          const t0 = performance.now();
+          const step = (t: number) => { const p = Math.min(1, (t - t0) / 1100); n.textContent = String(Math.round(to * (1 - Math.pow(1 - p, 3)))); if (p < 1) requestAnimationFrame(step); };
+          requestAnimationFrame(step);
+        });
+        o.observe(n);
+      });
+
+      const els = document.querySelectorAll('[data-rise]');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+        els.forEach((e) => io.observe(e));
+      } else els.forEach((e) => e.classList.add('in'));
+    </script>
+  </body>
+</html>

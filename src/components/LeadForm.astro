@@ -1,0 +1,123 @@
+---
+// One guided form for every lead form. One question at a time, a plain-language helper under each question,
+// a step tracker, and a review screen before sending. It posts to the n8n webhook set in site.ts; until that
+// exists it shows a polite message with the email address instead of pretending to send.
+// Without JavaScript every field simply shows, as an ordinary form.
+import { site } from '../data/site';
+interface Field {
+  name: string; label: string; type?: 'text' | 'email' | 'tel' | 'select' | 'textarea'; options?: string[]; required?: boolean;
+  hint?: string; help?: string; ph?: string; short?: string;
+}
+interface Props { id: string; fields: Field[]; submit?: string; note?: string; tone?: 'teal' | 'raspberry'; minutes?: number; }
+const { id, fields, submit = 'Send', note, tone = 'teal', minutes = 2 } = Astro.props;
+---
+<form class="form" data-tone={tone} data-form={id} data-endpoint={site.formEndpoint ?? ''} data-email={site.email} novalidate>
+  <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  <input type="hidden" name="form" value={id} />
+  <div class="fhead" hidden>
+    <p class="fmeta"><span>About {minutes} {minutes === 1 ? 'minute' : 'minutes'}</span><span>One question at a time</span>{note && <span>{note}</span>}</p>
+    <ol class="fdots" aria-label="Progress">
+      {fields.map((f, i) => <li data-dot={i}><b>{i + 1}</b><span>{f.short ?? f.label}</span></li>)}
+      <li data-dot={fields.length}><b>✓</b><span>Check and send</span></li>
+    </ol>
+  </div>
+  {fields.map((f, i) => (
+    <div class="field" data-step data-short={f.short ?? f.label}>
+      <label for={`${id}-${f.name}`}>{f.label}{f.required ? '' : ' (optional)'}</label>
+      {(f.help || f.hint) && <p class="hint" id={`${id}-${f.name}-h`}>{f.help ?? f.hint}</p>}
+      {f.type === 'select' ? (
+        <select id={`${id}-${f.name}`} name={f.name} required={f.required}>
+          <option value="">Choose one</option>
+          {f.options?.map((o) => <option>{o}</option>)}
+        </select>
+      ) : f.type === 'textarea' ? (
+        <textarea id={`${id}-${f.name}`} name={f.name} required={f.required} placeholder={f.ph}></textarea>
+      ) : (
+        <input id={`${id}-${f.name}`} name={f.name} type={f.type ?? 'text'} required={f.required} placeholder={f.ph} autocomplete={f.type === 'email' ? 'email' : f.type === 'tel' ? 'tel' : f.name === 'name' ? 'name' : 'off'} />
+      )}
+    </div>
+  ))}
+  <div class="review" hidden><h3>Please check your answers</h3><dl></dl></div>
+  <div class="fnav"><button class="btn outline back" type="button" hidden><span>← Back</span></button><button class="btn teal next" type="button" hidden><span>Next</span></button><button class="btn teal send" type="submit"><span>{submit}</span></button></div>
+  <p class="fkey" hidden>Press Enter to continue</p>
+  <p class="form-msg" role="status" aria-live="polite"></p>
+</form>
+<script>
+  document.querySelectorAll<HTMLFormElement>('form[data-form]').forEach((form) => {
+    const msg = form.querySelector<HTMLElement>('.form-msg')!;
+    const flash = (t: string) => { msg.textContent = t; msg.classList.add('show'); if (!/did not send/.test(t)) form.classList.add('done'); };
+    const steps = [...form.querySelectorAll<HTMLElement>('[data-step]')];
+    const review = form.querySelector<HTMLElement>('.review')!, dl = review.querySelector('dl')!;
+    const head = form.querySelector<HTMLElement>('.fhead')!, dots = [...form.querySelectorAll<HTMLElement>('.fdots li')];
+    const back = form.querySelector<HTMLButtonElement>('.back')!, next = form.querySelector<HTMLButtonElement>('.next')!, send = form.querySelector<HTMLButtonElement>('.send')!;
+    const key = form.querySelector<HTMLElement>('.fkey')!;
+    const total = steps.length; // index === total is the review screen
+    let at = 0;
+    form.classList.add('stepped'); head.hidden = false;
+
+    const ctl = (st: HTMLElement) => st.querySelector<HTMLInputElement>('input,select,textarea')!;
+    // choices become big tappable cards
+    steps.forEach((st) => {
+      const sel = st.querySelector('select'); if (!sel) return;
+      const wrap = document.createElement('div'); wrap.className = 'chips'; wrap.setAttribute('role', 'radiogroup');
+      [...sel.options].filter((o) => o.value).forEach((o) => {
+        const b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'radio'); b.setAttribute('aria-checked', 'false'); b.innerHTML = '<i></i><span></span>';
+        b.querySelector('span')!.textContent = o.text;
+        b.addEventListener('click', () => {
+          sel.value = o.value; wrap.querySelectorAll('button').forEach((x) => x.setAttribute('aria-checked', String(x === b)));
+          st.querySelector('.ferr')?.remove(); render(); if (at < total) setTimeout(() => { if (at === steps.indexOf(st)) go(1); }, 220);
+        });
+        wrap.append(b);
+      });
+      sel.hidden = true; st.append(wrap);
+    });
+
+    const err = (st: HTMLElement, t: string) => { let e = st.querySelector('.ferr'); if (!e) { e = document.createElement('p'); e.className = 'ferr'; e.setAttribute('role', 'alert'); st.append(e); } e.textContent = t; };
+    const ok = (st: HTMLElement) => {
+      const c = ctl(st); st.querySelector('.ferr')?.remove();
+      if (c.required && !c.value.trim()) { err(st, c.tagName === 'SELECT' ? 'Please choose one of the options to continue.' : 'Please fill this in to continue. It helps us help you.'); return false; }
+      if (c.value && c.type === 'email' && !c.checkValidity()) { err(st, 'That email address does not look right. It should look like name@example.com.'); return false; }
+      return true;
+    };
+
+    const render = () => {
+      const onReview = at === total;
+      steps.forEach((st, i) => { st.hidden = i !== at; });
+      review.hidden = !onReview;
+      dots.forEach((d, i) => { d.classList.toggle('on', i === at); d.classList.toggle('done', i < at); d.setAttribute('aria-current', i === at ? 'step' : 'false'); });
+      back.hidden = at === 0; next.hidden = onReview; send.hidden = !onReview; key.hidden = onReview;
+      if (onReview) {
+        dl.innerHTML = '';
+        steps.forEach((st, i) => {
+          const c = ctl(st); const dt = document.createElement('dt'), dd = document.createElement('dd'), ch = document.createElement('button');
+          dt.textContent = st.dataset.short!; dd.textContent = c.value.trim() || 'Not answered';
+          ch.type = 'button'; ch.className = 'chg'; ch.textContent = 'Change'; ch.addEventListener('click', () => { at = i; render(); });
+          dd.append(ch); dl.append(dt, dd);
+        });
+      } else {
+        const c = ctl(steps[at]); const empty = !c.value.trim();
+        next.firstElementChild!.textContent = !c.required && empty ? 'Skip this one' : at === total - 1 ? 'Review my answers' : 'Next';
+        if (!c.hidden) c.focus({ preventScroll: true });
+      }
+    };
+    const go = (d: number) => { if (d > 0 && at < total && !ok(steps[at])) return; at = Math.max(0, Math.min(total, at + d)); render(); form.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); };
+    next.addEventListener('click', () => go(1)); back.addEventListener('click', () => go(-1));
+    steps.forEach((st) => ctl(st).addEventListener('input', () => { st.querySelector('.ferr')?.remove(); if (at === steps.indexOf(st)) render(); }));
+    form.addEventListener('keydown', (e) => { if (e.key === 'Enter' && (e.target as HTMLElement).tagName === 'INPUT' && at < total) { e.preventDefault(); go(1); } });
+    render();
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if ((form.elements.namedItem('website') as HTMLInputElement).value) return; // spam trap
+      if (at < total) { go(1); return; }
+      const bad = steps.findIndex((st) => !ok(st)); if (bad > -1) { at = bad; render(); return; }
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) { flash(`Thank you. Online sending opens soon. For now, please email us at ${form.dataset.email} and mention this form.`); return; }
+      try {
+        const res = await fetch(endpoint, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(Object.fromEntries(new FormData(form))) });
+        if (!res.ok) throw new Error('bad status');
+        form.reset(); flash('Thank you. We have received your message and will respond soon.');
+      } catch { flash(`Sorry, that did not send. Please try again, or email ${form.dataset.email}.`); }
+    });
+  });
+</script>

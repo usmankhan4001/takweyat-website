@@ -1,0 +1,66 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import Arrow from '../../components/Arrow.astro';
+import core from '../../../content/core-pillars.json';
+import { coreSlugs } from '../../data/initiatives';
+
+export function getStaticPaths() {
+  return coreSlugs.map((slug, i) => ({ params: { slug }, props: { i } }));
+}
+const { i } = Astro.props;
+const p = core.pillars[i];
+const tones = ['teal', 'raspberry', 'olive', 'charcoal', 'teal'] as const;
+const colors = ['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--charcoal)', 'var(--teal)'];
+const lt = p.title.toLowerCase();
+const art = `/media/art/pillar-${/educat/.test(lt) ? 'education' : /hunger|food/.test(lt) ? 'hunger' : /disaster|climate/.test(lt) ? 'disaster' : /medic|health/.test(lt) ? 'health' : 'rights'}.jpg`;
+const prev =core.pillars[(i + 4) % 5], next = core.pillars[(i + 1) % 5];
+const deeper = i === 0
+  ? { href: '/plans/education/', label: 'Read the Educational Plan', text: 'The full vision behind this pillar, in 35 pillars across four phases.' }
+  : i === 2
+  ? { href: '/plans/justice/', label: 'Read the Legal Aid and Justice Plan', text: 'The full manifesto behind this pillar, in 50 pillars across four phases.' }
+  : null;
+---
+<Base title={p.title} description={p.goal}>
+  <PageHead title={p.title} lede={p.goal} tone={tones[i]} crumbs={[{ label: 'What we do', href: '/what-we-do/' }]} />
+
+  <section class="band">
+    <div class="wrap">
+      <div class="cols2 wide-left">
+        <div>
+          <h2 class="h2">Roadmap</h2>
+          <p class="lede" style="margin-top:20px">{p.roadmap}</p>
+        </div>
+        <div>
+          <img class="pillar-art" src={art} alt="" width="1600" height="1200" loading="lazy" />
+          {deeper && (
+            <div class="card" style={`--c:${colors[i]};margin-top:16px`}>
+              <h3>Go deeper</h3>
+              <p>{deeper.text}</p>
+              <a class="btn teal" href={deeper.href} style="margin-top:12px;align-self:flex-start"><span>{deeper.label}</span><Arrow /></a>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band bg-white">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:32px">Strategic objectives</h2>
+      <ul class="bullets" style={`--c:${colors[i]}`}>
+        {p.objectives.map((o) => <li>{o}</li>)}
+      </ul>
+      <div class="btns" style="margin-top:40px">
+        <a class="btn" href="/get-involved/"><span>Bring your profession to this work</span><Arrow /></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band tight">
+    <div class="wrap pn">
+      <a href={`/what-we-do/${coreSlugs[(i + 4) % 5]}/`}><small>Previous pillar</small><span>{prev.title}</span></a>
+      <a class="next" href={`/what-we-do/${coreSlugs[(i + 1) % 5]}/`}><small>Next pillar</small><span>{next.title}</span></a>
+    </div>
+  </section>
+</Base>

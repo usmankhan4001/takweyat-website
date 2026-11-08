@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { site } from '../data/site';
+import { professions, subjects } from '../data/networks';
+---
+<Base title="Contact us" description="Volunteer and membership inquiries, free legal aid, and institutional collaboration with Takweyat International Organization.">
+  <PageHead img="/media/banners/contact.jpg" title="Contact us" tone="raspberry" lede="Volunteer and membership inquiries, legal aid, and institutional collaboration all start here." />
+
+  <section class="band">
+    <div class="wrap cols2 wide-left">
+      <div>
+        <h2 class="h2" style="margin-bottom:28px">Digital Contact & Membership Form</h2>
+        <LeadForm id="contact" submit="Send message" fields={[
+          { name: 'name', label: 'Full Name', short: 'Name', help: 'So we know who to reply to.', ph: 'Your full name', required: true },
+          { name: 'email', label: 'Email Address', short: 'Email', help: 'We will reply to this address.', ph: 'name@example.com', type: 'email', required: true },
+          { name: 'phone', label: 'Phone Number', short: 'Phone', help: 'Only if you would like a call. You can skip this.', ph: '03XX XXXXXXX', type: 'tel' },
+          { name: 'profession', label: 'Profession / Area of Expertise', short: 'Profession', help: 'Choose the one that fits you best.', type: 'select', options: professions, required: true },
+          { name: 'subject', label: 'Subject', short: 'Subject', help: 'What is your message about?', type: 'select', options: subjects, required: true },
+          { name: 'message', label: 'Message', short: 'Message', ph: 'Write here...', type: 'textarea', hint: 'Tell us how you would like to contribute your skills', required: true },
+        ]} />
+      </div>
+      <aside class="stack">
+        <div class="card" style="--c:var(--raspberry)">
+          <h3>Immediate Help Desks</h3>
+          {site.phone && <p><b>Volunteer & Membership Inquiries:</b> {site.phone}</p>}
+          {site.helpline && <p><b>Free Legal Aid Helpline:</b> {site.helpline}<br /><span class="small">For individuals facing immediate human rights violations or seeking legal advice.</span></p>}
+          <p><b>Email:</b> <a href={`mailto:${site.email}`}>{site.email}</a></p>
+        </div>
+        <div class="card" style="--c:var(--teal)">
+          <h3>Official Offices</h3>
+          {site.offices.map((o) => <p><b>{o.name}</b><br />{o.lines.join(', ')}</p>)}
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>

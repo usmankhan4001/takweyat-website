@@ -1,0 +1,67 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHead from '../../../components/PageHead.astro';
+import Arrow from '../../../components/Arrow.astro';
+import edu from '../../../../content/education-plan.json';
+import { eduGroups } from '../../../data/groups';
+const P = new Map(edu.pillars.map((p) => [p.number, p]));
+const phaseColors = ['var(--teal)', 'var(--olive)', 'var(--raspberry)', 'var(--charcoal)'];
+---
+<Base title="The Educational Plan" description="The Takweyat Educational Plan: The Global Vision. Four phases and 35 pillars of educational transformation.">
+  <PageHead title="The Educational Plan" lede="The Global Vision" tone="teal" crumbs={[{ label: 'Our plans', href: '/plans/' }]} tag="Plan: every pillar is a goal, not a finished project">
+  </PageHead>
+
+  <section class="band">
+    <div class="wrap cols2">
+      <div data-rise>
+        <h2 class="h2">Executive Summary</h2>
+        <p class="lede" style="margin-top:20px">{edu.executiveSummary}</p>
+      </div>
+      <div data-rise>
+        <h2 class="h2">Our Ultimate Goal</h2>
+        <p class="lede" style="margin-top:20px">{edu.ultimateGoal}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band bg-white">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:32px">{edu.roadmapHeading}</h2>
+      <div class="phases">
+        {edu.roadmap.map((ph, i) => (
+          <div class="phase" style={`--c:${phaseColors[i]}`} data-rise>
+            <small>{ph.phase} &middot; {ph.years}</small>
+            <h3>{ph.name}</h3>
+            <p>{ph.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:12px">{edu.pillarsHeading}</h2>
+      <p class="lede" style="margin-bottom:44px">Grouped by theme so you can find your way. Each pillar opens to its ten commitments.</p>
+      {eduGroups.map((g) => (
+        <div class="group">
+          <h3 class="h3">{g.name} <small>{g.pillars.length} pillars</small></h3>
+          <div class="grid g2">
+            {g.pillars.map((n) => (
+              <a class="pcard" href={`/plans/education/${n}/`} style="--c:var(--teal)" data-rise>
+                <b>{n}</b><span>{P.get(n)!.title}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="band bg-teal tight">
+    <div class="wrap cols2 wide-left">
+      <h2 class="h2">The whole plan, designed to read and keep</h2>
+      <div class="btns"><a class="btn cream" href="/whitepapers/"><span>Whitepapers</span><Arrow /></a></div>
+    </div>
+  </section>
+</Base>

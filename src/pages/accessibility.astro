@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { site } from '../data/site';
+---
+<Base title="Accessibility" description="How Takweyat is working to make this website usable by everyone.">
+  <PageHead title="Accessibility" tone="charcoal" lede="Information about justice and help should reach everyone." />
+  <section class="band">
+    <div class="wrap prose stack">
+      <p>We aim to make this website usable by as many people as possible. Pages are built with clear headings, a skip link, visible keyboard focus, readable text sizes and strong colour contrast, and they adapt to phones and tablets. Animation is reduced or removed for visitors whose devices ask for reduced motion.</p>
+      <p>If something on this site is hard for you to use, please tell us what and on which page, and we will work to fix it. Write to <a href={`mailto:${site.email}`}><b>{site.email}</b></a>.</p>
+    </div>
+  </section>
+</Base>

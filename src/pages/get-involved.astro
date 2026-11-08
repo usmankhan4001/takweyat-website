@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Arrow from '../components/Arrow.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { volunteer } from '../data/forms';
+import { networks } from '../data/networks';
+const netIcons = ['social-impact', 'medical-aid', 'education-support', 'disaster-relief', 'global-aid'];
+const netColors = ['var(--teal)', 'var(--teal-dark)', 'var(--teal-dark)', 'var(--teal)', 'var(--charcoal)'];
+const netWipes = ['var(--teal-dark)', 'var(--teal)', 'var(--teal)', 'var(--teal-dark)', 'var(--teal)'];
+---
+<Base title="Get involved" description="We don't ask for funds. We ask for your expertise. Join one of Takweyat's five volunteer networks.">
+  <PageHead img="/media/banners/get-involved.jpg" title="We Don’t Ask for Funds. We Ask for Your Expertise." tone="teal" lede="Takweyat operates on the strength of its people. We are actively seeking driven professionals, field workers, and subject-matter experts who want to contribute their time and skills to our active missions." crumbs={[{ label: 'Get involved', href: '/get-involved/' }]} />
+
+  <section class="band">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:12px">How You Can Contribute</h2>
+      <p class="lede" style="margin-bottom:44px">Choose the network that matches your background.</p>
+      <div class="nets">
+        {networks.map((n, i) => (
+          <a class="net" href="#volunteer" style={`--c:${netColors[i]};--w:${netWipes[i]};--ic:url(/icons/${netIcons[i]}.svg)`} data-rise>
+            <span class="net-ic" aria-hidden="true"></span>
+            <span class="meta">{n.who}</span>
+            <h3>{n.title}</h3>
+            <p>{n.text}</p>
+            <span class="net-go" aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
+      <div class="btns" style="margin-top:48px">
+        <a class="btn outline" href="/join/"><span>Who can join, and our code of conduct</span></a>
+        <a class="btn outline" href="/partner/"><span>Partner with us</span></a>
+      </div>
+    </div>
+  </section>
+  <section class="band bg-white" id="volunteer">
+    <div class="wrap">
+      <div style="margin-bottom:36px"><h2 class="h2">Become a volunteer</h2><p class="lede" style="margin-top:16px">Tell us who you are in a few short questions.</p></div>
+      <LeadForm id="volunteer" submit="Send my details" fields={volunteer} />
+    </div>
+  </section>
+</Base>

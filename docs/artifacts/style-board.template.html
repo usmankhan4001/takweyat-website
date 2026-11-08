@@ -1,0 +1,311 @@
+<title>Takweyat Style Board</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Gloock&display=swap">
+<style>
+/* Layout: one calm column of numbered-by-topic sections; every section answers one of the user's questions. */
+:root{
+  --ink:#0D1716; --ink-soft:#44524F; --paper:#F3F6F5; --white:#FFFFFF; --line:#D5DFDC;
+  --teal:#007A7A; --teal-deep:#00504F; --teal-soft:#DCEEEC;
+  --rasp:#A21E66; --rasp-deep:#7F1650; --rasp-soft:#F6E1EC;
+  --old-olive:#937623; --old-cream:#F3EFE6;
+  --display:'Gloock',Georgia,serif; --sans:'DM Sans',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ink:#EAF1EF; --ink-soft:#A6B6B2; --paper:#0B1413; --white:#111C1B; --line:#243433;
+  --teal:#3FB8B4; --teal-deep:#0E3B3A; --teal-soft:#12302F;
+  --rasp:#E0649F; --rasp-deep:#B83A7C; --rasp-soft:#34172A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ink:#EAF1EF; --ink-soft:#A6B6B2; --paper:#0B1413; --white:#111C1B; --line:#243433;
+  --teal:#3FB8B4; --teal-deep:#0E3B3A; --teal-soft:#12302F;
+  --rasp:#E0649F; --rasp-deep:#B83A7C; --rasp-soft:#34172A; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:56px;border-top:1px solid var(--line)}
+section:first-of-type{border-top:0}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.12;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.2rem,6vw,3.8rem)} h2{font-size:clamp(1.7rem,3.6vw,2.4rem);margin-bottom:12px} h3{font-size:1.25rem}
+p{margin:0 0 1em;max-width:62ch;color:var(--ink-soft)}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:500;margin-bottom:14px}
+.lede{font-size:1.15rem;color:var(--ink)}
+.ic{width:1.25em;height:1.25em;fill:currentColor;flex:none}
+/* palette */
+.sw{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:28px}
+.chip{border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--white)}
+.chip i{display:block;height:92px}
+.chip div{padding:12px 14px 14px;font-size:.88rem;color:var(--ink-soft)}
+.chip b{display:block;font-weight:500;color:var(--ink);font-size:.95rem}
+.chip code{font:500 .8rem ui-monospace,Consolas,monospace;color:var(--ink)}
+.bar{display:flex;height:44px;border-radius:10px;overflow:hidden;margin:28px 0 8px;border:1px solid var(--line)}
+.bar span{display:flex;align-items:center;padding-left:12px;font-size:.8rem;font-weight:500}
+.cap{font-size:.85rem;color:var(--ink-soft)}
+.pairs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:20px}
+.pair{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:8px;font-size:.9rem}
+.pair em{font-style:normal;font-weight:500;font-variant-numeric:tabular-nums}
+.old{margin-top:24px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:.9rem;color:var(--ink-soft)}
+.old s{display:inline-block;width:56px;height:28px;border-radius:6px;border:1px solid var(--line);text-decoration:none}
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:.6em;border:0;border-radius:999px;padding:.8em 1.35em;font:500 .98rem/1 var(--sans);cursor:pointer;text-decoration:none;position:relative;overflow:hidden;transition:background .25s,color .25s}
+.btn:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.b-primary{background:var(--teal);color:#fff}.b-primary:hover{background:var(--teal-deep)}
+.b-urgent{background:var(--rasp);color:#fff}.b-urgent:hover{background:var(--rasp-deep)}
+.b-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px currentColor}.b-line:hover{background:var(--ink);color:var(--paper)}
+.b-light{background:#fff;color:var(--teal-deep)}.b-light:hover{background:var(--teal-soft)}
+.b-lineinv{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.8)}.b-lineinv:hover{background:#fff;color:var(--teal-deep)}
+.btn .ic{transition:transform .25s}.btn:hover .ic:last-child{transform:translateX(3px)}
+.surfaces{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:28px}
+.surf{border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:14px;align-items:flex-start;border:1px solid var(--line)}
+.surf small{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.s-paper{background:var(--paper)}.s-white{background:var(--white)}
+.s-teal{background:#00504F;color:#F3F6F5;border-color:transparent}.s-ink{background:#0D1716;color:#F3F6F5;border-color:transparent}
+/* rolling CTA */
+.hdr{margin-top:28px;border-radius:14px;border:1px solid var(--line);background:var(--white);display:flex;align-items:center;gap:20px;padding:14px 18px;flex-wrap:wrap}
+.hdr .logo{font-family:var(--display);font-size:1.3rem;color:var(--teal);margin-right:auto}
+.hdr nav{display:flex;gap:20px;font-size:.92rem;color:var(--ink-soft)}
+.roll{--h:1.2em;font:500 .98rem/var(--h) var(--sans)}
+.roll .win{display:block;height:var(--h);overflow:hidden}
+.roll .stack{display:block;transition:transform .55s cubic-bezier(.65,0,.25,1)}
+.roll .stack span{display:block;height:var(--h);white-space:nowrap}
+.roll.rasp{background:var(--rasp);color:#fff}.roll.rasp:hover{background:var(--rasp-deep)}
+.roll.tealb{background:var(--teal);color:#fff}
+.dots{display:flex;gap:6px;margin-top:14px}
+.dots i{width:22px;height:4px;border-radius:2px;background:var(--line);overflow:hidden;position:relative}
+.dots i.on::after{content:"";position:absolute;inset:0;background:var(--teal);transform-origin:left;animation:fill var(--t,2.6s) linear forwards}
+@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+table{border-collapse:collapse;width:100%;font-size:.92rem;margin-top:22px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:500;color:var(--ink);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+td{color:var(--ink-soft)}
+.scroll{overflow-x:auto}
+.phone{width:min(320px,100%);border:1px solid var(--line);border-radius:22px;background:var(--white);padding:18px 16px;margin-top:24px;position:relative;min-height:170px}
+.phone p{font-size:.88rem;margin-bottom:.6em}
+.phone .bottombar{position:absolute;left:12px;right:12px;bottom:12px}
+.phone .bottombar .btn{width:100%;justify-content:center}
+.twocol{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:36px;align-items:start}
+/* weights */
+.wt{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:28px}
+.wbox{border-radius:12px;padding:22px;border:1px solid var(--line);background:var(--white)}
+.wbox small{display:block;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+.wbox .nav{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px;font-size:.92rem}
+.wbox .lab{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.wbox h3{margin-bottom:8px}
+.wbox p{font-size:.95rem;margin:0}
+.heavy .nav{font-weight:600}.heavy .lab{font-weight:700;color:var(--old-olive)}.heavy p{font-weight:500;color:var(--ink)}.heavy .btn{font-weight:600}
+.light .nav{font-weight:500}.light .lab{font-weight:500;color:var(--teal)}
+/* icons */
+.icons{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px;margin-top:28px}
+.icell{border:1px solid var(--line);background:var(--white);border-radius:10px;padding:18px 8px 12px;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:.74rem;color:var(--ink-soft);text-align:center}
+.icell .ic{width:34px;height:34px;color:var(--teal)}
+.icell:nth-child(5n+3) .ic{color:var(--ink)}
+.iconrow{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:24px}
+.tile{display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:14px;background:var(--teal-soft);color:var(--teal)}
+.tile .ic{width:28px;height:28px}
+.tile.r{background:var(--rasp-soft);color:var(--rasp)}
+.tile.d{background:var(--teal-deep);color:#fff}
+/* sample page */
+.sample{margin-top:32px;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:var(--paper)}
+.sample .top{display:flex;align-items:center;gap:18px;padding:16px 24px;background:var(--white);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.sample .top .logo{font-family:var(--display);font-size:1.25rem;color:var(--teal);margin-right:auto}
+.sample .hero{background:#00504F;color:#F3F6F5;padding:56px 28px 60px}
+.sample .hero h3{font-size:clamp(1.9rem,4.6vw,3rem);max-width:17ch;margin-bottom:16px}
+.sample .hero p{color:#CFE3E1;max-width:48ch;font-size:1.05rem}
+.sample .hero .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.sample .hero mark{background:none;color:#fff;box-shadow:inset 0 -.32em 0 var(--rasp)}
+.sample .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;padding:36px 28px}
+.sample .card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.sample .card h3{font-size:1.2rem}.sample .card p{font-size:.93rem;margin:0}
+.sample .card a{margin-top:auto;display:inline-flex;align-items:center;gap:6px;color:var(--teal);font-weight:500;font-size:.92rem;text-decoration:none}
+.sample .quote{padding:12px 28px 48px}
+.sample .quote blockquote{margin:0;font-family:var(--display);font-size:clamp(1.4rem,3vw,2.1rem);line-height:1.3;max-width:30ch;color:var(--ink)}
+.sample .quote blockquote .w{opacity:.22;transition:opacity .5s}
+.sample .quote blockquote .w.on{opacity:1}
+.sample .quote cite{display:block;margin-top:16px;font-style:normal;font-size:.9rem;color:var(--ink-soft)}
+.qs{display:grid;gap:14px;margin-top:24px;max-width:70ch}
+.q{display:flex;gap:14px;padding:16px 18px;border-radius:12px;background:var(--white);border:1px solid var(--line)}
+.q .ic{color:var(--rasp);margin-top:3px}.q p{margin:0;color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.roll .stack,.btn,.sample .quote blockquote .w{transition:none}.dots i.on::after{animation:none;transform:none}}
+</style>
+
+<!--SPRITE-->
+
+<div class="wrap">
+
+<section>
+  <div class="eyebrow">Takweyat International Organization · Website outlook</div>
+  <h1>One teal. One raspberry. Calm paper. Light type.</h1>
+  <p class="lede" style="margin-top:18px">The content stays exactly as it is. This board shows how the outlook changes: a single colour system, buttons that follow the surface they sit on, Phosphor icons, an animated call-to-action, and lighter type.</p>
+  <p>Everything below is live, so hover, tab and scroll. Nothing on the website has been changed yet.</p>
+</section>
+
+<section>
+  <div class="eyebrow">1 · Colour</div>
+  <h2>Six colours, each with one job</h2>
+  <p>The yellowy tones are gone. The warm cream paper becomes a cool, slightly green-tinted off-white, and the olive field colour is dropped from the screen entirely. It can stay in print and in the logo family if you want it.</p>
+  <div class="sw">
+    <div class="chip"><i style="background:#007A7A"></i><div><b>Teal</b><code>#007A7A</code><br>The brand. Structure, links, main buttons, icons.</div></div>
+    <div class="chip"><i style="background:#00504F"></i><div><b>Deep teal</b><code>#00504F</code><br>Dark bands, hero, footer. Replaces black blocks.</div></div>
+    <div class="chip"><i style="background:#A21E66"></i><div><b>Raspberry</b><code>#A21E66</code><br>One job: urgent help. Legal aid button, highlights. Never on teal.</div></div>
+    <div class="chip"><i style="background:#0D1716"></i><div><b>Ink</b><code>#0D1716</code><br>Text. A green-black, so it sits with the teal.</div></div>
+    <div class="chip"><i style="background:#F3F6F5;border-bottom:1px solid #D5DFDC"></i><div><b>Mist</b><code>#F3F6F5</code><br>Page background. Cool, not cream.</div></div>
+    <div class="chip"><i style="background:linear-gradient(90deg,#DCEEEC 50%,#F6E1EC 50%)"></i><div><b>Soft tints</b><code>#DCEEEC · #F6E1EC</code><br>Icon tiles and quiet panels only.</div></div>
+  </div>
+
+  <div class="bar" role="img" aria-label="Proportion of colour: about sixty percent mist and white, thirty percent teal, ten percent raspberry">
+    <span style="flex:60;background:#F3F6F5;color:#0D1716">60% mist + white</span>
+    <span style="flex:28;background:#007A7A;color:#fff">28% teal</span>
+    <span style="flex:12;background:#A21E66;color:#fff">12%</span>
+  </div>
+  <div class="cap">Rough share of any page. Raspberry stays small, so it still means "act now".</div>
+
+  <div class="pairs">
+    <div class="pair" style="background:#F3F6F5;color:#0D1716;border:1px solid var(--line)">Ink on mist <em>16.8</em></div>
+    <div class="pair" style="background:#F3F6F5;color:#44524F;border:1px solid var(--line)">Soft ink on mist <em>7.5</em></div>
+    <div class="pair" style="background:#007A7A;color:#fff">White on teal <em>5.2</em></div>
+    <div class="pair" style="background:#00504F;color:#F3F6F5">Mist on deep teal <em>8.5</em></div>
+    <div class="pair" style="background:#A21E66;color:#fff">White on raspberry <em>7.2</em></div>
+    <div class="pair" style="background:#DCEEEC;color:#0D1716">Ink on teal tint <em>15.2</em></div>
+  </div>
+  <div class="cap" style="margin-top:8px">Contrast ratios (WCAG needs 4.5 for body text). The old grey #7B7B7B scores 3.9 on mist, so it is retired for small text.</div>
+
+  <div class="old"><span>Retired:</span><s style="background:#937623" title="olive"></s><span>olive #937623</span><s style="background:#F3EFE6;margin-left:10px" title="cream"></s><span>cream #F3EFE6</span><s style="background:#A21E66;margin-left:10px"></s><span>raspberry-on-teal buttons (contrast 1.4, they vibrated)</span></div>
+</section>
+
+<section>
+  <div class="eyebrow">2 · Buttons</div>
+  <h2>The surface decides the button</h2>
+  <p>No more raspberry on teal. A button is chosen by the background it sits on, and the colour of a button says what it does.</p>
+  <div class="surfaces">
+    <div class="surf s-paper"><small>On mist or white</small>
+      <a class="btn b-primary" href="#">Join the movement {{ic:arrow-right}}</a>
+      <a class="btn b-urgent" href="#">{{ic:scales}} Get free legal aid</a>
+      <a class="btn b-line" href="#">Read the plans</a></div>
+    <div class="surf s-teal"><small>On deep teal</small>
+      <a class="btn b-light" href="#">Join the movement {{ic:arrow-right}}</a>
+      <a class="btn b-lineinv" href="#">Read the plans</a></div>
+    <div class="surf s-ink"><small>On ink (footer)</small>
+      <a class="btn b-light" href="#">Write to us {{ic:envelope-simple}}</a>
+      <a class="btn b-lineinv" href="#">Press</a></div>
+  </div>
+  <p class="cap" style="margin-top:14px">Teal button: go somewhere. Raspberry button: get help now (the only one per screen). Outline: secondary. Hover darkens; the arrow nudges.</p>
+</section>
+
+<section>
+  <div class="eyebrow">3 · The animated call-to-action</div>
+  <h2>One button, five asks, rolling</h2>
+  <p>The header button and the mobile bar cycle through the five ways to take part. The words roll up like a departures board, then settle. The destination changes with the word. Hover or focus pauses it, and with reduced motion it shows the first label only.</p>
+  <div class="hdr">
+    <span class="logo">Takweyat</span>
+    <nav aria-label="Example menu"><span>About us</span><span>What we do</span><span>Our plans</span><span>Initiatives</span></nav>
+    <a class="btn roll rasp" id="rollA" href="#" data-t="2600">{{ic:scales}}<span class="win"><span class="stack"></span></span>{{ic:arrow-right}}</a>
+  </div>
+  <div class="dots" id="dots" aria-hidden="true"></div>
+  <div class="twocol" style="margin-top:28px">
+    <div class="scroll"><table>
+      <tr><th>Label</th><th>Goes to</th><th>Form</th></tr>
+      <tr><td>Get free legal aid</td><td>/take-action/#legal-aid</td><td>Case request</td></tr>
+      <tr><td>Become a volunteer</td><td>/take-action/#volunteer</td><td>Profession and hours</td></tr>
+      <tr><td>Partner with us</td><td>/take-action/#partner</td><td>Organisation and idea</td></tr>
+      <tr><td>Press enquiries</td><td>/take-action/#press</td><td>Outlet and deadline</td></tr>
+      <tr><td>Stay updated</td><td>/take-action/#updates</td><td>Email only</td></tr>
+    </table></div>
+    <div><div class="cap">On a phone the same button sits in a bar at the bottom of the screen</div>
+      <div class="phone"><p><b style="font-weight:500;color:var(--ink)">Free legal aid</b></p><p>Scope, who can ask, and how a request is handled.</p>
+        <div class="bottombar"><a class="btn roll tealb" id="rollB" href="#" data-t="2600">{{ic:hand-heart}}<span class="win"><span class="stack"></span></span></a></div></div></div>
+  </div>
+  <p class="cap" style="margin-top:14px">The legal aid label turns raspberry; the other four turn teal as it rolls (shown in the header above).</p>
+</section>
+
+<section>
+  <div class="eyebrow">4 · Type weight</div>
+  <h2>Less bold, more light</h2>
+  <p>Gloock is already a heavy face, so it stays at its single weight and carries the headings. Bold on top of it is what looked loud. Menu, buttons and labels drop from 600 or 700 to 500, and body text stays at 400.</p>
+  <div class="wt">
+    <div class="wbox heavy"><small>Now</small><div class="nav"><span>About us</span><span>Our plans</span><span>Initiatives</span></div><div class="lab">Free legal aid</div><h3>Help for those who cannot afford it</h3><p>Weight 600 and 700 on every menu, label and button, so everything shouts and nothing leads.</p></div>
+    <div class="wbox light"><small>Proposed</small><div class="nav"><span>About us</span><span>Our plans</span><span>Initiatives</span></div><div class="lab">Free legal aid</div><h3>Help for those who cannot afford it</h3><p style="font-weight:400">Weight 500 for the interface, 400 for reading. Hierarchy comes from size, colour and space.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">5 · Icons</div>
+  <h2>Phosphor Icons</h2>
+  <p>Over 1,500 icons in six weights, MIT licensed, so they can ship in the site. One weight is used everywhere (regular, 1.5px feel) with filled versions reserved for active states. Icons come in a soft tile on cards, plain beside links.</p>
+  <div class="iconrow">
+    <span class="tile">{{ic:scales}}</span><span class="tile">{{ic:graduation-cap}}</span><span class="tile">{{ic:stethoscope}}</span><span class="tile r">{{ic:hand-heart}}</span><span class="tile d">{{ic:handshake}}</span>
+    <span class="cap" style="margin-left:6px">Tile styles: teal tint, raspberry tint (legal aid only), deep teal</span>
+  </div>
+  <div class="icons">
+    {{ICONGRID}}
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">6 · Put together</div>
+  <h2>A sample of the new home page</h2>
+  <p>Real words from the site. Scroll the quote into view and it fills in word by word.</p>
+  <div class="sample">
+    <div class="top"><span class="logo">Takweyat</span><span class="cap">About us · What we do · Our plans</span>
+      <a class="btn roll rasp" id="rollC" href="#" data-t="2600" style="font-size:.9rem">{{ic:scales}}<span class="win"><span class="stack"></span></span>{{ic:arrow-right}}</a></div>
+    <div class="hero"><h3>Professionals turning <mark>expertise</mark> into action</h3>
+      <p>We are lawyers, doctors, educators and social workers who give our own time and skill where society needs it most.</p>
+      <div class="acts"><a class="btn b-light" href="#">Join the movement {{ic:arrow-right}}</a><a class="btn b-lineinv" href="#">Read the plans</a></div></div>
+    <div class="tiles">
+      <div class="card"><span class="tile r">{{ic:scales}}</span><h3>Free legal aid</h3><p>Advice and representation for people who cannot afford a lawyer.</p><a href="#">Ask for help {{ic:arrow-right}}</a></div>
+      <div class="card"><span class="tile">{{ic:graduation-cap}}</span><h3>Education and youth</h3><p>Learning programmes and mentorship in every district we reach.</p><a href="#">See the programme {{ic:arrow-right}}</a></div>
+      <div class="card"><span class="tile">{{ic:stethoscope}}</span><h3>Healthcare</h3><p>Medical camps and care from volunteer doctors.</p><a href="#">See the programme {{ic:arrow-right}}</a></div>
+    </div>
+    <div class="quote"><blockquote id="q">True societal strength comes from active, on-ground participation rather than passive observation.</blockquote><cite>From our profile</cite></div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">7 · To confirm</div>
+  <h2>Three quick answers and I build it</h2>
+  <div class="qs">
+    <div class="q">{{ic:seal-check}}<p><b style="font-weight:500">Which yellowy colour did you mean?</b> I removed both the olive and the cream paper. If you meant only one, say which and I can restore the other.</p></div>
+    <div class="q">{{ic:seal-check}}<p><b style="font-weight:500">Teal-led, raspberry for help only.</b> Is that the right balance, or should raspberry have a larger role?</p></div>
+    <div class="q">{{ic:seal-check}}<p><b style="font-weight:500">Rolling labels and their order.</b> Get free legal aid, Become a volunteer, Partner with us, Press enquiries, Stay updated. Add, remove or reorder?</p></div>
+  </div>
+  <p class="cap" style="margin-top:16px">Illustrations wait for yours. Photos stay as placeholders.</p>
+</section>
+
+</div>
+
+<script>
+(function(){
+  var labels=[['Get free legal aid','scales'],['Become a volunteer','hand-heart'],['Partner with us','handshake'],['Press enquiries','newspaper'],['Stay updated','envelope-simple']];
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function roller(el,dotsEl){
+    var st=el.querySelector('.stack'),paused=false,i=0,t=+el.dataset.t||2600;
+    labels.forEach(function(l){var s=document.createElement('span');s.textContent=l[0];st.appendChild(s)});
+    var first=st.firstChild.cloneNode(true);st.appendChild(first); // clone so the last step rolls forward into the first
+    function dots(){if(!dotsEl)return;dotsEl.innerHTML='';labels.forEach(function(_,k){var d=document.createElement('i');if(k===i%labels.length)d.className='on';d.style.setProperty('--t',t+'ms');dotsEl.appendChild(d)})}
+    function go(){
+      if(paused||reduce)return;
+      i++;var h=st.firstChild.getBoundingClientRect().height;
+      st.style.transform='translateY('+(-i*h)+'px)';
+      if(i===labels.length){setTimeout(function(){st.style.transition='none';st.style.transform='translateY(0)';i=0;void st.offsetWidth;st.style.transition='';dots()},600)}
+      else dots();
+      el.classList.toggle('rasp',i%labels.length===0);el.classList.toggle('tealb',i%labels.length!==0);
+    }
+    el.classList.toggle('rasp',true);el.classList.remove('tealb');
+    ['mouseenter','focus'].forEach(function(e){el.addEventListener(e,function(){paused=true})});
+    ['mouseleave','blur'].forEach(function(e){el.addEventListener(e,function(){paused=false})});
+    dots();setInterval(go,t);
+  }
+  roller(document.getElementById('rollA'),document.getElementById('dots'));
+  roller(document.getElementById('rollB'));
+  roller(document.getElementById('rollC'));
+  var q=document.getElementById('q'),words=q.textContent.split(' ');
+  q.innerHTML=words.map(function(w){return '<span class="w">'+w+'</span> '}).join('');
+  var ws=q.querySelectorAll('.w');
+  function fill(){
+    var r=q.getBoundingClientRect(),vh=innerHeight;
+    var p=Math.min(1,Math.max(0,(vh*0.9-r.top)/(vh*0.45+r.height)));
+    var n=Math.round(p*ws.length);
+    ws.forEach(function(w,k){w.classList.toggle('on',reduce||k<n)});
+  }
+  addEventListener('scroll',fill,{passive:true});addEventListener('resize',fill);fill();
+})();
+</script>

@@ -1,0 +1,23 @@
+---
+// The opening band of every inner page.
+interface Props {
+  title: string;
+  lede?: string;
+  tone?: 'teal' | 'raspberry' | 'charcoal' | 'olive';
+  crumbs?: { label: string; href: string }[];
+  tag?: string;
+  img?: string;
+}
+const { title, lede, tone = 'teal', crumbs = [], tag, img } = Astro.props;
+const bg = { teal: 'var(--teal)', raspberry: 'var(--raspberry)', charcoal: 'var(--charcoal)', olive: 'var(--olive)' }[tone];
+const fg = tone === 'raspberry' || tone === 'olive' ? 'var(--white)' : 'var(--paper)';
+---
+<section class={`pagehead${img ? " has-img" : ""}`} style={`--bg:${bg};--fg:${fg}${img ? `;--img:url(${img})` : ""}`}>
+  <div class="wrap">
+    {crumbs.length > 0 && <p class="crumbs">{crumbs.map((c, i) => <><a href={c.href}>{c.label}</a>{i < crumbs.length - 1 ? ' / ' : ''}</>)}</p>}
+    <h1 class="h1">{title}</h1>
+    {lede && <p class="lede">{lede}</p>}
+    {tag && <span class="tag">{tag}</span>}
+    <slot />
+  </div>
+</section>

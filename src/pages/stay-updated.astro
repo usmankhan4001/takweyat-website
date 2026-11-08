@@ -1,0 +1,10 @@
+---
+import ActionPage from '../components/ActionPage.astro';
+import { updates } from '../data/forms';
+---
+<ActionPage title="Stay updated" id="updates" img="/media/banners/press.jpg" headline="Stay updated" lede="A short email when something important happens. No fundraising." submit="Subscribe"
+  points={[
+    { h: 'Only real news', t: 'We write when there is something worth reading.' },
+    { h: 'No fundraising', t: 'Takweyat does not ask for funds.' },
+    { h: 'Leave any time', t: 'Every email will have a way to unsubscribe.' }]}
+  fields={updates} />

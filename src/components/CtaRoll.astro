@@ -1,0 +1,41 @@
+---
+// One button that rolls through the ways to take part. The label, icon, colour and link change together.
+import fs from 'node:fs';
+import path from 'node:path';
+const { variant = 'top' } = Astro.props;
+const icon = (n: string) => fs.readFileSync(path.join(process.cwd(), 'node_modules/@phosphor-icons/core/assets/regular', `${n}.svg`), 'utf8').replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '');
+const ctas = [
+  { label: 'Get free legal aid', href: '/free-legal-aid/apply/', icon: 'scales', tone: 'help' },
+  { label: 'Become a volunteer', href: '/volunteer/', icon: 'hand-heart', tone: 'go' },
+  { label: 'Partner with us', href: '/partner/', icon: 'handshake', tone: 'go' },
+  { label: 'Press enquiries', href: '/press/enquiry/', icon: 'newspaper', tone: 'go' },
+  { label: 'Stay updated', href: '/stay-updated/', icon: 'envelope-simple', tone: 'go' },
+];
+const loop = [...ctas, ctas[0]]; // repeat the first so the last roll runs forward into it
+---
+<a class={`btn roll ${variant}`} href={ctas[0].href} data-tones={ctas.map((c) => c.tone).join(',')} data-hrefs={ctas.map((c) => c.href).join(',')}>
+  <span class="win ico"><span class="stack">{loop.map((c) => <span><svg viewBox="0 0 256 256" aria-hidden="true" set:html={icon(c.icon)} /></span>)}</span></span>
+  <span class="win"><span class="stack">{loop.map((c) => <span>{c.label}</span>)}</span></span>
+</a>
+<script>
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll<HTMLElement>('.roll').forEach((el) => {
+    const stacks = [...el.querySelectorAll<HTMLElement>('.stack')];
+    const tones = el.dataset.tones!.split(','), hrefs = el.dataset.hrefs!.split(',');
+    const n = tones.length;
+    let i = 0, paused = false;
+    const paint = () => { el.classList.toggle('help', tones[i % n] === 'help'); (el as HTMLAnchorElement).href = hrefs[i % n]; };
+    paint();
+    if (reduce) return;
+    const h = () => { const c = stacks[0].children; return c[1].getBoundingClientRect().top - c[0].getBoundingClientRect().top; }; // row pitch, not height
+    const move = (k: number, anim: boolean) => stacks.forEach((s) => { s.style.transition = anim ? '' : 'none'; s.style.transform = `translateY(${-k * h()}px)`; });
+    ['mouseenter', 'focusin'].forEach((e) => el.addEventListener(e, () => (paused = true)));
+    ['mouseleave', 'focusout'].forEach((e) => el.addEventListener(e, () => (paused = false)));
+    setInterval(() => {
+      if (paused || document.hidden) return;
+      i++; move(i, true);
+      if (i === n) setTimeout(() => { i = 0; move(0, false); paint(); }, 650); else paint();
+      if (i === n) { el.classList.add('help'); (el as HTMLAnchorElement).href = hrefs[0]; }
+    }, 2800);
+  });
+</script>

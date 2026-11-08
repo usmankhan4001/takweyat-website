@@ -1,0 +1,28 @@
+---
+import { site } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="ftr">
+  <div class="wrap">
+    <p class="big">{site.short}<small>{site.name}</small></p>
+    <div class="cols">
+      {Object.entries(site.footerLinks).map(([heading, links]) => (
+        <div>
+          <h4>{heading}</h4>
+          <ul>{links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+        </div>
+      ))}
+      <div>
+        <h4>Find us</h4>
+        <ul>
+          <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          {site.offices.map((o) => <li class="office"><b>{o.name}</b>{o.lines.join(', ')}</li>)}
+        </ul>
+      </div>
+    </div>
+    <div class="fine">
+      <span>&copy; {year} {site.name}</span>
+      <span>We do not ask for funds. We ask for your expertise.</span>
+    </div>
+  </div>
+</footer>

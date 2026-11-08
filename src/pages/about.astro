@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Photo from '../components/Photo.astro';
+import Arrow from '../components/Arrow.astro';
+---
+<Base title="About us" description="Takweyat International Organization is a dynamic collective of civil society members: lawyers, doctors, educators, and social workers.">
+  <PageHead img="/media/banners/about.jpg" title="A Coalition of Professionals. A Commitment to Society." tone="teal" crumbs={[{ label: 'About us', href: '/about/' }]} />
+
+  <section class="band">
+    <div class="wrap cols2 wide-left">
+      <div class="prose lede" data-rise>
+        <p>Takweyat International Organization (تقویت) is a dynamic collective of civil society members originating from diverse professional backgrounds. We are lawyers, doctors, educators, and social workers who believe that true societal strength comes from active, on-ground participation rather than passive observation. Grounded in core Islamic values of justice, ethical responsibility, and brotherhood, we pool our own professional expertise and time to intervene where society needs it most. Whether it is providing pro-bono legal defense, setting up medical camps, or executing disaster relief, Takweyat is driven purely by the power of human capital and community dedication.</p>
+      </div>
+      <Photo caption="Photo: Takweyat members at work" ratio="4 / 5" />
+    </div>
+  </section>
+
+  <section class="band bg-white">
+    <div class="wrap cols2">
+      <h2 class="h2">Our Structure: The Power of Civil Society</h2>
+      <div class="prose lede" data-rise>
+        <p>We are not a traditional charity; we are a multidisciplinary movement. Our main organizational body is composed of respected members of civil society who volunteer their specialized skills to create systemic, long-term change. By uniting different professions under one banner, we ensure that every challenge—from human rights violations to climate disasters—is met with expert, actionable solutions.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band bg-charcoal quote">
+    <div class="wrap cols2 wide-left" style="align-items:center">
+      <figure>
+        <p class="small" style="margin-bottom:20px;font-weight:700">Founder’s Message</p>
+        <blockquote>“Throughout my career in the legal field, I have witnessed the devastating impact of systemic neglect. I also realized that the solution lies within us—the professionals and active members of civil society. Takweyat (تقویت) was born from the realization that we cannot wait for others to fix our society. We do not ask for your funds; we ask for your expertise. From fighting human rights violations in the courtroom to delivering medical aid on the streets, our commitment is fueled by the personal dedication of our members. I invite professionals from all walks of life to join us in this mission of empathy, justice, and actionable change.”</blockquote>
+      </figure>
+      <Photo caption="Photo: the founder" color="var(--olive)" ratio="4 / 5" />
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap cols2 wide-left">
+      <h2 class="h2">Join us in this mission</h2>
+      <div class="btns">
+        <a class="btn" href="/get-involved/"><span>Get involved</span><Arrow /></a>
+        <a class="btn outline" href="/join/"><span>Join the movement</span></a>
+      </div>
+    </div>
+  </section>
+</Base>

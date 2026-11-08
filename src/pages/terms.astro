@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import { site } from '../data/site';
+---
+<Base title="Terms and disclaimer" description="Terms of use and an important note about the information on the Takweyat website.">
+  <PageHead title="Terms and disclaimer" tone="charcoal" lede="Please read this before relying on anything on this website." />
+  <section class="band">
+    <div class="wrap prose stack">
+      <h2 class="h3">General information only</h2>
+      <p>The information on this website is general. It is not legal, medical or professional advice for your particular situation.</p>
+      <h2 class="h3">Sending us a form</h2>
+      <p>Sending a form or an email does not by itself create a lawyer-client or doctor-patient relationship. Applications for free legal aid are reviewed against the scope and eligibility criteria published on the legal aid page, and you will be told the outcome.</p>
+      <h2 class="h3">Plans and goals</h2>
+      <p>The Educational Plan and the Legal Aid and Justice Plan describe long-term goals. They are statements of intent and not descriptions of work already completed, and timelines may change.</p>
+      <h2 class="h3">No fundraising</h2>
+      <p>Takweyat does not ask the public for funds. No member may solicit, collect or manage donations in the organization's name. If you are asked to give money in our name, please tell us at <a href={`mailto:${site.email}`}><b>{site.email}</b></a>.</p>
+      <h2 class="h3">External links</h2>
+      <p>Links to other websites, including our initiatives' own platforms, are provided for convenience. We are not responsible for the content of sites we do not run.</p>
+    </div>
+  </section>
+</Base>

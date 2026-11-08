@@ -1,0 +1,311 @@
+<title>Takweyat Style Board</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Gloock&display=swap">
+<style>
+/* Layout: one calm column of numbered-by-topic sections; every section answers one of the user's questions. */
+:root{
+  --ink:#0D1716; --ink-soft:#44524F; --paper:#F3F6F5; --white:#FFFFFF; --line:#D5DFDC;
+  --teal:#007A7A; --teal-deep:#00504F; --teal-soft:#DCEEEC;
+  --rasp:#A21E66; --rasp-deep:#7F1650; --rasp-soft:#F6E1EC;
+  --old-olive:#937623; --old-cream:#F3EFE6;
+  --display:'Gloock',Georgia,serif; --sans:'DM Sans',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ink:#EAF1EF; --ink-soft:#A6B6B2; --paper:#0B1413; --white:#111C1B; --line:#243433;
+  --teal:#3FB8B4; --teal-deep:#0E3B3A; --teal-soft:#12302F;
+  --rasp:#E0649F; --rasp-deep:#B83A7C; --rasp-soft:#34172A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ink:#EAF1EF; --ink-soft:#A6B6B2; --paper:#0B1413; --white:#111C1B; --line:#243433;
+  --teal:#3FB8B4; --teal-deep:#0E3B3A; --teal-soft:#12302F;
+  --rasp:#E0649F; --rasp-deep:#B83A7C; --rasp-soft:#34172A; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px))}
+section{padding-block:56px;border-top:1px solid var(--line)}
+section:first-of-type{border-top:0}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.12;margin:0;text-wrap:balance}
+h1{font-size:clamp(2.2rem,6vw,3.8rem)} h2{font-size:clamp(1.7rem,3.6vw,2.4rem);margin-bottom:12px} h3{font-size:1.25rem}
+p{margin:0 0 1em;max-width:62ch;color:var(--ink-soft)}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:500;margin-bottom:14px}
+.lede{font-size:1.15rem;color:var(--ink)}
+.ic{width:1.25em;height:1.25em;fill:currentColor;flex:none}
+/* palette */
+.sw{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:28px}
+.chip{border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--white)}
+.chip i{display:block;height:92px}
+.chip div{padding:12px 14px 14px;font-size:.88rem;color:var(--ink-soft)}
+.chip b{display:block;font-weight:500;color:var(--ink);font-size:.95rem}
+.chip code{font:500 .8rem ui-monospace,Consolas,monospace;color:var(--ink)}
+.bar{display:flex;height:44px;border-radius:10px;overflow:hidden;margin:28px 0 8px;border:1px solid var(--line)}
+.bar span{display:flex;align-items:center;padding-left:12px;font-size:.8rem;font-weight:500}
+.cap{font-size:.85rem;color:var(--ink-soft)}
+.pairs{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:20px}
+.pair{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-radius:8px;font-size:.9rem}
+.pair em{font-style:normal;font-weight:500;font-variant-numeric:tabular-nums}
+.old{margin-top:24px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:.9rem;color:var(--ink-soft)}
+.old s{display:inline-block;width:56px;height:28px;border-radius:6px;border:1px solid var(--line);text-decoration:none}
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:.6em;border:0;border-radius:999px;padding:.8em 1.35em;font:500 .98rem/1 var(--sans);cursor:pointer;text-decoration:none;position:relative;overflow:hidden;transition:background .25s,color .25s}
+.btn:focus-visible{outline:3px solid var(--teal);outline-offset:3px}
+.b-primary{background:var(--teal);color:#fff}.b-primary:hover{background:var(--teal-deep)}
+.b-urgent{background:var(--rasp);color:#fff}.b-urgent:hover{background:var(--rasp-deep)}
+.b-line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px currentColor}.b-line:hover{background:var(--ink);color:var(--paper)}
+.b-light{background:#fff;color:var(--teal-deep)}.b-light:hover{background:var(--teal-soft)}
+.b-lineinv{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.8)}.b-lineinv:hover{background:#fff;color:var(--teal-deep)}
+.btn .ic{transition:transform .25s}.btn:hover .ic:last-child{transform:translateX(3px)}
+.surfaces{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:28px}
+.surf{border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:14px;align-items:flex-start;border:1px solid var(--line)}
+.surf small{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.s-paper{background:var(--paper)}.s-white{background:var(--white)}
+.s-teal{background:#00504F;color:#F3F6F5;border-color:transparent}.s-ink{background:#0D1716;color:#F3F6F5;border-color:transparent}
+/* rolling CTA */
+.hdr{margin-top:28px;border-radius:14px;border:1px solid var(--line);background:var(--white);display:flex;align-items:center;gap:20px;padding:14px 18px;flex-wrap:wrap}
+.hdr .logo{font-family:var(--display);font-size:1.3rem;color:var(--teal);margin-right:auto}
+.hdr nav{display:flex;gap:20px;font-size:.92rem;color:var(--ink-soft)}
+.roll{--h:1.2em;font:500 .98rem/var(--h) var(--sans)}
+.roll .win{display:block;height:var(--h);overflow:hidden}
+.roll .stack{display:block;transition:transform .55s cubic-bezier(.65,0,.25,1)}
+.roll .stack span{display:block;height:var(--h);white-space:nowrap}
+.roll.rasp{background:var(--rasp);color:#fff}.roll.rasp:hover{background:var(--rasp-deep)}
+.roll.tealb{background:var(--teal);color:#fff}
+.dots{display:flex;gap:6px;margin-top:14px}
+.dots i{width:22px;height:4px;border-radius:2px;background:var(--line);overflow:hidden;position:relative}
+.dots i.on::after{content:"";position:absolute;inset:0;background:var(--teal);transform-origin:left;animation:fill var(--t,2.6s) linear forwards}
+@keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+table{border-collapse:collapse;width:100%;font-size:.92rem;margin-top:22px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:500;color:var(--ink);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+td{color:var(--ink-soft)}
+.scroll{overflow-x:auto}
+.phone{width:min(320px,100%);border:1px solid var(--line);border-radius:22px;background:var(--white);padding:18px 16px;margin-top:24px;position:relative;min-height:170px}
+.phone p{font-size:.88rem;margin-bottom:.6em}
+.phone .bottombar{position:absolute;left:12px;right:12px;bottom:12px}
+.phone .bottombar .btn{width:100%;justify-content:center}
+.twocol{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:36px;align-items:start}
+/* weights */
+.wt{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:28px}
+.wbox{border-radius:12px;padding:22px;border:1px solid var(--line);background:var(--white)}
+.wbox small{display:block;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:12px}
+.wbox .nav{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px;font-size:.92rem}
+.wbox .lab{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.wbox h3{margin-bottom:8px}
+.wbox p{font-size:.95rem;margin:0}
+.heavy .nav{font-weight:600}.heavy .lab{font-weight:700;color:var(--old-olive)}.heavy p{font-weight:500;color:var(--ink)}.heavy .btn{font-weight:600}
+.light .nav{font-weight:500}.light .lab{font-weight:500;color:var(--teal)}
+/* icons */
+.icons{display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:10px;margin-top:28px}
+.icell{border:1px solid var(--line);background:var(--white);border-radius:10px;padding:18px 8px 12px;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:.74rem;color:var(--ink-soft);text-align:center}
+.icell .ic{width:34px;height:34px;color:var(--teal)}
+.icell:nth-child(5n+3) .ic{color:var(--ink)}
+.iconrow{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:24px}
+.tile{display:flex;align-items:center;justify-content:center;width:56px;height:56px;border-radius:14px;background:var(--teal-soft);color:var(--teal)}
+.tile .ic{width:28px;height:28px}
+.tile.r{background:var(--rasp-soft);color:var(--rasp)}
+.tile.d{background:var(--teal-deep);color:#fff}
+/* sample page */
+.sample{margin-top:32px;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:var(--paper)}
+.sample .top{display:flex;align-items:center;gap:18px;padding:16px 24px;background:var(--white);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.sample .top .logo{font-family:var(--display);font-size:1.25rem;color:var(--teal);margin-right:auto}
+.sample .hero{background:#00504F;color:#F3F6F5;padding:56px 28px 60px}
+.sample .hero h3{font-size:clamp(1.9rem,4.6vw,3rem);max-width:17ch;margin-bottom:16px}
+.sample .hero p{color:#CFE3E1;max-width:48ch;font-size:1.05rem}
+.sample .hero .acts{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.sample .hero mark{background:none;color:#fff;box-shadow:inset 0 -.32em 0 var(--rasp)}
+.sample .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;padding:36px 28px}
+.sample .card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px}
+.sample .card h3{font-size:1.2rem}.sample .card p{font-size:.93rem;margin:0}
+.sample .card a{margin-top:auto;display:inline-flex;align-items:center;gap:6px;color:var(--teal);font-weight:500;font-size:.92rem;text-decoration:none}
+.sample .quote{padding:12px 28px 48px}
+.sample .quote blockquote{margin:0;font-family:var(--display);font-size:clamp(1.4rem,3vw,2.1rem);line-height:1.3;max-width:30ch;color:var(--ink)}
+.sample .quote blockquote .w{opacity:.22;transition:opacity .5s}
+.sample .quote blockquote .w.on{opacity:1}
+.sample .quote cite{display:block;margin-top:16px;font-style:normal;font-size:.9rem;color:var(--ink-soft)}
+.qs{display:grid;gap:14px;margin-top:24px;max-width:70ch}
+.q{display:flex;gap:14px;padding:16px 18px;border-radius:12px;background:var(--white);border:1px solid var(--line)}
+.q .ic{color:var(--rasp);margin-top:3px}.q p{margin:0;color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.roll .stack,.btn,.sample .quote blockquote .w{transition:none}.dots i.on::after{animation:none;transform:none}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-scales" viewBox="0 0 256 256"><path d="M239.43,133l-32-80h0a8,8,0,0,0-9.16-4.84L136,62V40a8,8,0,0,0-16,0V65.58L54.26,80.19A8,8,0,0,0,48.57,85h0v.06L16.57,165a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32a7.92,7.92,0,0,0-.57-3L66.92,93.77,120,82V208H104a8,8,0,0,0,0,16h48a8,8,0,0,0,0-16H136V78.42L187,67.1,160.57,133a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32A7.92,7.92,0,0,0,239.43,133ZM56,184c-7.53,0-22.76-3.61-23.93-14.64L56,109.54l23.93,59.82C78.76,180.39,63.53,184,56,184Zm144-32c-7.53,0-22.76-3.61-23.93-14.64L200,77.54l23.93,59.82C222.76,148.39,207.53,152,200,152Z"/></symbol><symbol id="f-scales" viewBox="0 0 256 256"><path d="M239.43,133l-32-80A8,8,0,0,0,200,48a8.27,8.27,0,0,0-1.73.21L136,62V40a8,8,0,0,0-16,0V65.58L54.27,80.21A8,8,0,0,0,48.57,85l-32,80a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32a7.92,7.92,0,0,0-.57-3L66.92,93.77,120,82V208H104a8,8,0,0,0,0,16h48a8,8,0,0,0,0-16H136V78.42L187,67.1,160.57,133a7.92,7.92,0,0,0-.57,3c0,23.31,24.54,32,40,32s40-8.69,40-32A7.92,7.92,0,0,0,239.43,133Zm-160,35H32.62L56,109.54Zm97.24-32L200,77.54,223.38,136Z"/></symbol><symbol id="i-gavel" viewBox="0 0 256 256"><path d="M243.32,116.69l-16-16a16,16,0,0,0-20.84-1.53L156.84,49.52a16,16,0,0,0-1.52-20.84l-16-16a16,16,0,0,0-22.63,0l-64,64a16,16,0,0,0,0,22.63l16,16a16,16,0,0,0,20.83,1.52L96.69,124,31.31,189.38A25,25,0,0,0,66.63,224.7L132,159.32l7.17,7.16a16,16,0,0,0,1.52,20.84l16,16a16,16,0,0,0,22.63,0l64-64A16,16,0,0,0,243.32,116.69ZM80,104,64,88l64-64,16,16ZM55.32,213.38a9,9,0,0,1-12.69,0,9,9,0,0,1,0-12.68L108,135.32,120.69,148ZM101,105.66,145.66,61,195,110.34,150.35,155ZM168,192l-16-16,4-4h0l56-56h0l4-4,16,16Z"/></symbol><symbol id="f-gavel" viewBox="0 0 256 256"><path d="M52.69,99.31a16,16,0,0,1,0-22.63l64-64a16,16,0,0,1,22.63,22.63l-64,64a16,16,0,0,1-22.63,0Zm190.63,17.37a16,16,0,0,0-22.63,0l-64,64a16,16,0,0,0,0,22.63h0a16,16,0,0,0,22.63,0l64-64A16,16,0,0,0,243.32,116.68Zm-35.11-15.8L155.12,47.79a4,4,0,0,0-5.66,0L87.8,109.45a4,4,0,0,0,0,5.66L103,130.34,28.69,204.69a16,16,0,0,0,22.62,22.62L125.66,153l15.23,15.23a4,4,0,0,0,5.66,0l61.66-61.66A4,4,0,0,0,208.21,100.88Z"/></symbol><symbol id="i-handshake" viewBox="0 0 256 256"><path d="M254.3,107.91,228.78,56.85a16,16,0,0,0-21.47-7.15L182.44,62.13,130.05,48.27a8.14,8.14,0,0,0-4.1,0L73.56,62.13,48.69,49.7a16,16,0,0,0-21.47,7.15L1.7,107.9a16,16,0,0,0,7.15,21.47l27,13.51,55.49,39.63a8.06,8.06,0,0,0,2.71,1.25l64,16a8,8,0,0,0,7.6-2.1l55.07-55.08,26.42-13.21a16,16,0,0,0,7.15-21.46Zm-54.89,33.37L165,113.72a8,8,0,0,0-10.68.61C136.51,132.27,116.66,130,104,122L147.24,80h31.81l27.21,54.41ZM41.53,64,62,74.22,36.43,125.27,16,115.06Zm116,119.13L99.42,168.61l-49.2-35.14,28-56L128,64.28l9.8,2.59-45,43.68-.08.09a16,16,0,0,0,2.72,24.81c20.56,13.13,45.37,11,64.91-5L188,152.66Zm62-57.87-25.52-51L214.47,64,240,115.06Zm-87.75,92.67a8,8,0,0,1-7.75,6.06,8.13,8.13,0,0,1-1.95-.24L80.41,213.33a7.89,7.89,0,0,1-2.71-1.25L51.35,193.26a8,8,0,0,1,9.3-13l25.11,17.94L126,208.24A8,8,0,0,1,131.82,217.94Z"/></symbol><symbol id="f-handshake" viewBox="0 0 256 256"><path d="M254.3,107.91,228.78,56.85a16,16,0,0,0-21.47-7.15L182.44,62.13,130.05,48.27a8.14,8.14,0,0,0-4.1,0L73.56,62.13,48.69,49.7a16,16,0,0,0-21.47,7.15L1.7,107.9a16,16,0,0,0,7.15,21.47l27,13.51,55.49,39.63a8.06,8.06,0,0,0,2.71,1.25l64,16a8,8,0,0,0,7.6-2.1l40-40,15.08-15.08,26.42-13.21a16,16,0,0,0,7.15-21.46Zm-54.89,33.37L165,113.72a8,8,0,0,0-10.68.61C136.51,132.27,116.66,130,104,122L147.24,80h31.81l27.21,54.41Zm-41.87,41.86L99.42,168.61l-49.2-35.14,28-56L128,64.28l9.8,2.59-45,43.68-.08.09a16,16,0,0,0,2.72,24.81c20.56,13.13,45.37,11,64.91-5L188,152.66Zm-25.72,34.8a8,8,0,0,1-7.75,6.06,8.13,8.13,0,0,1-1.95-.24L80.41,213.33a7.89,7.89,0,0,1-2.71-1.25L51.35,193.26a8,8,0,0,1,9.3-13l25.11,17.94L126,208.24A8,8,0,0,1,131.82,217.94Z"/></symbol><symbol id="i-hand-heart" viewBox="0 0 256 256"><path d="M230.33,141.06a24.34,24.34,0,0,0-18.61-4.77C230.5,117.33,240,98.48,240,80c0-26.47-21.29-48-47.46-48A47.58,47.58,0,0,0,156,48.75,47.58,47.58,0,0,0,119.46,32C93.29,32,72,53.53,72,80c0,11,3.24,21.69,10.06,33a31.87,31.87,0,0,0-14.75,8.4L44.69,144H16A16,16,0,0,0,0,160v40a16,16,0,0,0,16,16H120a7.93,7.93,0,0,0,1.94-.24l64-16a6.94,6.94,0,0,0,1.19-.4L226,182.82l.44-.2a24.6,24.6,0,0,0,3.93-41.56ZM119.46,48A31.15,31.15,0,0,1,148.6,67a8,8,0,0,0,14.8,0,31.15,31.15,0,0,1,29.14-19C209.59,48,224,62.65,224,80c0,19.51-15.79,41.58-45.66,63.9l-11.09,2.55A28,28,0,0,0,140,112H100.68C92.05,100.36,88,90.12,88,80,88,62.65,102.41,48,119.46,48ZM16,160H40v40H16Zm203.43,8.21-38,16.18L119,200H56V155.31l22.63-22.62A15.86,15.86,0,0,1,89.94,128H140a12,12,0,0,1,0,24H112a8,8,0,0,0,0,16h32a8.32,8.32,0,0,0,1.79-.2l67-15.41.31-.08a8.6,8.6,0,0,1,6.3,15.9Z"/></symbol><symbol id="f-hand-heart" viewBox="0 0 256 256"><path d="M230.33,141.06a24.34,24.34,0,0,0-18.61-4.77C230.5,117.33,240,98.48,240,80c0-26.47-21.29-48-47.46-48A47.58,47.58,0,0,0,156,48.75,47.58,47.58,0,0,0,119.46,32C93.29,32,72,53.53,72,80c0,11,3.24,21.69,10.06,33a31.87,31.87,0,0,0-14.75,8.4L44.69,144H16A16,16,0,0,0,0,160v40a16,16,0,0,0,16,16H120a7.93,7.93,0,0,0,1.94-.24l64-16a6.94,6.94,0,0,0,1.19-.4L226,182.82l.44-.2a24.6,24.6,0,0,0,3.93-41.56Zm-10.9,27.15-38,16.18L119,200H56V155.31l22.63-22.62A15.86,15.86,0,0,1,89.94,128H140a12,12,0,0,1,0,24H112a8,8,0,0,0,0,16h32a8.32,8.32,0,0,0,1.79-.2l67-15.41.31-.08a8.6,8.6,0,0,1,6.3,15.9Z"/></symbol><symbol id="i-graduation-cap" viewBox="0 0 256 256"><path d="M251.76,88.94l-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V240a8,8,0,0,0,16,0V199.51a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12ZM128,200c-43.27,0-68.72-21.14-80-33.71V126.4l76.24,40.66a8,8,0,0,0,7.52,0L176,143.47v46.34C163.4,195.69,147.52,200,128,200Zm80-33.75a97.83,97.83,0,0,1-16,14.25V134.93l16-8.53ZM188,118.94l-.22-.13-56-29.87a8,8,0,0,0-7.52,14.12L171,128l-43,22.93L25,96,128,41.07,231,96Z"/></symbol><symbol id="f-graduation-cap" viewBox="0 0 256 256"><path d="M176,207.24a119,119,0,0,0,16-7.73V240a8,8,0,0,1-16,0Zm11.76-88.43-56-29.87a8,8,0,0,0-7.52,14.12L171,128l17-9.06Zm64-29.87-120-64a8,8,0,0,0-7.52,0l-120,64a8,8,0,0,0,0,14.12L32,117.87v48.42a15.91,15.91,0,0,0,4.06,10.65C49.16,191.53,78.51,216,128,216a130,130,0,0,0,48-8.76V130.67L171,128l-43,22.93L43.83,106l0,0L25,96,128,41.07,231,96l-18.78,10-.06,0L188,118.94a8,8,0,0,1,4,6.93v73.64a115.63,115.63,0,0,0,27.94-22.57A15.91,15.91,0,0,0,224,166.29V117.87l27.76-14.81a8,8,0,0,0,0-14.12Z"/></symbol><symbol id="i-stethoscope" viewBox="0 0 256 256"><path d="M220,160a12,12,0,1,1-12-12A12,12,0,0,1,220,160Zm-4.55,39.29A48.08,48.08,0,0,1,168,240H144a48.05,48.05,0,0,1-48-48V151.49A64,64,0,0,1,40,88V40a8,8,0,0,1,8-8H72a8,8,0,0,1,0,16H56V88a48,48,0,0,0,48.64,48c26.11-.34,47.36-22.25,47.36-48.83V48H136a8,8,0,0,1,0-16h24a8,8,0,0,1,8,8V87.17c0,32.84-24.53,60.29-56,64.31V192a32,32,0,0,0,32,32h24a32.06,32.06,0,0,0,31.22-25,40,40,0,1,1,16.23.27ZM232,160a24,24,0,1,0-24,24A24,24,0,0,0,232,160Z"/></symbol><symbol id="f-stethoscope" viewBox="0 0 256 256"><path d="M240,160a32,32,0,1,0-39.93,31,8,8,0,0,0-.07,1,32,32,0,0,1-32,32H144a32,32,0,0,1-32-32V151.48c31.47-4,56-31.47,56-64.31V40a8,8,0,0,0-8-8H136a8,8,0,0,0,0,16h16V87.17c0,26.58-21.25,48.49-47.36,48.83A48,48,0,0,1,56,88V48H72a8,8,0,0,0,0-16H48a8,8,0,0,0-8,8V88a64,64,0,0,0,56,63.49V192a48.05,48.05,0,0,0,48,48h24a48.05,48.05,0,0,0,48-48,8,8,0,0,0-.07-1A32,32,0,0,0,240,160Zm-32,8a8,8,0,1,1,8-8A8,8,0,0,1,208,168Z"/></symbol><symbol id="i-bowl-food" viewBox="0 0 256 256"><path d="M224,104h-8.37a88,88,0,0,0-175.26,0H32a8,8,0,0,0-8,8,104.35,104.35,0,0,0,56,92.28V208a16,16,0,0,0,16,16h64a16,16,0,0,0,16-16v-3.72A104.35,104.35,0,0,0,232,112,8,8,0,0,0,224,104Zm-24.46,0H148.12a71.84,71.84,0,0,1,41.27-29.57A71.45,71.45,0,0,1,199.54,104ZM173.48,56.23q2.75,2.25,5.27,4.75a87.92,87.92,0,0,0-49.15,43H100.1A72.26,72.26,0,0,1,168,56C169.83,56,171.66,56.09,173.48,56.23ZM128,40a71.87,71.87,0,0,1,19,2.57A88.36,88.36,0,0,0,83.33,104H56.46A72.08,72.08,0,0,1,128,40Zm36.66,152A8,8,0,0,0,160,199.3V208H96v-8.7A8,8,0,0,0,91.34,192a88.29,88.29,0,0,1-51-72H215.63A88.29,88.29,0,0,1,164.66,192Z"/></symbol><symbol id="f-bowl-food" viewBox="0 0 256 256"><path d="M224,104h-8.37a88,88,0,0,0-175.26,0H32a8,8,0,0,0-8,8,104.35,104.35,0,0,0,56,92.28V208a16,16,0,0,0,16,16h64a16,16,0,0,0,16-16v-3.72A104.35,104.35,0,0,0,232,112,8,8,0,0,0,224,104ZM173.48,56.23q2.75,2.25,5.27,4.75a87.92,87.92,0,0,0-49.15,43H100.1A72.26,72.26,0,0,1,168,56C169.83,56,171.66,56.09,173.48,56.23ZM148.12,104a71.84,71.84,0,0,1,41.27-29.57A71.45,71.45,0,0,1,199.54,104ZM128,40a71.87,71.87,0,0,1,19,2.57A88.36,88.36,0,0,0,83.33,104H56.46A72.08,72.08,0,0,1,128,40Z"/></symbol><symbol id="i-lifebuoy" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm39.1,131.79a47.84,47.84,0,0,0,0-55.58l28.5-28.49a87.83,87.83,0,0,1,0,112.56ZM96,128a32,32,0,1,1,32,32A32,32,0,0,1,96,128Zm88.28-67.6L155.79,88.9a47.84,47.84,0,0,0-55.58,0L71.72,60.4a87.83,87.83,0,0,1,112.56,0ZM60.4,71.72l28.5,28.49a47.84,47.84,0,0,0,0,55.58L60.4,184.28a87.83,87.83,0,0,1,0-112.56ZM71.72,195.6l28.49-28.5a47.84,47.84,0,0,0,55.58,0l28.49,28.5a87.83,87.83,0,0,1-112.56,0Z"/></symbol><symbol id="f-lifebuoy" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM96,128a32,32,0,1,1,32,32A32,32,0,0,1,96,128Zm88.28-67.6L155.79,88.9a47.84,47.84,0,0,0-55.58,0L71.72,60.4a87.83,87.83,0,0,1,112.56,0ZM71.72,195.6l28.49-28.5a47.84,47.84,0,0,0,55.58,0l28.49,28.5a87.83,87.83,0,0,1-112.56,0Z"/></symbol><symbol id="i-users-three" viewBox="0 0 256 256"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"/></symbol><symbol id="f-users-three" viewBox="0 0 256 256"><path d="M64.12,147.8a4,4,0,0,1-4,4.2H16a8,8,0,0,1-7.8-6.17,8.35,8.35,0,0,1,1.62-6.93A67.79,67.79,0,0,1,37,117.51a40,40,0,1,1,66.46-35.8,3.94,3.94,0,0,1-2.27,4.18A64.08,64.08,0,0,0,64,144C64,145.28,64,146.54,64.12,147.8Zm182-8.91A67.76,67.76,0,0,0,219,117.51a40,40,0,1,0-66.46-35.8,3.94,3.94,0,0,0,2.27,4.18A64.08,64.08,0,0,1,192,144c0,1.28,0,2.54-.12,3.8a4,4,0,0,0,4,4.2H240a8,8,0,0,0,7.8-6.17A8.33,8.33,0,0,0,246.17,138.89Zm-89,43.18a48,48,0,1,0-58.37,0A72.13,72.13,0,0,0,65.07,212,8,8,0,0,0,72,224H184a8,8,0,0,0,6.93-12A72.15,72.15,0,0,0,157.19,182.07Z"/></symbol><symbol id="i-book-open-text" viewBox="0 0 256 256"><path d="M232,48H160a40,40,0,0,0-32,16A40,40,0,0,0,96,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,24,8,8,0,0,0,16,0,24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM96,192H32V64H96a24,24,0,0,1,24,24V200A39.81,39.81,0,0,0,96,192Zm128,0H160a39.81,39.81,0,0,0-24,8V88a24,24,0,0,1,24-24h64ZM160,88h40a8,8,0,0,1,0,16H160a8,8,0,0,1,0-16Zm48,40a8,8,0,0,1-8,8H160a8,8,0,0,1,0-16h40A8,8,0,0,1,208,128Zm0,32a8,8,0,0,1-8,8H160a8,8,0,0,1,0-16h40A8,8,0,0,1,208,160Z"/></symbol><symbol id="f-book-open-text" viewBox="0 0 256 256"><path d="M232,48H168a32,32,0,0,0-32,32v87.73a8.17,8.17,0,0,1-7.47,8.25,8,8,0,0,1-8.53-8V80A32,32,0,0,0,88,48H24a8,8,0,0,0-8,8V200a8,8,0,0,0,8,8H96a24,24,0,0,1,24,23.94,7.9,7.9,0,0,0,5.12,7.55A8,8,0,0,0,136,232a24,24,0,0,1,24-24h72a8,8,0,0,0,8-8V56A8,8,0,0,0,232,48ZM208,168H168.27a8.17,8.17,0,0,1-8.25-7.47,8,8,0,0,1,8-8.53h39.73a8.17,8.17,0,0,1,8.25,7.47A8,8,0,0,1,208,168Zm0-32H168.27a8.17,8.17,0,0,1-8.25-7.47,8,8,0,0,1,8-8.53h39.73a8.17,8.17,0,0,1,8.25,7.47A8,8,0,0,1,208,136Zm0-32H168.27A8.17,8.17,0,0,1,160,96.53,8,8,0,0,1,168,88h39.73A8.17,8.17,0,0,1,216,95.47,8,8,0,0,1,208,104Z"/></symbol><symbol id="i-shield-check" viewBox="0 0 256 256"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></symbol><symbol id="f-shield-check" viewBox="0 0 256 256"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm-34.32,69.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></symbol><symbol id="i-newspaper" viewBox="0 0 256 256"><path d="M88,112a8,8,0,0,1,8-8h80a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm8,40h80a8,8,0,0,0,0-16H96a8,8,0,0,0,0,16ZM232,64V184a24,24,0,0,1-24,24H32A24,24,0,0,1,8,184.11V88a8,8,0,0,1,16,0v96a8,8,0,0,0,16,0V64A16,16,0,0,1,56,48H216A16,16,0,0,1,232,64Zm-16,0H56V184a23.84,23.84,0,0,1-1.37,8H208a8,8,0,0,0,8-8Z"/></symbol><symbol id="f-newspaper" viewBox="0 0 256 256"><path d="M216,48H56A16,16,0,0,0,40,64V184a8,8,0,0,1-16,0V88A8,8,0,0,0,8,88v96.11A24,24,0,0,0,32,208H208a24,24,0,0,0,24-24V64A16,16,0,0,0,216,48ZM176,152H96a8,8,0,0,1,0-16h80a8,8,0,0,1,0,16Zm0-32H96a8,8,0,0,1,0-16h80a8,8,0,0,1,0,16Z"/></symbol><symbol id="i-envelope-simple" viewBox="0 0 256 256"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></symbol><symbol id="f-envelope-simple" viewBox="0 0 256 256"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-8,144H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></symbol><symbol id="i-map-pin" viewBox="0 0 256 256"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></symbol><symbol id="f-map-pin" viewBox="0 0 256 256"><path d="M128,16a88.1,88.1,0,0,0-88,88c0,75.3,80,132.17,83.41,134.55a8,8,0,0,0,9.18,0C136,236.17,216,179.3,216,104A88.1,88.1,0,0,0,128,16Zm0,56a32,32,0,1,1-32,32A32,32,0,0,1,128,72Z"/></symbol><symbol id="i-download-simple" viewBox="0 0 256 256"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></symbol><symbol id="f-download-simple" viewBox="0 0 256 256"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40A8,8,0,0,0,168,96H136V32a8,8,0,0,0-16,0V96H88a8,8,0,0,0-5.66,13.66Z"/></symbol><symbol id="i-arrow-right" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol><symbol id="f-arrow-right" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72A8,8,0,0,1,136,200V136H40a8,8,0,0,1,0-16h96V56a8,8,0,0,1,13.66-5.66l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol><symbol id="i-arrow-up-right" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></symbol><symbol id="f-arrow-up-right" viewBox="0 0 256 256"><path d="M200,64V168a8,8,0,0,1-13.66,5.66L140,127.31,69.66,197.66a8,8,0,0,1-11.32-11.32L128.69,116,82.34,69.66A8,8,0,0,1,88,56H192A8,8,0,0,1,200,64Z"/></symbol><symbol id="i-seal-check" viewBox="0 0 256 256"><path d="M225.86,102.82c-3.77-3.94-7.67-8-9.14-11.57-1.36-3.27-1.44-8.69-1.52-13.94-.15-9.76-.31-20.82-8-28.51s-18.75-7.85-28.51-8c-5.25-.08-10.67-.16-13.94-1.52-3.56-1.47-7.63-5.37-11.57-9.14C146.28,23.51,138.44,16,128,16s-18.27,7.51-25.18,14.14c-3.94,3.77-8,7.67-11.57,9.14C88,40.64,82.56,40.72,77.31,40.8c-9.76.15-20.82.31-28.51,8S41,67.55,40.8,77.31c-.08,5.25-.16,10.67-1.52,13.94-1.47,3.56-5.37,7.63-9.14,11.57C23.51,109.72,16,117.56,16,128s7.51,18.27,14.14,25.18c3.77,3.94,7.67,8,9.14,11.57,1.36,3.27,1.44,8.69,1.52,13.94.15,9.76.31,20.82,8,28.51s18.75,7.85,28.51,8c5.25.08,10.67.16,13.94,1.52,3.56,1.47,7.63,5.37,11.57,9.14C109.72,232.49,117.56,240,128,240s18.27-7.51,25.18-14.14c3.94-3.77,8-7.67,11.57-9.14,3.27-1.36,8.69-1.44,13.94-1.52,9.76-.15,20.82-.31,28.51-8s7.85-18.75,8-28.51c.08-5.25.16-10.67,1.52-13.94,1.47-3.56,5.37-7.63,9.14-11.57C232.49,146.28,240,138.44,240,128S232.49,109.73,225.86,102.82Zm-11.55,39.29c-4.79,5-9.75,10.17-12.38,16.52-2.52,6.1-2.63,13.07-2.73,19.82-.1,7-.21,14.33-3.32,17.43s-10.39,3.22-17.43,3.32c-6.75.1-13.72.21-19.82,2.73-6.35,2.63-11.52,7.59-16.52,12.38S132,224,128,224s-9.15-4.92-14.11-9.69-10.17-9.75-16.52-12.38c-6.1-2.52-13.07-2.63-19.82-2.73-7-.1-14.33-.21-17.43-3.32s-3.22-10.39-3.32-17.43c-.1-6.75-.21-13.72-2.73-19.82-2.63-6.35-7.59-11.52-12.38-16.52S32,132,32,128s4.92-9.15,9.69-14.11,9.75-10.17,12.38-16.52c2.52-6.1,2.63-13.07,2.73-19.82.1-7,.21-14.33,3.32-17.43S70.51,56.9,77.55,56.8c6.75-.1,13.72-.21,19.82-2.73,6.35-2.63,11.52-7.59,16.52-12.38S124,32,128,32s9.15,4.92,14.11,9.69,10.17,9.75,16.52,12.38c6.1,2.52,13.07,2.63,19.82,2.73,7,.1,14.33.21,17.43,3.32s3.22,10.39,3.32,17.43c.1,6.75.21,13.72,2.73,19.82,2.63,6.35,7.59,11.52,12.38,16.52S224,124,224,128,219.08,137.15,214.31,142.11ZM173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34Z"/></symbol><symbol id="f-seal-check" viewBox="0 0 256 256"><path d="M225.86,102.82c-3.77-3.94-7.67-8-9.14-11.57-1.36-3.27-1.44-8.69-1.52-13.94-.15-9.76-.31-20.82-8-28.51s-18.75-7.85-28.51-8c-5.25-.08-10.67-.16-13.94-1.52-3.56-1.47-7.63-5.37-11.57-9.14C146.28,23.51,138.44,16,128,16s-18.27,7.51-25.18,14.14c-3.94,3.77-8,7.67-11.57,9.14C88,40.64,82.56,40.72,77.31,40.8c-9.76.15-20.82.31-28.51,8S41,67.55,40.8,77.31c-.08,5.25-.16,10.67-1.52,13.94-1.47,3.56-5.37,7.63-9.14,11.57C23.51,109.72,16,117.56,16,128s7.51,18.27,14.14,25.18c3.77,3.94,7.67,8,9.14,11.57,1.36,3.27,1.44,8.69,1.52,13.94.15,9.76.31,20.82,8,28.51s18.75,7.85,28.51,8c5.25.08,10.67.16,13.94,1.52,3.56,1.47,7.63,5.37,11.57,9.14C109.72,232.49,117.56,240,128,240s18.27-7.51,25.18-14.14c3.94-3.77,8-7.67,11.57-9.14,3.27-1.36,8.69-1.44,13.94-1.52,9.76-.15,20.82-.31,28.51-8s7.85-18.75,8-28.51c.08-5.25.16-10.67,1.52-13.94,1.47-3.56,5.37-7.63,9.14-11.57C232.49,146.28,240,138.44,240,128S232.49,109.73,225.86,102.82Zm-52.2,6.84-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></symbol><symbol id="i-lock-key" viewBox="0 0 256 256"><path d="M128,112a28,28,0,0,0-8,54.83V184a8,8,0,0,0,16,0V166.83A28,28,0,0,0,128,112Zm0,40a12,12,0,1,1,12-12A12,12,0,0,1,128,152Zm80-72H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96ZM208,208H48V96H208V208Z"/></symbol><symbol id="f-lock-key" viewBox="0 0 256 256"><path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80Zm-72,78.63V184a8,8,0,0,1-16,0V158.63a24,24,0,1,1,16,0ZM160,80H96V56a32,32,0,0,1,64,0Z"/></symbol><symbol id="i-clock" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></symbol><symbol id="f-clock" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm56,112H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48a8,8,0,0,1,0,16Z"/></symbol><symbol id="i-file-text" viewBox="0 0 256 256"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></symbol><symbol id="f-file-text" viewBox="0 0 256 256"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,176H96a8,8,0,0,1,0-16h64a8,8,0,0,1,0,16Zm0-32H96a8,8,0,0,1,0-16h64a8,8,0,0,1,0,16Zm-8-56V44l44,44Z"/></symbol><symbol id="i-hands-praying" viewBox="0 0 256 256"><path d="M235.32,180l-36.24-36.25L162.62,23.46A21.76,21.76,0,0,0,128,12.93,21.76,21.76,0,0,0,93.38,23.46L56.92,143.76,20.68,180a16,16,0,0,0,0,22.62l32.69,32.69a16,16,0,0,0,22.63,0L124.28,187a40.68,40.68,0,0,0,3.72-4.29,40.68,40.68,0,0,0,3.72,4.29L180,235.32a16,16,0,0,0,22.63,0l32.69-32.69A16,16,0,0,0,235.32,180ZM64.68,224,32,191.32l12.69-12.69,32.69,32.69ZM120,158.75a23.85,23.85,0,0,1-7,17L88.68,200,56,167.32l13.65-13.66a8,8,0,0,0,2-3.34l37-122.22A5.78,5.78,0,0,1,120,29.78Zm23,17a23.85,23.85,0,0,1-7-17v-129a5.78,5.78,0,0,1,11.31-1.68l37,122.22a8,8,0,0,0,2,3.34l14.49,14.49-33.4,32ZM191.32,224l-12.56-12.57,33.39-32L224,191.32Z"/></symbol><symbol id="f-hands-praying" viewBox="0 0 256 256"><path d="M235.32,180l-36.24-36.25L162.62,23.46A21.76,21.76,0,0,0,128,12.93,21.76,21.76,0,0,0,93.38,23.46L56.92,143.76,20.68,180a16,16,0,0,0,0,22.62l32.69,32.69a16,16,0,0,0,22.63,0L124.28,187a40.68,40.68,0,0,0,3.72-4.29,40.68,40.68,0,0,0,3.72,4.29L180,235.32a16,16,0,0,0,22.63,0l32.69-32.69A16,16,0,0,0,235.32,180ZM120,158.75a23.85,23.85,0,0,1-7,17L88.68,200,56,167.32l13.65-13.66a8,8,0,0,0,2-3.34l37-122.22A5.78,5.78,0,0,1,120,29.78Zm47.44,41.38L143,175.72a23.85,23.85,0,0,1-7-17v-129a5.78,5.78,0,0,1,11.31-1.68l37,122.22a8,8,0,0,0,2,3.34l14.49,14.49Z"/></symbol><symbol id="i-tree-evergreen" viewBox="0 0 256 256"><path d="M230.32,187.09l-46-59.09H208a8,8,0,0,0,6.34-12.88l-80-104a8,8,0,0,0-12.68,0l-80,104A8,8,0,0,0,48,128H71.64l-46,59.09A8,8,0,0,0,32,200h88v40a8,8,0,0,0,16,0V200h88a8,8,0,0,0,6.32-12.91ZM48.36,184l46-59.09A8,8,0,0,0,88,112H64.25L128,29.12,191.75,112H168a8,8,0,0,0-6.31,12.91L207.64,184Z"/></symbol><symbol id="f-tree-evergreen" viewBox="0 0 256 256"><path d="M231.19,195.51A8,8,0,0,1,224,200H136v40a8,8,0,0,1-16,0V200H32a8,8,0,0,1-6.31-12.91l46-59.09H48a8,8,0,0,1-6.34-12.88l80-104a8,8,0,0,1,12.68,0l80,104A8,8,0,0,1,208,128H184.36l45.95,59.09A8,8,0,0,1,231.19,195.51Z"/></symbol><symbol id="i-drop" viewBox="0 0 256 256"><path d="M174,47.75a254.19,254.19,0,0,0-41.45-38.3,8,8,0,0,0-9.18,0A254.19,254.19,0,0,0,82,47.75C54.51,79.32,40,112.6,40,144a88,88,0,0,0,176,0C216,112.6,201.49,79.32,174,47.75ZM128,216a72.08,72.08,0,0,1-72-72c0-57.23,55.47-105,72-118,16.53,13,72,60.75,72,118A72.08,72.08,0,0,1,128,216Zm55.89-62.66a57.6,57.6,0,0,1-46.56,46.55A8.75,8.75,0,0,1,136,200a8,8,0,0,1-1.32-15.89c16.57-2.79,30.63-16.85,33.44-33.45a8,8,0,0,1,15.78,2.68Z"/></symbol><symbol id="f-drop" viewBox="0 0 256 256"><path d="M174,47.75a254.19,254.19,0,0,0-41.45-38.3,8,8,0,0,0-9.18,0A254.19,254.19,0,0,0,82,47.75C54.51,79.32,40,112.6,40,144a88,88,0,0,0,176,0C216,112.6,201.49,79.32,174,47.75Zm9.85,105.59a57.6,57.6,0,0,1-46.56,46.55A8.75,8.75,0,0,1,136,200a8,8,0,0,1-1.32-15.89c16.57-2.79,30.63-16.85,33.44-33.45a8,8,0,0,1,15.78,2.68Z"/></symbol><symbol id="i-house-line" viewBox="0 0 256 256"><path d="M240,208H224V136l2.34,2.34A8,8,0,0,0,237.66,127L139.31,28.68a16,16,0,0,0-22.62,0L18.34,127a8,8,0,0,0,11.32,11.31L32,136v72H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM48,120l80-80,80,80v88H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48Zm96,88H112V160h32Z"/></symbol><symbol id="f-house-line" viewBox="0 0 256 256"><path d="M240,208H224V136l2.34,2.34A8,8,0,0,0,237.66,127L139.31,28.68a16,16,0,0,0-22.62,0L18.34,127a8,8,0,0,0,11.32,11.31L32,136v72H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16Zm-88,0H104V160a4,4,0,0,1,4-4h40a4,4,0,0,1,4,4Z"/></symbol><symbol id="i-first-aid-kit" viewBox="0 0 256 256"><path d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56ZM96,48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8v8H96ZM216,200H40V72H216V200Zm-56-64a8,8,0,0,1-8,8H136v16a8,8,0,0,1-16,0V144H104a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16A8,8,0,0,1,160,136Z"/></symbol><symbol id="f-first-aid-kit" viewBox="0 0 256 256"><path d="M216,56H176V48a24,24,0,0,0-24-24H104A24,24,0,0,0,80,48v8H40A16,16,0,0,0,24,72V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V72A16,16,0,0,0,216,56Zm-64,88H136v16a8,8,0,0,1-16,0V144H104a8,8,0,0,1,0-16h16V112a8,8,0,0,1,16,0v16h16a8,8,0,0,1,0,16Zm8-88H96V48a8,8,0,0,1,8-8h48a8,8,0,0,1,8,8Z"/></symbol><symbol id="i-microphone-stage" viewBox="0 0 256 256"><path d="M168,16A72.07,72.07,0,0,0,96,88a73.29,73.29,0,0,0,.63,9.42L27.12,192.22A15.93,15.93,0,0,0,28.71,213L43,227.29a15.93,15.93,0,0,0,20.78,1.59l94.81-69.53A73.29,73.29,0,0,0,168,160a72,72,0,1,0,0-144Zm56,72a55.72,55.72,0,0,1-11.16,33.52L134.49,43.16A56,56,0,0,1,224,88ZM54.32,216,40,201.68,102.14,117A72.37,72.37,0,0,0,139,153.86ZM112,88a55.67,55.67,0,0,1,11.16-33.51l78.34,78.34A56,56,0,0,1,112,88Zm-2.35,58.34a8,8,0,0,1,0,11.31l-8,8a8,8,0,1,1-11.31-11.31l8-8A8,8,0,0,1,109.67,146.33Z"/></symbol><symbol id="f-microphone-stage" viewBox="0 0 256 256"><path d="M115.06,46.36a4,4,0,0,0-6.11.54A71.54,71.54,0,0,0,96,88a73.29,73.29,0,0,0,.63,9.42L27.12,192.22A15.93,15.93,0,0,0,28.71,213L43,227.29a15.93,15.93,0,0,0,20.78,1.59l94.81-69.53A73.29,73.29,0,0,0,168,160a71.54,71.54,0,0,0,41.09-12.93,4,4,0,0,0,.54-6.11Zm2.61,103.28-16,16a8,8,0,1,1-11.31-11.31l16-16a8,8,0,0,1,11.31,11.31Zm109.4-20.56a4,4,0,0,1-6.12.54L126.38,35.05a4,4,0,0,1,.54-6.12A71.93,71.93,0,0,1,227.07,129.08Z"/></symbol><symbol id="i-hand-waving" viewBox="0 0 256 256"><path d="M220.17,100,202.86,70a28,28,0,0,0-38.24-10.25,27.69,27.69,0,0,0-9,8.34L138.2,38a28,28,0,0,0-48.48,0A28,28,0,0,0,48.15,74l1.59,2.76A27.67,27.67,0,0,0,38,80.41a28,28,0,0,0-10.24,38.25l40,69.32a87.47,87.47,0,0,0,53.43,41,88.56,88.56,0,0,0,22.92,3,88,88,0,0,0,76.06-132Zm-6.66,62.64A72,72,0,0,1,81.62,180l-40-69.32a12,12,0,0,1,20.78-12L81.63,132a8,8,0,1,0,13.85-8L62,66A12,12,0,1,1,82.78,54L114,108a8,8,0,1,0,13.85-8L103.57,58h0a12,12,0,1,1,20.78-12l33.42,57.9a48,48,0,0,0-5.54,60.6,8,8,0,0,0,13.24-9A32,32,0,0,1,172.78,112a8,8,0,0,0,2.13-10.4L168.23,90A12,12,0,1,1,189,78l17.31,30A71.56,71.56,0,0,1,213.51,162.62ZM184.25,31.71A8,8,0,0,1,194,26a59.62,59.62,0,0,1,36.53,28l.33.57a8,8,0,1,1-13.85,8l-.33-.57a43.67,43.67,0,0,0-26.8-20.5A8,8,0,0,1,184.25,31.71ZM80.89,237a8,8,0,0,1-11.23,1.33A119.56,119.56,0,0,1,40.06,204a8,8,0,0,1,13.86-8,103.67,103.67,0,0,0,25.64,29.72A8,8,0,0,1,80.89,237Z"/></symbol><symbol id="f-hand-waving" viewBox="0 0 256 256"><path d="M219.31,98.46A88,88,0,1,1,67.08,186.77h0L26.15,115.88a16,16,0,0,1,27.69-16L72.4,132a8,8,0,0,0,13.86-8L47,56A16,16,0,0,1,74.69,40L114,108a8,8,0,1,0,13.85-8l-30-52a16,16,0,0,1,27.71-16L166,102.12A48.25,48.25,0,0,0,152,136a47.59,47.59,0,0,0,9.6,28.8,8,8,0,1,0,12.79-9.61A32,32,0,0,1,181,110.26a8,8,0,0,0,2.17-10.43L171.71,80a16,16,0,0,1,27.71-16l19.89,34.46Zm-29.37-57A43.74,43.74,0,0,1,216.74,62l.33.57a8,8,0,0,0,13.86-8L230.6,54a59.64,59.64,0,0,0-36.54-28,8,8,0,0,0-4.12,15.46ZM79.58,225.72A103.58,103.58,0,0,1,53.93,196a8,8,0,0,0-13.86,8,119.56,119.56,0,0,0,29.6,34.28,8,8,0,0,0,9.91-12.56Z"/></symbol></svg>
+
+<div class="wrap">
+
+<section>
+  <div class="eyebrow">Takweyat International Organization · Website outlook</div>
+  <h1>One teal. One raspberry. Calm paper. Light type.</h1>
+  <p class="lede" style="margin-top:18px">The content stays exactly as it is. This board shows how the outlook changes: a single colour system, buttons that follow the surface they sit on, Phosphor icons, an animated call-to-action, and lighter type.</p>
+  <p>Everything below is live, so hover, tab and scroll. Nothing on the website has been changed yet.</p>
+</section>
+
+<section>
+  <div class="eyebrow">1 · Colour</div>
+  <h2>Six colours, each with one job</h2>
+  <p>The yellowy tones are gone. The warm cream paper becomes a cool, slightly green-tinted off-white, and the olive field colour is dropped from the screen entirely. It can stay in print and in the logo family if you want it.</p>
+  <div class="sw">
+    <div class="chip"><i style="background:#007A7A"></i><div><b>Teal</b><code>#007A7A</code><br>The brand. Structure, links, main buttons, icons.</div></div>
+    <div class="chip"><i style="background:#00504F"></i><div><b>Deep teal</b><code>#00504F</code><br>Dark bands, hero, footer. Replaces black blocks.</div></div>
+    <div class="chip"><i style="background:#A21E66"></i><div><b>Raspberry</b><code>#A21E66</code><br>One job: urgent help. Legal aid button, highlights. Never on teal.</div></div>
+    <div class="chip"><i style="background:#0D1716"></i><div><b>Ink</b><code>#0D1716</code><br>Text. A green-black, so it sits with the teal.</div></div>
+    <div class="chip"><i style="background:#F3F6F5;border-bottom:1px solid #D5DFDC"></i><div><b>Mist</b><code>#F3F6F5</code><br>Page background. Cool, not cream.</div></div>
+    <div class="chip"><i style="background:linear-gradient(90deg,#DCEEEC 50%,#F6E1EC 50%)"></i><div><b>Soft tints</b><code>#DCEEEC · #F6E1EC</code><br>Icon tiles and quiet panels only.</div></div>
+  </div>
+
+  <div class="bar" role="img" aria-label="Proportion of colour: about sixty percent mist and white, thirty percent teal, ten percent raspberry">
+    <span style="flex:60;background:#F3F6F5;color:#0D1716">60% mist + white</span>
+    <span style="flex:28;background:#007A7A;color:#fff">28% teal</span>
+    <span style="flex:12;background:#A21E66;color:#fff">12%</span>
+  </div>
+  <div class="cap">Rough share of any page. Raspberry stays small, so it still means "act now".</div>
+
+  <div class="pairs">
+    <div class="pair" style="background:#F3F6F5;color:#0D1716;border:1px solid var(--line)">Ink on mist <em>16.8</em></div>
+    <div class="pair" style="background:#F3F6F5;color:#44524F;border:1px solid var(--line)">Soft ink on mist <em>7.5</em></div>
+    <div class="pair" style="background:#007A7A;color:#fff">White on teal <em>5.2</em></div>
+    <div class="pair" style="background:#00504F;color:#F3F6F5">Mist on deep teal <em>8.5</em></div>
+    <div class="pair" style="background:#A21E66;color:#fff">White on raspberry <em>7.2</em></div>
+    <div class="pair" style="background:#DCEEEC;color:#0D1716">Ink on teal tint <em>15.2</em></div>
+  </div>
+  <div class="cap" style="margin-top:8px">Contrast ratios (WCAG needs 4.5 for body text). The old grey #7B7B7B scores 3.9 on mist, so it is retired for small text.</div>
+
+  <div class="old"><span>Retired:</span><s style="background:#937623" title="olive"></s><span>olive #937623</span><s style="background:#F3EFE6;margin-left:10px" title="cream"></s><span>cream #F3EFE6</span><s style="background:#A21E66;margin-left:10px"></s><span>raspberry-on-teal buttons (contrast 1.4, they vibrated)</span></div>
+</section>
+
+<section>
+  <div class="eyebrow">2 · Buttons</div>
+  <h2>The surface decides the button</h2>
+  <p>No more raspberry on teal. A button is chosen by the background it sits on, and the colour of a button says what it does.</p>
+  <div class="surfaces">
+    <div class="surf s-paper"><small>On mist or white</small>
+      <a class="btn b-primary" href="#">Join the movement <svg class="ic " aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+      <a class="btn b-urgent" href="#"><svg class="ic " aria-hidden="true"><use href="#i-scales"/></svg> Get free legal aid</a>
+      <a class="btn b-line" href="#">Read the plans</a></div>
+    <div class="surf s-teal"><small>On deep teal</small>
+      <a class="btn b-light" href="#">Join the movement <svg class="ic " aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+      <a class="btn b-lineinv" href="#">Read the plans</a></div>
+    <div class="surf s-ink"><small>On ink (footer)</small>
+      <a class="btn b-light" href="#">Write to us <svg class="ic " aria-hidden="true"><use href="#i-envelope-simple"/></svg></a>
+      <a class="btn b-lineinv" href="#">Press</a></div>
+  </div>
+  <p class="cap" style="margin-top:14px">Teal button: go somewhere. Raspberry button: get help now (the only one per screen). Outline: secondary. Hover darkens; the arrow nudges.</p>
+</section>
+
+<section>
+  <div class="eyebrow">3 · The animated call-to-action</div>
+  <h2>One button, five asks, rolling</h2>
+  <p>The header button and the mobile bar cycle through the five ways to take part. The words roll up like a departures board, then settle. The destination changes with the word. Hover or focus pauses it, and with reduced motion it shows the first label only.</p>
+  <div class="hdr">
+    <span class="logo">Takweyat</span>
+    <nav aria-label="Example menu"><span>About us</span><span>What we do</span><span>Our plans</span><span>Initiatives</span></nav>
+    <a class="btn roll rasp" id="rollA" href="#" data-t="2600"><svg class="ic " aria-hidden="true"><use href="#i-scales"/></svg><span class="win"><span class="stack"></span></span><svg class="ic " aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
+  </div>
+  <div class="dots" id="dots" aria-hidden="true"></div>
+  <div class="twocol" style="margin-top:28px">
+    <div class="scroll"><table>
+      <tr><th>Label</th><th>Goes to</th><th>Form</th></tr>
+      <tr><td>Get free legal aid</td><td>/take-action/#legal-aid</td><td>Case request</td></tr>
+      <tr><td>Become a volunteer</td><td>/take-action/#volunteer</td><td>Profession and hours</td></tr>
+      <tr><td>Partner with us</td><td>/take-action/#partner</td><td>Organisation and idea</td></tr>
+      <tr><td>Press enquiries</td><td>/take-action/#press</td><td>Outlet and deadline</td></tr>
+      <tr><td>Stay updated</td><td>/take-action/#updates</td><td>Email only</td></tr>
+    </table></div>
+    <div><div class="cap">On a phone the same button sits in a bar at the bottom of the screen</div>
+      <div class="phone"><p><b style="font-weight:500;color:var(--ink)">Free legal aid</b></p><p>Scope, who can ask, and how a request is handled.</p>
+        <div class="bottombar"><a class="btn roll tealb" id="rollB" href="#" data-t="2600"><svg class="ic " aria-hidden="true"><use href="#i-hand-heart"/></svg><span class="win"><span class="stack"></span></span></a></div></div></div>
+  </div>
+  <p class="cap" style="margin-top:14px">The legal aid label turns raspberry; the other four turn teal as it rolls (shown in the header above).</p>
+</section>
+
+<section>
+  <div class="eyebrow">4 · Type weight</div>
+  <h2>Less bold, more light</h2>
+  <p>Gloock is already a heavy face, so it stays at its single weight and carries the headings. Bold on top of it is what looked loud. Menu, buttons and labels drop from 600 or 700 to 500, and body text stays at 400.</p>
+  <div class="wt">
+    <div class="wbox heavy"><small>Now</small><div class="nav"><span>About us</span><span>Our plans</span><span>Initiatives</span></div><div class="lab">Free legal aid</div><h3>Help for those who cannot afford it</h3><p>Weight 600 and 700 on every menu, label and button, so everything shouts and nothing leads.</p></div>
+    <div class="wbox light"><small>Proposed</small><div class="nav"><span>About us</span><span>Our plans</span><span>Initiatives</span></div><div class="lab">Free legal aid</div><h3>Help for those who cannot afford it</h3><p style="font-weight:400">Weight 500 for the interface, 400 for reading. Hierarchy comes from size, colour and space.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">5 · Icons</div>
+  <h2>Phosphor Icons</h2>
+  <p>Over 1,500 icons in six weights, MIT licensed, so they can ship in the site. One weight is used everywhere (regular, 1.5px feel) with filled versions reserved for active states. Icons come in a soft tile on cards, plain beside links.</p>
+  <div class="iconrow">
+    <span class="tile"><svg class="ic " aria-hidden="true"><use href="#i-scales"/></svg></span><span class="tile"><svg class="ic " aria-hidden="true"><use href="#i-graduation-cap"/></svg></span><span class="tile"><svg class="ic " aria-hidden="true"><use href="#i-stethoscope"/></svg></span><span class="tile r"><svg class="ic " aria-hidden="true"><use href="#i-hand-heart"/></svg></span><span class="tile d"><svg class="ic " aria-hidden="true"><use href="#i-handshake"/></svg></span>
+    <span class="cap" style="margin-left:6px">Tile styles: teal tint, raspberry tint (legal aid only), deep teal</span>
+  </div>
+  <div class="icons">
+    <div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-scales"/></svg>scales</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-gavel"/></svg>gavel</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-handshake"/></svg>handshake</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-hand-heart"/></svg>hand-heart</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-graduation-cap"/></svg>graduation-cap</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-stethoscope"/></svg>stethoscope</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-bowl-food"/></svg>bowl-food</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-lifebuoy"/></svg>lifebuoy</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-users-three"/></svg>users-three</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-book-open-text"/></svg>book-open-text</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-shield-check"/></svg>shield-check</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-newspaper"/></svg>newspaper</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-envelope-simple"/></svg>envelope-simple</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-map-pin"/></svg>map-pin</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-download-simple"/></svg>download-simple</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-arrow-right"/></svg>arrow-right</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-arrow-up-right"/></svg>arrow-up-right</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-seal-check"/></svg>seal-check</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-lock-key"/></svg>lock-key</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-clock"/></svg>clock</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-file-text"/></svg>file-text</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-hands-praying"/></svg>hands-praying</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-tree-evergreen"/></svg>tree-evergreen</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-drop"/></svg>drop</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-house-line"/></svg>house-line</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-first-aid-kit"/></svg>first-aid-kit</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-microphone-stage"/></svg>microphone-stage</div><div class="icell"><svg class="ic " aria-hidden="true"><use href="#i-hand-waving"/></svg>hand-waving</div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">6 · Put together</div>
+  <h2>A sample of the new home page</h2>
+  <p>Real words from the site. Scroll the quote into view and it fills in word by word.</p>
+  <div class="sample">
+    <div class="top"><span class="logo">Takweyat</span><span class="cap">About us · What we do · Our plans</span>
+      <a class="btn roll rasp" id="rollC" href="#" data-t="2600" style="font-size:.9rem"><svg class="ic " aria-hidden="true"><use href="#i-scales"/></svg><span class="win"><span class="stack"></span></span><svg class="ic " aria-hidden="true"><use href="#i-arrow-right"/></svg></a></div>
+    <div class="hero"><h3>Professionals turning <mark>expertise</mark> into action</h3>
+      <p>We are lawyers, doctors, educators and social workers who give our own time and skill where society needs it most.</p>
+      <div class="acts"><a class="btn b-light" href="#">Join the movement <svg class="ic " aria-hidden="true"><use href="#i-arrow-right"/></svg></a><a class="btn b-lineinv" href="#">Read the plans</a></div></div>
+    <div class="tiles">
+      <div class="card"><span class="tile r"><svg class="ic " aria-hidden="true"><use href="#i-scales"/></svg></span><h3>Free legal aid</h3><p>Advice and representation for people who cannot afford a lawyer.</p><a href="#">Ask for help <svg class="ic " aria-hidden="true"><use href="#i-arrow-right"/></svg></a></div>
+      <div class="card"><span class="tile"><svg class="ic " aria-hidden="true"><use href="#i-graduation-cap"/></svg></span><h3>Education and youth</h3><p>Learning programmes and mentorship in every district we reach.</p><a href="#">See the programme <svg class="ic " aria-hidden="true"><use href="#i-arrow-right"/></svg></a></div>
+      <div class="card"><span class="tile"><svg class="ic " aria-hidden="true"><use href="#i-stethoscope"/></svg></span><h3>Healthcare</h3><p>Medical camps and care from volunteer doctors.</p><a href="#">See the programme <svg class="ic " aria-hidden="true"><use href="#i-arrow-right"/></svg></a></div>
+    </div>
+    <div class="quote"><blockquote id="q">True societal strength comes from active, on-ground participation rather than passive observation.</blockquote><cite>From our profile</cite></div>
+  </div>
+</section>
+
+<section>
+  <div class="eyebrow">7 · To confirm</div>
+  <h2>Three quick answers and I build it</h2>
+  <div class="qs">
+    <div class="q"><svg class="ic " aria-hidden="true"><use href="#i-seal-check"/></svg><p><b style="font-weight:500">Which yellowy colour did you mean?</b> I removed both the olive and the cream paper. If you meant only one, say which and I can restore the other.</p></div>
+    <div class="q"><svg class="ic " aria-hidden="true"><use href="#i-seal-check"/></svg><p><b style="font-weight:500">Teal-led, raspberry for help only.</b> Is that the right balance, or should raspberry have a larger role?</p></div>
+    <div class="q"><svg class="ic " aria-hidden="true"><use href="#i-seal-check"/></svg><p><b style="font-weight:500">Rolling labels and their order.</b> Get free legal aid, Become a volunteer, Partner with us, Press enquiries, Stay updated. Add, remove or reorder?</p></div>
+  </div>
+  <p class="cap" style="margin-top:16px">Illustrations wait for yours. Photos stay as placeholders.</p>
+</section>
+
+</div>
+
+<script>
+(function(){
+  var labels=[['Get free legal aid','scales'],['Become a volunteer','hand-heart'],['Partner with us','handshake'],['Press enquiries','newspaper'],['Stay updated','envelope-simple']];
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function roller(el,dotsEl){
+    var st=el.querySelector('.stack'),paused=false,i=0,t=+el.dataset.t||2600;
+    labels.forEach(function(l){var s=document.createElement('span');s.textContent=l[0];st.appendChild(s)});
+    var first=st.firstChild.cloneNode(true);st.appendChild(first); // clone so the last step rolls forward into the first
+    function dots(){if(!dotsEl)return;dotsEl.innerHTML='';labels.forEach(function(_,k){var d=document.createElement('i');if(k===i%labels.length)d.className='on';d.style.setProperty('--t',t+'ms');dotsEl.appendChild(d)})}
+    function go(){
+      if(paused||reduce)return;
+      i++;var h=st.firstChild.getBoundingClientRect().height;
+      st.style.transform='translateY('+(-i*h)+'px)';
+      if(i===labels.length){setTimeout(function(){st.style.transition='none';st.style.transform='translateY(0)';i=0;void st.offsetWidth;st.style.transition='';dots()},600)}
+      else dots();
+      el.classList.toggle('rasp',i%labels.length===0);el.classList.toggle('tealb',i%labels.length!==0);
+    }
+    el.classList.toggle('rasp',true);el.classList.remove('tealb');
+    ['mouseenter','focus'].forEach(function(e){el.addEventListener(e,function(){paused=true})});
+    ['mouseleave','blur'].forEach(function(e){el.addEventListener(e,function(){paused=false})});
+    dots();setInterval(go,t);
+  }
+  roller(document.getElementById('rollA'),document.getElementById('dots'));
+  roller(document.getElementById('rollB'));
+  roller(document.getElementById('rollC'));
+  var q=document.getElementById('q'),words=q.textContent.split(' ');
+  q.innerHTML=words.map(function(w){return '<span class="w">'+w+'</span> '}).join('');
+  var ws=q.querySelectorAll('.w');
+  function fill(){
+    var r=q.getBoundingClientRect(),vh=innerHeight;
+    var p=Math.min(1,Math.max(0,(vh*0.9-r.top)/(vh*0.45+r.height)));
+    var n=Math.round(p*ws.length);
+    ws.forEach(function(w,k){w.classList.toggle('on',reduce||k<n)});
+  }
+  addEventListener('scroll',fill,{passive:true});addEventListener('resize',fill);fill();
+})();
+</script>

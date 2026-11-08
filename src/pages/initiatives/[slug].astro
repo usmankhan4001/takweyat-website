@@ -1,0 +1,111 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import Arrow from '../../components/Arrow.astro';
+import { initiatives, statusLabel } from '../../data/initiatives';
+import { site } from '../../data/site';
+import { scope, steps } from '../../data/legalAid';
+
+export function getStaticPaths() {
+  return initiatives.map((i) => ({ params: { slug: i.slug }, props: { i } }));
+}
+const { i } = Astro.props;
+const others = initiatives.filter((x) => x.slug !== i.slug && (i.status === 'planned' ? x.status === 'planned' : true)).slice(0, 4);
+const tone = i.status === 'live' ? 'teal' : i.status === 'active' ? 'olive' : 'charcoal';
+const artBy: Record<string, string> = { education: 'pillar-education', legal: 'pillar-rights', chambers: 'pillar-rights', funds: i.slug.startsWith('medical') ? 'pillar-health' : 'pillar-disaster' };
+const art = artBy[i.group] ? `/media/art/${artBy[i.group]}.jpg` : '';
+const first = i.sources[0].passages[0];
+---
+<Base title={i.name} description={first.text.slice(0, 155)}>
+  <PageHead title={i.name} tone={tone} crumbs={[{ label: 'Initiatives', href: '/initiatives/' }]} tag={statusLabel[i.status]} />
+
+  <section class="band">
+    <div class="wrap cols2 wide-left">
+      <div>
+        <h2 class="h2" style="margin-bottom:28px">What it is</h2>
+        {i.sources.map((s) => (
+          <div style="margin-bottom:40px">
+            <ul class="bullets" style="--c:var(--teal)">
+              {s.passages.map((p) => <li>{p.title && <b style="display:block;margin-bottom:6px">{p.title}</b>}{p.text}</li>)}
+            </ul>
+            <p class="small" style="margin-top:14px">{s.href ? <>From <a href={s.href} style="font-weight:700">{s.label}</a></> : s.label}</p>
+          </div>
+        ))}
+      </div>
+      <aside class="stack">
+        {art && <img class="pillar-art" src={art} alt="" width="1600" height="1200" loading="lazy" />}
+        {i.phase && (
+          <div class="card" style="--c:var(--olive)">
+            <span class="meta">In the plan's roadmap</span>
+            <h3>{i.phase.label}</h3>
+            <p>{i.phase.text}</p>
+          </div>
+        )}
+        {i.slug === 'legal-chambers' && (
+          <div class="card" style="--c:var(--olive)">
+            <span class="meta">Where to find them</span>
+            {site.offices.map((o) => <p><b>{o.name}</b><br />{o.lines.join(', ')}</p>)}
+          </div>
+        )}
+        <div class="card" style="background:var(--raspberry);color:var(--white)">
+          {i.external ? (
+            <>
+              <h3>Visit the platform</h3>
+              <p style="color:inherit">This initiative has its own website.</p>
+              <a class="btn white" href={i.external} rel="noopener" style="align-self:flex-start"><span>Go to the platform</span><Arrow /></a>
+            </>
+          ) : (
+            <>
+              <h3>{i.status === 'planned' ? 'Help build it' : 'Get involved'}</h3>
+              <p style="color:inherit">{i.status === 'planned' ? 'Tell us how your profession could help this initiative take shape.' : 'Bring your profession to this work.'}</p>
+              <a class="btn white" href="/get-involved/" style="align-self:flex-start"><span>Get involved</span><Arrow /></a>
+            </>
+          )}
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {i.slug === 'legal-chambers' && (
+    <>
+      <section class="band bg-white">
+        <div class="wrap">
+          <h2 class="h2" style="margin-bottom:32px">Scope of Cases We Take</h2>
+          <ul class="ticks" style="--c:var(--raspberry);max-width:80ch">
+            {scope.map(([h, d]) => <li data-rise><b>{h}:</b> {d}</li>)}
+          </ul>
+        </div>
+      </section>
+      <section class="band">
+        <div class="wrap">
+          <h2 class="h2" style="margin-bottom:32px">How to Apply: The 4-Step Process</h2>
+          <ol class="steps" style="max-width:860px">
+            {steps.map(([h, d]) => <li data-rise><div><b>{h}:</b> {d}</div></li>)}
+          </ol>
+        </div>
+      </section>
+      <section class="band bg-white">
+        <div class="wrap">
+          <h2 class="h2" style="margin-bottom:32px">Where to find us</h2>
+          <div class="grid g2">
+            {site.offices.map((o) => <div class="card" style="--c:var(--raspberry)" data-rise><h3>{o.name}</h3><p>{o.lines.join(', ')}</p></div>)}
+          </div>
+          <div class="btns" style="margin-top:36px">
+            <a class="btn" href="/free-legal-aid/apply/"><span>Apply for free legal aid</span><Arrow /></a>
+            <a class="btn outline" href="/free-legal-aid/"><span>Read about legal aid</span></a>
+          </div>
+        </div>
+      </section>
+    </>
+  )}
+
+  <section class="band bg-white tight">
+    <div class="wrap">
+      <h2 class="h3" style="margin-bottom:20px">Other initiatives</h2>
+      <div class="grid g2">
+        {others.map((o) => <a class="card paper" href={`/initiatives/${o.slug}/`}><span class={`status ${o.status}`} style="align-self:flex-start">{statusLabel[o.status]}</span><h3>{o.name}</h3></a>)}
+      </div>
+      <p style="margin-top:28px"><a class="more" href="/initiatives/">All initiatives <Arrow /></a></p>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,77 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import { partner } from '../../data/forms';
+import { initiatives, statusLabel } from '../../data/initiatives';
+const live = initiatives.filter((i) => i.status !== 'planned');
+const planned = initiatives.filter((i) => i.status === 'planned');
+const icon: Record<string, string> = { 'boycott-israel-platform': 'megaphone', 'legal-chambers': 'helping-hand', 'publishing-house': 'book-donation', 'chain-of-progressive-schools': 'education-support', 'chain-of-advanced-colleges': 'education-support', 'global-open-university': 'global-aid', 'teacher-training-academy': 'volunteer', 'central-library': 'book-donation', 'vocational-institutes': 'helping-hand', 'startup-incubator': 'social-impact', 'learner-app': 'community', 'climate-action-fund': 'disaster-relief', 'medical-security-fund': 'medical-aid', 'global-legal-coalition': 'helping-hand' };
+const liveArt: Record<string, string> = { 'legal-chambers': '/media/art/pillar-rights.jpg' };
+const groups = [
+  { key: 'education', title: 'Education institutions and programs', art: '/media/art/pillar-education.jpg', color: 'var(--teal)', wipe: 'var(--teal-dark)' },
+  { key: 'funds', title: 'Funds', art: '/media/art/pillar-disaster.jpg', color: 'var(--teal-dark)', wipe: 'var(--teal)' },
+  { key: 'legal', title: 'Legal', art: '/media/art/pillar-rights.jpg', color: 'var(--teal)', wipe: 'var(--teal-dark)' },
+].map((g) => ({ ...g, items: planned.filter((i) => i.group === g.key) })).filter((g) => g.items.length);
+const phaseTag = (i: (typeof initiatives)[number]) => (i.phase ? i.phase.label.split(':')[0] : 'In the plans');
+---
+<Base title="Initiatives" description="Takweyat's live platform, its active legal chambers, and the institutions and funds its plans set out to build.">
+  <PageHead img="/media/banners/initiatives.jpg" title="Initiatives" lede="What is live and active today, and what our plans set out to build." tone="teal" />
+
+  <section class="band">
+    <div class="wrap">
+      <ul class="istats">
+        <li data-rise><b>{live.length}</b><span>Live and active today</span></li>
+        <li data-rise><b>{planned.length}</b><span>Planned in our two plans</span></li>
+        <li data-rise><b>{groups.length}</b><span>Areas: education, funds and legal</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:32px">Live and active</h2>
+      <div class="feats">
+        {live.map((i) => (
+          <a class="feat" href={`/initiatives/${i.slug}/`} style={`--ic:url(/icons/${icon[i.slug]}.svg)`} data-rise>
+            {liveArt[i.slug] ? <img src={liveArt[i.slug]} alt="" width="1600" height="1200" loading="lazy" /> : <span class="feat-ic" aria-hidden="true"></span>}
+            <div class="fb">
+              <span class={`status ${i.status}`}>{statusLabel[i.status]}</span>
+              <h3>{i.name}</h3>
+              <span class="go">Read more <i aria-hidden="true">→</i></span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band bg-white">
+    <div class="wrap">
+      <div class="cols2 wide-left" style="margin-bottom:48px">
+        <h2 class="h2">Planned</h2>
+        <p class="lede">Institutions, programs and funds that the plans describe. They are goals, not finished projects.</p>
+      </div>
+      {groups.map((g, gi) => (
+        <div class={`igroup${gi % 2 ? ' flip' : ''}`}>
+          <div class="igroup-art" data-rise><img src={g.art} alt="" width="1600" height="1200" loading="lazy" /><h3>{g.title}</h3></div>
+          <div class="itiles">
+            {g.items.map((i) => (
+              <a class="tile itile" href={`/initiatives/${i.slug}/`} style={`--c:${g.color};--w:${g.wipe};--ic:url(/icons/${icon[i.slug]}.svg)`} data-rise>
+                <span class="tile-ic" aria-hidden="true"></span>
+                <span class="itag">{phaseTag(i)}</span>
+                <h3>{i.name}</h3>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+  <section class="band" id="partner">
+    <div class="wrap">
+      <div style="margin-bottom:36px"><h2 class="h2">Partner with us</h2><p class="lede" style="margin-top:16px">For businesses, institutions and organisations that want to work alongside Takweyat.</p></div>
+      <LeadForm id="partner" submit="Send proposal" fields={partner} />
+    </div>
+  </section>
+</Base>

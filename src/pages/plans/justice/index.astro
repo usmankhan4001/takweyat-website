@@ -1,0 +1,86 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHead from '../../../components/PageHead.astro';
+import Arrow from '../../../components/Arrow.astro';
+import legal from '../../../../content/legal-plan.json';
+import { justiceGroups } from '../../../data/groups';
+const P = new Map(legal.pillars.map((p) => [p.number, p]));
+const phaseColors = ['var(--raspberry)', 'var(--olive)', 'var(--teal)', 'var(--charcoal)'];
+---
+<Base title="The Legal Aid and Justice Plan" description="The Takweyat Global Legal Aid and Justice Plan: The Manifesto of Rights. Four phases and 50 pillars of global and domestic justice.">
+  <PageHead title="The Global Legal Aid and Justice Plan" lede="The Manifesto of Rights" tone="raspberry" crumbs={[{ label: 'Our plans', href: '/plans/' }]} tag="Plan: every pillar is a goal, not a finished project" />
+
+  <section class="band">
+    <div class="wrap cols2">
+      <div data-rise>
+        <h2 class="h2">Our Goal</h2>
+        <p class="lede" style="margin-top:20px">{legal.goal}</p>
+      </div>
+      <div data-rise>
+        <h2 class="h2">Our Summary</h2>
+        <p class="lede" style="margin-top:20px">{legal.summary}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band bg-white">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:32px">Our Roadmap</h2>
+      <div class="phases">
+        {legal.roadmap.map((ph, i) => (
+          <div class="phase" style={`--c:${phaseColors[i]}`} data-rise>
+            <small>{ph.phase} &middot; {ph.years}</small>
+            <h3>{ph.name}</h3>
+            <p>{ph.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap cols2">
+      <div data-rise>
+        <h2 class="h2" style="margin-bottom:24px">Our Targets</h2>
+        <ul class="ticks" style="--c:var(--raspberry)">{legal.targets.map((t) => <li>{t}</li>)}</ul>
+      </div>
+      <div data-rise>
+        <h2 class="h2" style="margin-bottom:24px">{legal.achievementsHeading}</h2>
+        <ul class="ticks" style="--c:var(--olive)">{legal.achievements.map((t) => <li>{t}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="band bg-white tight">
+    <div class="wrap cols2 wide-left">
+      <h2 class="h2">Our Team</h2>
+      <p class="lede">{legal.team}</p>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:12px">{legal.pillarsHeading[0] + legal.pillarsHeading.slice(1).toLowerCase().replace('pillars', 'Pillars').replace('global & domestic justice', 'Global and Domestic Justice')}</h2>
+      <p class="lede" style="margin-bottom:44px">Grouped by theme so you can find your way. Each pillar opens to its ten sections.</p>
+      {justiceGroups.map((g) => (
+        <div class="group">
+          <h3 class="h3">{g.name} <small>{g.pillars.length} pillars</small></h3>
+          <div class="grid g2">
+            {g.pillars.map((n) => (
+              <a class="pcard" href={`/plans/justice/${n}/`} style="--c:var(--raspberry)" data-rise>
+                <b>{n}</b><span>{P.get(n)!.title}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="band bg-raspberry tight">
+    <div class="wrap cols2 wide-left">
+      <h2 class="h2">The whole plan, designed to read and keep</h2>
+      <div class="btns"><a class="btn white" href="/whitepapers/"><span>Whitepapers</span><Arrow /></a></div>
+    </div>
+  </section>
+</Base>

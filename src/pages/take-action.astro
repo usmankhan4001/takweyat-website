@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+const asks = [
+  { id: 'legal-aid', label: 'Get free legal aid', note: 'For people who cannot afford a lawyer. Our legal aid page explains who we can help.', color: 'var(--raspberry)' },
+  { id: 'volunteer', label: 'Become a volunteer', note: 'Lawyers, doctors, educators, social workers and skilled people who can give time.', color: 'var(--teal)' },
+  { id: 'partner', label: 'Partner with us', note: 'Organisations and institutions that want to work alongside us.', color: 'var(--teal)' },
+  { id: 'press', label: 'Press enquiries', note: 'Journalists and editors looking for information, interviews or images.', color: 'var(--teal)' },
+  { id: 'updates', label: 'Stay updated', note: 'A short email when something important happens. No fundraising.', color: 'var(--teal)' },
+];
+const links: Record<string, string> = { 'legal-aid': '/free-legal-aid/apply/', volunteer: '/volunteer/', partner: '/partner/', press: '/press/enquiry/', updates: '/stay-updated/' };
+---
+<Base title="Take action" description="Ask for legal aid, volunteer, partner with Takweyat, contact the press desk or stay updated.">
+  <PageHead img="/media/banners/get-involved.jpg" title="Take action" tone="teal" lede="Choose what you need. Each option has its own page and a short form." />
+  <section class="band">
+    <div class="wrap">
+      <nav class="chooser" aria-label="Choose an action">
+        {asks.map((a) => <a href={links[a.id]} style={`--c:${a.color}`} data-rise><b>{a.label}</b><span>{a.note}</span></a>)}
+      </nav>
+    </div>
+  </section>
+</Base>
