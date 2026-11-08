@@ -14,10 +14,15 @@
     "prompts": "node tools/make_prompts.mjs"
   },
   "dependencies": {
+    "@astrojs/node": "^11.1.11",
+    "@astrojs/react": "^7.1.4",
     "@fontsource-variable/dm-sans": "^5.3.0",
     "@fontsource/gloock": "^5.3.0",
     "@phosphor-icons/core": "^2.1.1",
-    "astro": "^5.18.2",
-    "gsap": "^3.15.1"
+    "astro": "^7.4.7",
+    "emdash": "^1.4.0",
+    "gsap": "^3.15.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   }
 }

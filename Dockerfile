@@ -1,12 +1,23 @@
-# Builds the static site, then serves it with nginx. Used by Dokploy.
-FROM node:22-alpine AS build
+# EmDash build: Astro on a Node server. Static pages are prerendered; EmDash admin and its SQLite database run here.
+# Mount a persistent volume at /app/data (database + uploads) and set EMDASH_ENCRYPTION_KEY at run time.
+FROM node:24-alpine AS build
 WORKDIR /app
+ARG EMDASH_SITE_URL=https://takweyat.org
+ENV EMDASH_SITE_URL=$EMDASH_SITE_URL
 COPY package.json package-lock.json ./
 RUN npm ci --no-audit --no-fund
 COPY . .
 RUN npm run build
 
-FROM nginx:1.27-alpine
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist /usr/share/nginx/html
-EXPOSE 80
+FROM node:24-alpine
+WORKDIR /app
+ENV NODE_ENV=production HOST=0.0.0.0 PORT=4321 DATABASE_PATH=/app/data/emdash.db
+ARG EMDASH_SITE_URL=https://takweyat.org
+ENV EMDASH_SITE_URL=$EMDASH_SITE_URL
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/package.json ./
+RUN mkdir -p data
+VOLUME /app/data
+EXPOSE 4321
+CMD ["node", "./dist/server/entry.mjs"]

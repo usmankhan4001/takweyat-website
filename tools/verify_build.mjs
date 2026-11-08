@@ -4,7 +4,8 @@ const read = (p) => JSON.parse(fs.readFileSync(p, 'utf8'));
 const legal = read('content/legal-plan.json'), edu = read('content/education-plan.json'), core = read('content/core-pillars.json');
 const decode = (s) => s.replace(/<[^>]+>/g, ' ').replace(/&#(\d+);/g, (_, n) => String.fromCharCode(+n)).replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCharCode(parseInt(n, 16))).replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
 const norm = (s) => decode(s).trim();
-const page = (path) => decode(fs.readFileSync(`dist${path}index.html`, 'utf8'));
+const DIST = fs.existsSync('dist/client') ? 'dist/client' : 'dist';
+const page = (path) => decode(fs.readFileSync(`${DIST}${path}index.html`, 'utf8'));
 let checked = 0; const bad = [];
 const must = (html, text, where) => { checked++; if (!html.includes(norm(text))) bad.push(`${where}: ${text.slice(0, 70)}`); };
 
