@@ -538,3 +538,14 @@ a.card { transition: transform .3s var(--ease); } a.card:hover { transform: tran
 .qwrap figure { max-width: 62rem; margin: 0; padding-left: clamp(0px, 3vw, 36px); border-left: 4px solid var(--raspberry); }
 .quote blockquote.long { font: 400 clamp(1.3rem, 1.05rem + 1vw, 1.9rem)/1.5 var(--display); max-width: 46ch; text-wrap: pretty; }
 .quote .qwrap .small { text-transform: uppercase; letter-spacing: .08em; opacity: .85; }
+
+/* About and What we do */
+.pillar-hero .btns { display: flex; flex-wrap: wrap; gap: 12px; }
+.about-intro { display: grid; gap: 22px; max-width: 70rem; }
+.about-lede { font: 400 clamp(1.35rem, 1.05rem + 1.2vw, 2.1rem)/1.45 var(--display); margin: 0; text-wrap: pretty; }
+.roles { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.roles li { padding: 8px 18px; border-radius: 99px; border: 1.5px solid var(--teal); color: var(--teal-dark); font-weight: 500; }
+.cta-band .h2 { color: var(--white); }
+.wd-grid { display: grid; gap: 24px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .wd-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .wd-grid { grid-template-columns: repeat(12, 1fr); } .wd-grid .artcard { grid-column: span 4; } .wd-grid .artcard:nth-child(n+4) { grid-column: span 3; } }
