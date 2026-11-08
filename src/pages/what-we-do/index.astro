@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
+import PillarList from "../../components/PillarList.astro";
 import core from '../../../content/core-pillars.json';
 import { coreSlugs } from '../../data/initiatives';
 const artFor = (t: string) => { const l = t.toLowerCase(); const f = /hunger|food/.test(l) ? 'fighting-hunger' : /ramadan|spiritual/.test(l) ? 'ramadan' : /disaster|climate/.test(l) ? 'disaster-relief' : /legal|justice|rights/.test(l) ? 'free-legal-aid' : /educat|career/.test(l) ? 'education-counseling' : /medic|health/.test(l) ? 'medical-camps' : 'community-support'; return `/media/art/tile-${f}.jpg`; };
@@ -31,12 +32,7 @@ const wipes = ['var(--raspberry)', 'var(--teal)', 'var(--raspberry)', 'var(--tea
         <h2 class="h2">Our Five Pillars</h2>
         <p class="lede">Each pillar has a goal, a roadmap and a set of strategic objectives.</p>
       </div>
-      {core.pillars.map((p, i) => (
-        <a class="rowlink" href={`/what-we-do/${coreSlugs[i]}/`} style={`--c:${colors[i]}`} data-rise>
-          <h3>{p.title}</h3>
-          <p>{p.goal}</p>
-        </a>
-      ))}
+      <PillarList />
     </div>
   </section>
 </Base>

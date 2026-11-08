@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import Base from '../layouts/Base.astro';
 import Arrow from '../components/Arrow.astro';
 import Photo from '../components/Photo.astro';
+import PillarList from "../components/PillarList.astro";
 import core from '../../content/core-pillars.json';
 import { networks } from '../data/networks';
 import { coreSlugs } from '../data/initiatives';
@@ -109,15 +110,10 @@ const pillarColors = ['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--
   <section class="band">
     <div class="wrap">
       <div class="cols2 wide-left" style="margin-bottom:40px;align-items:end">
-        <h2 class="h2">Five pillars of our work</h2>
+        <h2 class="h2">Five Pillars of Our Work</h2>
         <p class="lede">Each pillar has a goal, a roadmap and a set of strategic objectives.</p>
       </div>
-      {core.pillars.map((p, i) => (
-        <a class="rowlink" href={`/what-we-do/${coreSlugs[i]}/`} style={`--c:${pillarColors[i]}`} data-rise>
-          <h3>{p.title}</h3>
-          <p>{p.goal}</p>
-        </a>
-      ))}
+      <PillarList />
     </div>
   </section>
 

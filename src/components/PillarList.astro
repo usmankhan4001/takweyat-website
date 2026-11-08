@@ -1,0 +1,22 @@
+---
+// The five core pillars as image-led rows. Used on Home and What we do. Text comes straight from core-pillars.json.
+import Arrow from './Arrow.astro';
+import core from '../../content/core-pillars.json';
+import { coreSlugs } from '../data/initiatives';
+const art = ['education', 'hunger', 'rights', 'disaster', 'health'];
+---
+<ol class="pillars">
+  {core.pillars.map((p, i) => (
+    <li data-rise>
+      <a href={`/what-we-do/${coreSlugs[i]}/`}>
+        <img src={`/media/art/pillar-${art[i]}.jpg`} alt="" width="1000" height="750" loading="lazy" />
+        <div class="pl-body">
+          <span class="pl-num">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{p.title}</h3>
+          <p>{p.goal}</p>
+        </div>
+        <span class="pl-go" aria-hidden="true"><Arrow /></span>
+      </a>
+    </li>
+  ))}
+</ol>
