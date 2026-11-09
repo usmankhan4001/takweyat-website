@@ -2,13 +2,12 @@
 import Base from '../../../layouts/Base.astro';
 import PageHead from '../../../components/PageHead.astro';
 import Arrow from '../../../components/Arrow.astro';
-import edu from '../../../../content/education-plan.json';
 import { eduGroups, groupOf } from '../../../data/groups';
+import { getCms } from '../../../lib/cms';
+const { edu } = await getCms();
 
-export function getStaticPaths() {
-  return edu.pillars.map((p) => ({ params: { n: String(p.number) }, props: { p } }));
-}
-const { p } = Astro.props;
+const p = edu.pillars.find((x: any) => String(x.number) === Astro.params.n);
+if (!p) return Astro.rewrite('/404');
 const group = groupOf(eduGroups, p.number);
 const P = new Map(edu.pillars.map((x) => [x.number, x]));
 const prev = P.get(p.number - 1), next = P.get(p.number + 1);

@@ -2,8 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import Arrow from '../../components/Arrow.astro';
 import PillarList from "../../components/PillarList.astro";
-import core from '../../../content/core-pillars.json';
 import { coreSlugs } from '../../data/initiatives';
+import { getCms } from '../../lib/cms';
+const { core } = await getCms();
 const artFor = (t: string) => { const l = t.toLowerCase(); const f = /hunger|food/.test(l) ? 'fighting-hunger' : /ramadan|spiritual/.test(l) ? 'ramadan' : /disaster|climate/.test(l) ? 'disaster-relief' : /legal|justice|rights/.test(l) ? 'free-legal-aid' : /educat|career/.test(l) ? 'education-counseling' : /medic|health/.test(l) ? 'medical-camps' : 'community-support'; return `/media/art/tile-${f}.jpg`; };
 const colors = ['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--teal-dark)', 'var(--charcoal)'];
 const tileColors = ['var(--teal)', 'var(--olive)', 'var(--teal-dark)', 'var(--raspberry)', 'var(--teal)', 'var(--olive)', 'var(--teal-dark)'];

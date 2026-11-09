@@ -1,7 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
-import { site } from '../data/site';
+import { getCms } from '../lib/cms';
+const { site } = await getCms();
 ---
 <Base title="Privacy and confidentiality" description="How Takweyat handles the information you share with us.">
   <PageHead title="Privacy and confidentiality" tone="charcoal" lede="The dignity and privacy of those we help are non-negotiable." />

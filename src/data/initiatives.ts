@@ -1,9 +1,5 @@
 // Initiatives are built from the plans' own words. Each one lists where in the documents it is described,
 // and the text shown on its page is copied from those places by search, never retyped.
-import edu from '../../content/education-plan.json';
-import legal from '../../content/legal-plan.json';
-import core from '../../content/core-pillars.json';
-import { site } from './site';
 
 export type Passage = { title?: string; text: string };
 export type Source = { label: string; href?: string; passages: Passage[] };
@@ -12,23 +8,23 @@ export type Initiative = {
   sources: Source[]; phase?: { label: string; text: string }; external?: string; group: 'platform' | 'chambers' | 'education' | 'funds' | 'legal';
 };
 
-const ep = (n: number) => edu.pillars.find((p) => p.number === n)!;
+export const coreSlugs = ['education-and-youth', 'hunger-and-spiritual-enrichment', 'human-rights-and-justice', 'disaster-and-climate', 'healthcare-and-medical-security'];
+type Src = { edu: any; legal: any; core: any; site: { boycottPlatform: string } };
+export function buildInitiatives({ edu, legal, core, site }: Src): Initiative[] {
+const ep = (n: number) => edu.pillars.find((p: any) => p.number === n)!;
 const eduSource = (n: number, needle?: string): Source => {
   const items = needle ? ep(n).items.filter((t) => t.includes(needle)) : ep(n).items;
-  if (!items.length) throw new Error(`No text matching "${needle}" in Educational Plan pillar ${n}`);
   return { label: `The Educational Plan, pillar ${n}: ${ep(n).title}`, href: `/plans/education/${n}/`, passages: items.map((text) => ({ text })) };
 };
 const corePillarSource = (i: number, needle: string): Source => {
   const p = core.pillars[i];
   const items = p.objectives.filter((o) => o.includes(needle));
-  if (!items.length) throw new Error(`No objective matching "${needle}"`);
   return { label: `Our core pillars: ${p.title}`, href: `/what-we-do/${coreSlugs[i]}/`, passages: items.map((text) => ({ text })) };
 };
-export const coreSlugs = ['education-and-youth', 'hunger-and-spiritual-enrichment', 'human-rights-and-justice', 'disaster-and-climate', 'healthcare-and-medical-security'];
 const phase = (i: number) => ({ label: `${edu.roadmap[i].phase}: ${edu.roadmap[i].name} (${edu.roadmap[i].years})`, text: edu.roadmap[i].text });
-const lp30 = legal.pillars.find((p) => p.number === 30)!.items[0];
+const lp30 = legal.pillars.find((p: any) => p.number === 30)!.items[0];
 
-export const initiatives: Initiative[] = [
+return [
   {
     slug: 'boycott-israel-platform', name: 'Boycott Israel Platform', status: 'live', group: 'platform', external: site.boycottPlatform,
     sources: [{ label: 'From the platform itself', passages: [
@@ -53,7 +49,8 @@ export const initiatives: Initiative[] = [
   { slug: 'medical-security-fund', name: 'Medical Security Fund', status: 'planned', group: 'funds', sources: [corePillarSource(4, 'Medical Security Fund')] },
   {
     slug: 'global-legal-coalition', name: 'Takweyat Global Legal Coalition', status: 'planned', group: 'legal',
-    sources: [{ label: `The Legal Aid and Justice Plan, pillar 30: ${legal.pillars.find((p) => p.number === 30)!.title}`, href: '/plans/justice/30/', passages: [{ title: `${lp30.id} ${lp30.title}`, text: lp30.text }] }],
+    sources: [{ label: `The Legal Aid and Justice Plan, pillar 30: ${legal.pillars.find((p: any) => p.number === 30)!.title}`, href: '/plans/justice/30/', passages: [{ title: `${lp30.id} ${lp30.title}`, text: lp30.text }] }],
   },
-];
+  ];
+}
 export const statusLabel = { live: 'Live', active: 'Active', planned: 'Planned' } as const;

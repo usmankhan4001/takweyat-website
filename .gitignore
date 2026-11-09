@@ -4,3 +4,5 @@ dist
 tools/pdf
 .env
 /data/
+spike.db*
+emdash-env.d.ts

@@ -2,8 +2,9 @@
 import Base from '../../../layouts/Base.astro';
 import PageHead from '../../../components/PageHead.astro';
 import Arrow from '../../../components/Arrow.astro';
-import edu from '../../../../content/education-plan.json';
 import { eduGroups } from '../../../data/groups';
+import { getCms } from '../../../lib/cms';
+const { edu } = await getCms();
 const P = new Map(edu.pillars.map((p) => [p.number, p]));
 const phaseColors = ['var(--teal)', 'var(--olive)', 'var(--raspberry)', 'var(--charcoal)'];
 ---

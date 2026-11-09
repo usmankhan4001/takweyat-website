@@ -1,13 +1,12 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Arrow from '../../components/Arrow.astro';
-import core from '../../../content/core-pillars.json';
 import { coreSlugs } from '../../data/initiatives';
+import { getCms } from '../../lib/cms';
+const { core } = await getCms();
 
-export function getStaticPaths() {
-  return coreSlugs.map((slug, i) => ({ params: { slug }, props: { i } }));
-}
-const { i } = Astro.props;
+const i = coreSlugs.indexOf(Astro.params.slug as string);
+if (i < 0 || !core.pillars[i]) return Astro.rewrite('/404');
 const p = core.pillars[i];
 const tones = ['teal', 'raspberry', 'olive', 'charcoal', 'teal'] as const;
 const colors = ['var(--teal)', 'var(--raspberry)', 'var(--teal-dark)', 'var(--teal)', 'var(--raspberry)']; // never charcoal: it would vanish against the dark hero

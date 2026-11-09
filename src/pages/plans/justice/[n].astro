@@ -2,13 +2,12 @@
 import Base from '../../../layouts/Base.astro';
 import PageHead from '../../../components/PageHead.astro';
 import Arrow from '../../../components/Arrow.astro';
-import legal from '../../../../content/legal-plan.json';
 import { justiceGroups, groupOf } from '../../../data/groups';
+import { getCms } from '../../../lib/cms';
+const { legal } = await getCms();
 
-export function getStaticPaths() {
-  return legal.pillars.map((p) => ({ params: { n: String(p.number) }, props: { p } }));
-}
-const { p } = Astro.props;
+const p = legal.pillars.find((x: any) => String(x.number) === Astro.params.n);
+if (!p) return Astro.rewrite('/404');
 const group = groupOf(justiceGroups, p.number);
 const P = new Map(legal.pillars.map((x) => [x.number, x]));
 const prev = P.get(p.number - 1), next = P.get(p.number + 1);

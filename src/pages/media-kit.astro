@@ -1,7 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
-import { site } from '../data/site';
+import { getCms } from '../lib/cms';
+const { site } = await getCms();
 ---
 <Base title="Media kit" description="Logo files, a short description and contact details for journalists writing about Takweyat.">
   <PageHead title="Media kit" tone="charcoal" lede="Everything a journalist or partner needs to describe Takweyat accurately." crumbs={[{ label: 'Press', href: '/press/' }]} />

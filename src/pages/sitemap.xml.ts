@@ -10,9 +10,8 @@ export const GET: APIRoute = async () => {
     if (f === 'index' || f === '404' || f.includes('[')) continue;
     urls.add('/' + f.replace(/\/index$/, '') + '/');
   }
-  const { default: edu } = await import('../../content/education-plan.json');
-  const { default: legal } = await import('../../content/legal-plan.json');
-  const { initiatives, coreSlugs } = await import('../data/initiatives');
+  const { edu, legal, initiatives } = await (await import('../lib/cms')).getCms();
+  const { coreSlugs } = await import('../data/initiatives');
   edu.pillars.forEach((p) => urls.add(`/plans/education/${p.number}/`));
   legal.pillars.forEach((p) => urls.add(`/plans/justice/${p.number}/`));
   initiatives.forEach((i) => urls.add(`/initiatives/${i.slug}/`));

@@ -1,9 +1,10 @@
 ---
+import { getCms } from '../lib/cms';
+const { site } = await getCms();
 // One guided form for every lead form. One question at a time, a plain-language helper under each question,
 // a step tracker, and a review screen before sending. It posts to the n8n webhook set in site.ts; until that
 // exists it shows a polite message with the email address instead of pretending to send.
 // Without JavaScript every field simply shows, as an ordinary form.
-import { site } from '../data/site';
 interface Field {
   name: string; label: string; type?: 'text' | 'email' | 'tel' | 'select' | 'textarea'; options?: string[]; required?: boolean;
   hint?: string; help?: string; ph?: string; short?: string;

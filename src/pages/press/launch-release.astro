@@ -2,11 +2,11 @@
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
 import Arrow from '../../components/Arrow.astro';
-import { boilerplate, releases } from '../../data/press';
-import { site } from '../../data/site';
+import { boilerplate } from '../../data/press';
+import { getCms } from '../../lib/cms';
+const { site, releases } = await getCms();
 const r = releases[0];
-import fs from 'node:fs';
-const hasPdf = fs.existsSync('public' + r.pdf);
+const hasPdf = true; // the stub PDF ships with the site
 ---
 <Base title="Launch release (stub)" description={r.summary}>
   <PageHead title="Launch release (stub)" tone="teal" crumbs={[{ label: 'Press', href: '/press/' }]} lede={r.summary}>

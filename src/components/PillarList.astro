@@ -1,8 +1,9 @@
 ---
 // The five core pillars as image-led rows. Used on Home and What we do. Text comes straight from core-pillars.json.
 import Arrow from './Arrow.astro';
-import core from '../../content/core-pillars.json';
 import { coreSlugs } from '../data/initiatives';
+import { getCms } from '../lib/cms';
+const { core } = await getCms();
 const art = ['education', 'hunger', 'rights', 'disaster', 'health'];
 ---
 <ol class="pillars">

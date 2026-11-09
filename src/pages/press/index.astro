@@ -4,8 +4,8 @@ import PageHead from '../../components/PageHead.astro';
 import LeadForm from '../../components/LeadForm.astro';
 import { press } from '../../data/forms';
 import Arrow from '../../components/Arrow.astro';
-import { releases } from '../../data/press';
-import { site } from '../../data/site';
+import { getCms } from '../../lib/cms';
+const { site, releases } = await getCms();
 ---
 <Base title="Press" description="Press releases and media resources from Takweyat International Organization.">
   <PageHead img="/media/banners/press.jpg" title="Press" tone="teal" lede="News from Takweyat and everything a journalist needs." />

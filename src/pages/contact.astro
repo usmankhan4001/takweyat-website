@@ -2,8 +2,9 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import LeadForm from '../components/LeadForm.astro';
-import { site } from '../data/site';
 import { professions, subjects } from '../data/networks';
+import { getCms } from '../lib/cms';
+const { site } = await getCms();
 ---
 <Base title="Contact us" description="Volunteer and membership inquiries, free legal aid, and institutional collaboration with Takweyat International Organization.">
   <PageHead img="/media/banners/contact.jpg" title="Contact us" tone="raspberry" lede="Volunteer and membership inquiries, legal aid, and institutional collaboration all start here." />

@@ -2,8 +2,9 @@
 import Base from '../../../layouts/Base.astro';
 import PageHead from '../../../components/PageHead.astro';
 import Arrow from '../../../components/Arrow.astro';
-import legal from '../../../../content/legal-plan.json';
 import { justiceGroups } from '../../../data/groups';
+import { getCms } from '../../../lib/cms';
+const { legal } = await getCms();
 const P = new Map(legal.pillars.map((p) => [p.number, p]));
 const phaseColors = ['var(--raspberry)', 'var(--olive)', 'var(--teal)', 'var(--charcoal)'];
 ---

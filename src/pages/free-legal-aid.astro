@@ -3,9 +3,10 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import LeadForm from '../components/LeadForm.astro';
 import Photo from '../components/Photo.astro';
-import { site } from '../data/site';
 import { legalAid } from '../data/forms';
 import { scope, steps } from '../data/legalAid';
+import { getCms } from '../lib/cms';
+const { site } = await getCms();
 const eligibility = [
   ['Financial Inability', 'Must be unable to afford standard legal fees (proof of income or a genuine declaration of financial hardship is required).'],
   ['Merit of the Case', 'The case must involve a genuine violation of rights, a threat to liberty, or severe exploitation.'],

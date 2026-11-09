@@ -1,5 +1,6 @@
 ---
-import { site } from '../data/site';
+import { getCms } from '../lib/cms';
+const { site } = await getCms();
 const year = new Date().getFullYear();
 ---
 <footer class="ftr">

@@ -2,14 +2,13 @@
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
 import Arrow from '../../components/Arrow.astro';
-import { initiatives, statusLabel } from '../../data/initiatives';
-import { site } from '../../data/site';
+import { statusLabel } from '../../data/initiatives';
 import { scope, steps } from '../../data/legalAid';
+import { getCms } from '../../lib/cms';
+const { site, initiatives } = await getCms();
 
-export function getStaticPaths() {
-  return initiatives.map((i) => ({ params: { slug: i.slug }, props: { i } }));
-}
-const { i } = Astro.props;
+const i = initiatives.find((x: any) => x.slug === Astro.params.slug);
+if (!i) return Astro.rewrite('/404');
 const others = initiatives.filter((x) => x.slug !== i.slug && (i.status === 'planned' ? x.status === 'planned' : true)).slice(0, 4);
 const tone = i.status === 'live' ? 'teal' : i.status === 'active' ? 'olive' : 'charcoal';
 const artBy: Record<string, string> = { education: 'pillar-education', legal: 'pillar-rights', chambers: 'pillar-rights', funds: i.slug.startsWith('medical') ? 'pillar-health' : 'pillar-disaster' };

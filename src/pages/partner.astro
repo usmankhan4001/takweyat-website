@@ -1,7 +1,8 @@
 ---
 import ActionPage from '../components/ActionPage.astro';
 import { partner } from '../data/forms';
-import { networks } from '../data/networks';
+import { getCms } from '../lib/cms';
+const { networks } = await getCms();
 ---
 <ActionPage title="Partner with us" id="partner" img="/media/banners/initiatives.jpg" headline="Partner with us" lede="For businesses, institutions and organisations that want to work alongside Takweyat." submit="Send Proposal"
   points={[

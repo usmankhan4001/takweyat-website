@@ -2,8 +2,8 @@
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
 import Arrow from '../../components/Arrow.astro';
-import edu from '../../../content/education-plan.json';
-import legal from '../../../content/legal-plan.json';
+import { getCms } from '../../lib/cms';
+const { edu, legal } = await getCms();
 ---
 <Base title="Our plans" description="The Takweyat Educational Plan and the Global Legal Aid and Justice Plan: two long-term plans, 85 pillars in all.">
   <PageHead img="/media/banners/plans.jpg" title="Our plans" lede="Two long-term plans set out where Takweyat is heading. Each has four phases and is written pillar by pillar." tone="charcoal" />

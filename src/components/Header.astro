@@ -1,10 +1,10 @@
 ---
 import CtaRoll from './CtaRoll.astro';
-import { site } from '../data/site';
 import { coreSlugs } from '../data/initiatives';
-import core from '../../content/core-pillars.json';
 import fs from 'node:fs';
 import nodePath from 'node:path';
+import { getCms } from '../lib/cms';
+const { site, core } = await getCms();
 const { overlay = false } = Astro.props;
 const path = Astro.url.pathname;
 const svg = (n: string) => {

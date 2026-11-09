@@ -8,7 +8,7 @@ import { github } from 'emdash/auth/providers/github';
 // The public pages are still generated at build time from /content and /src/data (static).
 // EmDash adds the admin at /_emdash/admin and runs on a Node server; its database and uploads live in ./data (a volume in production).
 export default defineConfig({
-  output: 'static',
+  output: 'server',
   site: 'https://takweyat.org',
   trailingSlash: 'ignore',
   build: { format: 'directory' },
