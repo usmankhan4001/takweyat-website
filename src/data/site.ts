@@ -9,7 +9,7 @@ export const site = {
   whatsapp: null as string | null,
   helpline: null as string | null,
   // Where lead forms post to (n8n webhook). Until it is set, forms show a polite fallback with the email address.
-  formEndpoint: null as string | null,
+  formEndpoint: 'https://forms.takweyat.org' as string | null,
   boycottPlatform: 'https://boycottisraelonline.com',
   offices: [
     { name: 'Head Office, Islamabad', lines: ['Bahria Town Phase 3'] },

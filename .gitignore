@@ -2,6 +2,5 @@ node_modules
 dist
 .astro
 tools/pdf
-
 .env
 /data/
