@@ -2,34 +2,35 @@
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
 import Arrow from '../../components/Arrow.astro';
-import { getCms } from '../../lib/cms';
+import { getCms, copyFor } from '../../lib/cms';
+const t = copyFor(await getCms(), 'plans');
 const { edu, legal } = await getCms();
 ---
-<Base title="Our plans" description="The Takweyat Educational Plan and the Global Legal Aid and Justice Plan: two long-term plans, 85 pillars in all.">
-  <PageHead img="/media/banners/plans.jpg" title="Our plans" lede="Two long-term plans set out where Takweyat is heading. Each has four phases and is written pillar by pillar." tone="charcoal" />
+<Base title={t('our_plans')} description="The Takweyat Educational Plan and the Global Legal Aid and Justice Plan: two long-term plans, 85 pillars in all.">
+  <PageHead img="/media/banners/plans.jpg" title={t('our_plans_2')} lede="Two long-term plans set out where Takweyat is heading. Each has four phases and is written pillar by pillar." tone="charcoal" />
   <section class="band">
     <div class="wrap grid" style="gap:20px">
       <a class="card" href="/plans/education/" style="--c:var(--teal);background:var(--teal);color:var(--paper);padding:clamp(28px,4vw,52px);min-height:380px" data-rise>
         <span style="font:400 clamp(5rem,3rem + 8vw,10rem)/.8 var(--display);letter-spacing:-.04em">{edu.pillars.length}</span>
-        <h3 class="h3">The Educational Plan</h3>
+        <h3 class="h3">{t('the_educational_plan')}</h3>
         <p style="color:inherit;max-width:46ch">{edu.title.replace(/^.*?PLAN:\s*/i, '').toLowerCase().replace(/^./, (c) => c.toUpperCase()).replace('global vision', 'The Global Vision')} Four phases, 35 pillars, ten commitments in each.</p>
-        <span class="more" style="margin-top:auto;align-self:flex-start">Read the plan <Arrow /></span>
+        <span class="more" style="margin-top:auto;align-self:flex-start">{t('read_the_plan')} <Arrow /></span>
       </a>
       <a class="card" href="/plans/justice/" style="background:var(--raspberry);color:var(--white);padding:clamp(28px,4vw,52px);min-height:380px" data-rise>
         <span style="font:400 clamp(5rem,3rem + 8vw,10rem)/.8 var(--display);letter-spacing:-.04em">{legal.pillars.length}</span>
-        <h3 class="h3">The Global Legal Aid and Justice Plan</h3>
-        <p style="color:inherit;max-width:46ch">The Manifesto of Rights. Four phases, four targets and 50 pillars, ending with the Takweyat Global Charter.</p>
-        <span class="more" style="margin-top:auto;align-self:flex-start">Read the plan <Arrow /></span>
+        <h3 class="h3">{t('the_global_legal_aid_and_justice')}</h3>
+        <p style="color:inherit;max-width:46ch">{t('the_manifesto_of_rights_four_phases')}</p>
+        <span class="more" style="margin-top:auto;align-self:flex-start">{t('read_the_plan_2')} <Arrow /></span>
       </a>
     </div>
   </section>
   <section class="band bg-white tight">
     <div class="wrap cols2 wide-left">
       <div>
-        <h2 class="h2">For Readers Who Want Everything</h2>
-        <p class="lede" style="margin-top:18px">Each plan is also available as a designed document with every pillar in full.</p>
+        <h2 class="h2">{t('for_readers_who_want_everything')}</h2>
+        <p class="lede" style="margin-top:18px">{t('each_plan_is_also_available_as')}</p>
       </div>
-      <div class="btns"><a class="btn teal" href="/whitepapers/"><span>Whitepapers</span><Arrow /></a></div>
+      <div class="btns"><a class="btn teal" href="/whitepapers/"><span>{t('whitepapers')}</span><Arrow /></a></div>
     </div>
   </section>
 </Base>

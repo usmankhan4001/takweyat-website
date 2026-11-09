@@ -3,22 +3,23 @@ import Base from '../../../layouts/Base.astro';
 import PageHead from '../../../components/PageHead.astro';
 import Arrow from '../../../components/Arrow.astro';
 import { justiceGroups } from '../../../data/groups';
-import { getCms } from '../../../lib/cms';
+import { getCms, copyFor } from '../../../lib/cms';
+const t = copyFor(await getCms(), 'plans-justice');
 const { legal } = await getCms();
 const P = new Map(legal.pillars.map((p) => [p.number, p]));
 const phaseColors = ['var(--raspberry)', 'var(--olive)', 'var(--teal)', 'var(--charcoal)'];
 ---
-<Base title="The Legal Aid and Justice Plan" description="The Takweyat Global Legal Aid and Justice Plan: The Manifesto of Rights. Four phases and 50 pillars of global and domestic justice.">
-  <PageHead title="The Global Legal Aid and Justice Plan" lede="The Manifesto of Rights" tone="raspberry" crumbs={[{ label: 'Our plans', href: '/plans/' }]} tag="Plan: every pillar is a goal, not a finished project" />
+<Base title={t('the_legal_aid_and_justice_plan')} description="The Takweyat Global Legal Aid and Justice Plan: The Manifesto of Rights. Four phases and 50 pillars of global and domestic justice.">
+  <PageHead title={t('the_global_legal_aid_and_justice')} lede="The Manifesto of Rights" tone="raspberry" crumbs={[{ label: 'Our plans', href: '/plans/' }]} tag="Plan: every pillar is a goal, not a finished project" />
 
   <section class="band">
     <div class="wrap cols2">
       <div data-rise>
-        <h2 class="h2">Our Goal</h2>
+        <h2 class="h2">{t('our_goal')}</h2>
         <p class="lede" style="margin-top:20px">{legal.goal}</p>
       </div>
       <div data-rise>
-        <h2 class="h2">Our Summary</h2>
+        <h2 class="h2">{t('our_summary')}</h2>
         <p class="lede" style="margin-top:20px">{legal.summary}</p>
       </div>
     </div>
@@ -26,7 +27,7 @@ const phaseColors = ['var(--raspberry)', 'var(--olive)', 'var(--teal)', 'var(--c
 
   <section class="band bg-white">
     <div class="wrap">
-      <h2 class="h2" style="margin-bottom:32px">Our Roadmap</h2>
+      <h2 class="h2" style="margin-bottom:32px">{t('our_roadmap')}</h2>
       <div class="phases">
         {legal.roadmap.map((ph, i) => (
           <div class="phase" style={`--c:${phaseColors[i]}`} data-rise>
@@ -42,7 +43,7 @@ const phaseColors = ['var(--raspberry)', 'var(--olive)', 'var(--teal)', 'var(--c
   <section class="band">
     <div class="wrap cols2">
       <div data-rise>
-        <h2 class="h2" style="margin-bottom:24px">Our Targets</h2>
+        <h2 class="h2" style="margin-bottom:24px">{t('our_targets')}</h2>
         <ul class="ticks" style="--c:var(--raspberry)">{legal.targets.map((t) => <li>{t}</li>)}</ul>
       </div>
       <div data-rise>
@@ -54,7 +55,7 @@ const phaseColors = ['var(--raspberry)', 'var(--olive)', 'var(--teal)', 'var(--c
 
   <section class="band bg-white tight">
     <div class="wrap cols2 wide-left">
-      <h2 class="h2">Our Team</h2>
+      <h2 class="h2">{t('our_team')}</h2>
       <p class="lede">{legal.team}</p>
     </div>
   </section>
@@ -62,7 +63,7 @@ const phaseColors = ['var(--raspberry)', 'var(--olive)', 'var(--teal)', 'var(--c
   <section class="band">
     <div class="wrap">
       <h2 class="h2" style="margin-bottom:12px">{legal.pillarsHeading[0] + legal.pillarsHeading.slice(1).toLowerCase().replace('pillars', 'Pillars').replace('global & domestic justice', 'Global and Domestic Justice')}</h2>
-      <p class="lede" style="margin-bottom:44px">Grouped by theme so you can find your way. Each pillar opens to its ten sections.</p>
+      <p class="lede" style="margin-bottom:44px">{t('grouped_by_theme_so_you_can')}</p>
       {justiceGroups.map((g) => (
         <div class="group">
           <h3 class="h3">{g.name} <small>{g.pillars.length} pillars</small></h3>
@@ -80,8 +81,8 @@ const phaseColors = ['var(--raspberry)', 'var(--olive)', 'var(--teal)', 'var(--c
 
   <section class="band bg-raspberry tight">
     <div class="wrap cols2 wide-left">
-      <h2 class="h2">The whole plan, designed to read and keep</h2>
-      <div class="btns"><a class="btn white" href="/whitepapers/"><span>Whitepapers</span><Arrow /></a></div>
+      <h2 class="h2">{t('the_whole_plan_designed_to_read')}</h2>
+      <div class="btns"><a class="btn white" href="/whitepapers/"><span>{t('whitepapers')}</span><Arrow /></a></div>
     </div>
   </section>
 </Base>

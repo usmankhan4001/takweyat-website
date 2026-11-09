@@ -1,5 +1,6 @@
 ---
-import { getCms } from '../lib/cms';
+import { getCms, copyFor } from '../lib/cms';
+const t = copyFor(await getCms(), 'Footer');
 const { site } = await getCms();
 const year = new Date().getFullYear();
 ---
@@ -14,7 +15,7 @@ const year = new Date().getFullYear();
         </div>
       ))}
       <div>
-        <h4>Find us</h4>
+        <h4>{t('find_us')}</h4>
         <ul>
           <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
           {site.offices.map((o) => <li class="office"><b>{o.name}</b>{o.lines.join(', ')}</li>)}
@@ -23,7 +24,7 @@ const year = new Date().getFullYear();
     </div>
     <div class="fine">
       <span>&copy; {year} {site.name}</span>
-      <span>We do not ask for funds. We ask for your expertise.</span>
+      <span>{t('we_do_not_ask_for_funds')}</span>
     </div>
   </div>
 </footer>

@@ -1,8 +1,10 @@
 ---
 import ActionPage from '../../components/ActionPage.astro';
 import { legalAid } from '../../data/forms';
+import { getCms, copyFor } from '../../lib/cms';
+const t = copyFor(await getCms(), 'free-legal-aid-apply');
 ---
-<ActionPage title="Apply for free legal aid" id="legal-aid" tone="raspberry" img="/media/banners/legal-aid.jpg" headline="Apply for free legal aid" lede="Everything you write here is confidential. Please explain what happened in simple words and do not share highly sensitive evidence here; save it for the consultation." submit="Submit Confidential Application" note="Private and confidential" minutes={3}
+<ActionPage title={t('apply_for_free_legal_aid')} id="legal-aid" tone="raspberry" img="/media/banners/legal-aid.jpg" headline="Apply for free legal aid" lede="Everything you write here is confidential. Please explain what happened in simple words and do not share highly sensitive evidence here; save it for the consultation." submit="Submit Confidential Application" note="Private and confidential" minutes={3}
   points={[
     { h: 'Who we can help', t: 'People who cannot afford a lawyer and whose case involves a real violation of rights.' },
     { h: 'What happens next', t: 'Our screening committee reads your answers, and if approved you are invited for a private consultation.' },

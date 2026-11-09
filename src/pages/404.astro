@@ -2,9 +2,11 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Arrow from '../components/Arrow.astro';
+import { getCms, copyFor } from '../lib/cms';
+const t = copyFor(await getCms(), '404');
 ---
-<Base title="Page not found">
-  <PageHead img="/media/banners/404.jpg" title="We could not find that page." tone="charcoal" lede="It may have moved, or the address may be mistyped.">
-    <div class="btns" style="margin-top:28px"><a class="btn cream" href="/"><span>Go to the home page</span><Arrow /></a><a class="btn ghost" href="/contact/"><span>Contact us</span></a></div>
+<Base title={t('page_not_found')}>
+  <PageHead img="/media/banners/404.jpg" title={t('we_could_not_find_that_page')} tone="charcoal" lede="It may have moved, or the address may be mistyped.">
+    <div class="btns" style="margin-top:28px"><a class="btn cream" href="/"><span>{t('go_to_the_home_page')}</span><Arrow /></a><a class="btn ghost" href="/contact/"><span>{t('contact_us')}</span></a></div>
   </PageHead>
 </Base>

@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
+import { getCms, copyFor } from '../lib/cms';
+const t = copyFor(await getCms(), 'take-action');
 const asks = [
   { id: 'legal-aid', label: 'Get free legal aid', note: 'For people who cannot afford a lawyer. Our legal aid page explains who we can help.', color: 'var(--raspberry)' },
   { id: 'volunteer', label: 'Become a volunteer', note: 'Lawyers, doctors, educators, social workers and skilled people who can give time.', color: 'var(--teal)' },
@@ -10,8 +12,8 @@ const asks = [
 ];
 const links: Record<string, string> = { 'legal-aid': '/free-legal-aid/apply/', volunteer: '/volunteer/', partner: '/partner/', press: '/press/enquiry/', updates: '/stay-updated/' };
 ---
-<Base title="Take action" description="Ask for legal aid, volunteer, partner with Takweyat, contact the press desk or stay updated.">
-  <PageHead img="/media/banners/get-involved.jpg" title="Take action" tone="teal" lede="Choose what you need. Each option has its own page and a short form." />
+<Base title={t('take_action')} description="Ask for legal aid, volunteer, partner with Takweyat, contact the press desk or stay updated.">
+  <PageHead img="/media/banners/get-involved.jpg" title={t('take_action_2')} tone="teal" lede="Choose what you need. Each option has its own page and a short form." />
   <section class="band">
     <div class="wrap">
       <nav class="chooser" aria-label="Choose an action">

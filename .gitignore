@@ -6,3 +6,5 @@ tools/pdf
 /data/
 spike.db*
 emdash-env.d.ts
+clean.db*
+t2.db*

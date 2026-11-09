@@ -9,6 +9,7 @@ import { site as siteFile } from '../data/site';
 import { networks as networksFile } from '../data/networks';
 import { releases as releasesFile } from '../data/press';
 import { buildInitiatives } from '../data/initiatives';
+import defaults from '../data/copy.defaults.json';
 
 const list = async (name: string) => {
   try { return (await getEmDashCollection(name)).entries.map((e: any) => ({ slug: e.slug as string, ...e.data })); } catch { return []; }
@@ -49,4 +50,10 @@ let cache: { t: number; v: ReturnType<typeof load> } | undefined;
 export const getCms = () => {
   if (!cache || Date.now() - cache.t > 5000) cache = { t: Date.now(), v: load() };
   return cache.v;
+};
+
+// Page text: the CMS entry for a page wins; the wording the page shipped with is the fallback, so a missing entry never blanks a page.
+export const copyFor = (cms: { copy: (slug: string) => Record<string, string> }, page: string) => {
+  const live = cms.copy(page);
+  return (key: string): string => (typeof live[key] === 'string' && live[key] !== '' ? live[key] : (defaults as Record<string, Record<string, string>>)[page]?.[key] ?? '');
 };

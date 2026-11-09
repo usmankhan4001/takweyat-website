@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Arrow from '../components/Arrow.astro';
+import { getCms, copyFor } from '../lib/cms';
+const t = copyFor(await getCms(), 'join');
 const criteria = [
   ['Professional or Civic Background', 'Applicants should be professionals (lawyers, doctors, educators, corporate employees), skilled workers, or dedicated students willing to offer their specific expertise.'],
   ['Ethical Alignment', 'A firm belief in justice, equality, and the core Islamic values of brotherhood, empathy, and social responsibility.'],
@@ -22,14 +24,14 @@ const onboarding = [
   ['Orientation', 'Selected volunteers undergo a brief orientation regarding our operational ethics and current projects before their first deployment.'],
 ];
 ---
-<Base title="Join the movement" description="Excellence in character. Dedication in action. Membership criteria, code of conduct and onboarding at Takweyat.">
-  <PageHead title="Excellence in Character. Dedication in Action." tone="olive" lede="Takweyat (تقویت) is built on the integrity and expertise of its members. Because we operate directly with vulnerable communities, handle sensitive legal and medical matters, and represent the best of civil society, we hold our members to the highest ethical and professional standards. Joining us means making a serious commitment to societal upliftment." crumbs={[{ label: 'Get involved', href: '/get-involved/' }]} />
+<Base title={t('join_the_movement')} description="Excellence in character. Dedication in action. Membership criteria, code of conduct and onboarding at Takweyat.">
+  <PageHead title={t('excellence_in_character_dedication_in_action')} tone="olive" lede="Takweyat (تقویت) is built on the integrity and expertise of its members. Because we operate directly with vulnerable communities, handle sensitive legal and medical matters, and represent the best of civil society, we hold our members to the highest ethical and professional standards. Joining us means making a serious commitment to societal upliftment." crumbs={[{ label: 'Get involved', href: '/get-involved/' }]} />
 
   <section class="band">
     <div class="wrap cols2 wide-left">
       <div>
-        <h2 class="h2">Membership Criteria: Who Can Join?</h2>
-        <p class="lede" style="margin-top:20px">We do not ask for membership fees, but we do demand dedication. To join the Takweyat network, individuals must meet the following criteria:</p>
+        <h2 class="h2">{t('membership_criteria_who_can_join')}</h2>
+        <p class="lede" style="margin-top:20px">{t('we_do_not_ask_for_membership')}</p>
       </div>
       <ul class="ticks" style="--c:var(--olive)">
         {criteria.map(([t, d]) => <li data-rise><b>{t}:</b> {d}</li>)}
@@ -40,13 +42,13 @@ const onboarding = [
   <section class="band bg-white">
     <div class="wrap cols2 wide-left">
       <div>
-        <h2 class="h2">Code of Conduct: Our Operational Ethics</h2>
-        <p class="lede" style="margin-top:20px">Every volunteer, member, and partner acting under the banner of Takweyat is bound by this Code of Conduct.</p>
+        <h2 class="h2">{t('code_of_conduct_our_operational_ethics')}</h2>
+        <p class="lede" style="margin-top:20px">{t('every_volunteer_member_and_partner_acting')}</p>
       </div>
       <div>
         <ul class="glance" style="--c:var(--teal)">{conduct.map(([t]) => <li>{t}</li>)}</ul>
         <details class="seeall">
-          <summary>See the full code of conduct</summary>
+          <summary>{t('see_the_full_code_of_conduct')}</summary>
           <ul class="ticks" style="--c:var(--teal)">
             {conduct.map(([t, d]) => <li><b>{t}:</b> {d}</li>)}
           </ul>
@@ -57,11 +59,11 @@ const onboarding = [
 
   <section class="band">
     <div class="wrap">
-      <h2 class="h2" style="margin-bottom:32px">The Onboarding Process</h2>
+      <h2 class="h2" style="margin-bottom:32px">{t('the_onboarding_process')}</h2>
       <ol class="steps" style="max-width:860px">
         {onboarding.map(([t, d]) => <li data-rise><div><b>{t}:</b> {d}</div></li>)}
       </ol>
-      <div class="btns" style="margin-top:40px"><a class="btn" href="/contact/"><span>Apply Through the Contact Form</span><Arrow /></a></div>
+      <div class="btns" style="margin-top:40px"><a class="btn" href="/contact/"><span>{t('apply_through_the_contact_form')}</span><Arrow /></a></div>
     </div>
   </section>
 </Base>

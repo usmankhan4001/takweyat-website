@@ -3,6 +3,8 @@ import fs from 'node:fs';
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import Arrow from '../components/Arrow.astro';
+import { getCms, copyFor } from '../lib/cms';
+const t = copyFor(await getCms(), 'whitepapers');
 // A download button appears automatically as soon as its PDF is placed in public/downloads.
 const docs = [
   { title: 'The Educational Plan', sub: 'The Global Vision. 35 pillars in full.', file: '/downloads/takweyat-educational-plan.pdf', page: '/plans/education/', color: 'var(--teal)' },
@@ -10,8 +12,8 @@ const docs = [
   { title: 'Takweyat at a glance', sub: 'Who we are, what we do and how to take part.', file: '/downloads/takweyat-profile.pdf', page: '/about/', color: 'var(--olive)' },
 ].map((d) => ({ ...d, ready: fs.existsSync('public' + d.file) }));
 ---
-<Base title="Whitepapers" description="Designed documents for readers who want the full detail of Takweyat's plans.">
-  <PageHead img="/media/banners/whitepapers.jpg" title="Whitepapers" tone="charcoal" lede="For readers who want everything: each plan as a designed document, with every pillar in full." />
+<Base title={t('whitepapers')} description="Designed documents for readers who want the full detail of Takweyat's plans.">
+  <PageHead img="/media/banners/whitepapers.jpg" title={t('whitepapers_2')} tone="charcoal" lede="For readers who want everything: each plan as a designed document, with every pillar in full." />
   <section class="band">
     <div class="wrap">
       <div class="grid g2">
@@ -21,9 +23,9 @@ const docs = [
             <p style="color:inherit">{d.sub}</p>
             <div class="btns" style="margin-top:auto">
               {d.ready
-                ? <a class="btn white" href={d.file} download><span>Download PDF</span><Arrow /></a>
-                : <span class="status" style="background:rgb(255 255 255 / .2);color:inherit">Designed PDF in preparation</span>}
-              <a class="more" href={d.page}>Read online</a>
+                ? <a class="btn white" href={d.file} download><span>{t('download_pdf')}</span><Arrow /></a>
+                : <span class="status" style="background:rgb(255 255 255 / .2);color:inherit">{t('designed_pdf_in_preparation')}</span>}
+              <a class="more" href={d.page}>{t('read_online')}</a>
             </div>
           </article>
         ))}

@@ -3,16 +3,17 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import LeadForm from '../components/LeadForm.astro';
 import { professions, subjects } from '../data/networks';
-import { getCms } from '../lib/cms';
+import { getCms, copyFor } from '../lib/cms';
+const t = copyFor(await getCms(), 'contact');
 const { site } = await getCms();
 ---
-<Base title="Contact us" description="Volunteer and membership inquiries, free legal aid, and institutional collaboration with Takweyat International Organization.">
-  <PageHead img="/media/banners/contact.jpg" title="Contact us" tone="raspberry" lede="Volunteer and membership inquiries, legal aid, and institutional collaboration all start here." />
+<Base title={t('contact_us')} description="Volunteer and membership inquiries, free legal aid, and institutional collaboration with Takweyat International Organization.">
+  <PageHead img="/media/banners/contact.jpg" title={t('contact_us_2')} tone="raspberry" lede="Volunteer and membership inquiries, legal aid, and institutional collaboration all start here." />
 
   <section class="band">
     <div class="wrap cols2 wide-left">
       <div>
-        <h2 class="h2" style="margin-bottom:28px">Digital Contact & Membership Form</h2>
+        <h2 class="h2" style="margin-bottom:28px">{t('digital_contact_membership_form')}</h2>
         <LeadForm id="contact" submit="Send Message" fields={[
           { name: 'name', label: 'Full Name', short: 'Name', help: 'So we know who to reply to.', ph: 'Your full name', required: true },
           { name: 'email', label: 'Email Address', short: 'Email', help: 'We will reply to this address.', ph: 'name@example.com', type: 'email', required: true },
@@ -24,13 +25,13 @@ const { site } = await getCms();
       </div>
       <aside class="stack">
         <div class="card" style="--c:var(--raspberry)">
-          <h3>Immediate Help Desks</h3>
-          {site.phone && <p><b>Volunteer & Membership Inquiries:</b> {site.phone}</p>}
-          {site.helpline && <p><b>Free Legal Aid Helpline:</b> {site.helpline}<br /><span class="small">For individuals facing immediate human rights violations or seeking legal advice.</span></p>}
-          <p><b>Email:</b> <a href={`mailto:${site.email}`}>{site.email}</a></p>
+          <h3>{t('immediate_help_desks')}</h3>
+          {site.phone && <p><b>{t('volunteer_membership_inquiries')}</b> {site.phone}</p>}
+          {site.helpline && <p><b>{t('free_legal_aid_helpline')}</b> {site.helpline}<br /><span class="small">{t('for_individuals_facing_immediate_human_rights')}</span></p>}
+          <p><b>{t('email')}</b> <a href={`mailto:${site.email}`}>{site.email}</a></p>
         </div>
         <div class="card" style="--c:var(--teal)">
-          <h3>Official Offices</h3>
+          <h3>{t('official_offices')}</h3>
           {site.offices.map((o) => <p><b>{o.name}</b><br />{o.lines.join(', ')}</p>)}
         </div>
       </aside>

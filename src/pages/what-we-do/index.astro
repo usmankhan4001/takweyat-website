@@ -3,24 +3,25 @@ import Base from '../../layouts/Base.astro';
 import Arrow from '../../components/Arrow.astro';
 import PillarList from "../../components/PillarList.astro";
 import { coreSlugs } from '../../data/initiatives';
-import { getCms } from '../../lib/cms';
+import { getCms, copyFor } from '../../lib/cms';
+const t = copyFor(await getCms(), 'what-we-do');
 const { core } = await getCms();
 const artFor = (t: string) => { const l = t.toLowerCase(); const f = /hunger|food/.test(l) ? 'fighting-hunger' : /ramadan|spiritual/.test(l) ? 'ramadan' : /disaster|climate/.test(l) ? 'disaster-relief' : /legal|justice|rights/.test(l) ? 'free-legal-aid' : /educat|career/.test(l) ? 'education-counseling' : /medic|health/.test(l) ? 'medical-camps' : 'community-support'; return `/media/art/tile-${f}.jpg`; };
 const colors = ['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--teal-dark)', 'var(--charcoal)'];
 const tileColors = ['var(--teal)', 'var(--olive)', 'var(--teal-dark)', 'var(--raspberry)', 'var(--teal)', 'var(--olive)', 'var(--teal-dark)'];
 const wipes = ['var(--raspberry)', 'var(--teal)', 'var(--raspberry)', 'var(--teal)', 'var(--olive)', 'var(--raspberry)', 'var(--teal)'];
 ---
-<Base title="What we do" description="Seven kinds of on-the-ground work and five pillars that guide the Takweyat International Organization.">
+<Base title={t('what_we_do_2')} description="Seven kinds of on-the-ground work and five pillars that guide the Takweyat International Organization.">
   <section class="bighero" style="--img:url(/media/banners/what-we-do.jpg)">
     <div class="wrap bh-in">
-      <h1 class="bh-title">What we do</h1>
-      <p class="bh-lede">Our on-the-ground work today, and the five pillars that guide everything we plan.</p>
-      <div class="btns"><a class="btn white" href="#today"><span>What we do today</span><Arrow /></a><a class="btn ghost" href="#pillars"><span>Our five pillars</span></a></div>
+      <h1 class="bh-title">{t('what_we_do')}</h1>
+      <p class="bh-lede">{t('our_on_the_ground_work_today')}</p>
+      <div class="btns"><a class="btn white" href="#today"><span>{t('what_we_do_today')}</span><Arrow /></a><a class="btn ghost" href="#pillars"><span>{t('our_five_pillars')}</span></a></div>
     </div>
   </section>
 
   <section id="today" class="today">
-    <div class="wrap"><h2 class="h2 big-h2">What We Do Today</h2></div>
+    <div class="wrap"><h2 class="h2 big-h2">{t('what_we_do_today_2')}</h2></div>
     {core.achievements.map((a, i) => (
       <article class={`trow ${i % 2 ? 'alt' : ''}`} style={`--c:${tileColors[i]}`}>
         <div class="wrap trow-in">
@@ -34,8 +35,8 @@ const wipes = ['var(--raspberry)', 'var(--teal)', 'var(--raspberry)', 'var(--tea
   <section class="band bg-white" id="pillars">
     <div class="wrap">
       <div class="cols2 wide-left" style="margin-bottom:40px">
-        <h2 class="h2 big-h2">Our Five Pillars</h2>
-        <p class="lede">Each pillar has a goal, a roadmap and a set of strategic objectives.</p>
+        <h2 class="h2 big-h2">{t('our_five_pillars_2')}</h2>
+        <p class="lede">{t('each_pillar_has_a_goal_a')}</p>
       </div>
       <PillarList />
     </div>

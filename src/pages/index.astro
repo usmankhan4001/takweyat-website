@@ -5,7 +5,8 @@ import Arrow from '../components/Arrow.astro';
 import Photo from '../components/Photo.astro';
 import PillarList from "../components/PillarList.astro";
 import { coreSlugs } from '../data/initiatives';
-import { getCms } from '../lib/cms';
+import { getCms, copyFor } from '../lib/cms';
+const t = copyFor(await getCms(), 'home');
 const { core, site, networks } = await getCms();
 const netIcons = ['social-impact','medical-aid','education-support','disaster-relief','global-aid'];
 const netColors =['var(--teal)','var(--teal-dark)','var(--teal-dark)','var(--teal)','var(--charcoal)'];
@@ -27,7 +28,7 @@ const stageBgs = [
 ].map(([tile, src, pos]) => ({ src: fs.existsSync(`public/media/tiles/${tile}.jpg`) ? `/media/tiles/${tile}.jpg` : src, pos }));
 const pillarColors =['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--teal-dark)', 'var(--charcoal)'];
 ---
-<Base title="Takweyat International Organization" description="A coalition of lawyers, doctors, educators and social workers who give their own time and skills to people who cannot afford help." overlay>
+<Base title={t('takweyat_international_organization')} description="A coalition of lawyers, doctors, educators and social workers who give their own time and skills to people who cannot afford help." overlay>
   <style is:global>
     .hero { background: var(--teal); color: var(--paper); }
     .pin { position: relative; height: 100vh; height: 100svh; overflow: hidden; display: grid; place-items: center; }
@@ -78,8 +79,8 @@ const pillarColors =['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--t
       <div class="stage" id="stage"><video class="bgv" autoplay muted loop playsinline preload="metadata" poster="/media/justice.jpg" aria-hidden="true"><source src="/media/justice.mp4" type="video/mp4" /></video>
         {stageBgs.map((b) => <div class="lay" aria-hidden="true"><img src={b.src} alt="" width="2400" height="1350" decoding="async" style={`object-position:${b.pos}`} /></div>)}
       </div>
-      <h1 class="h1x" id="h1"><span class="dim">Lawyers, doctors and teachers turning their skills into </span><span class="word" id="word">acti<span id="wo">o</span>n<i class="bl" id="bl"></i><i class="oph" id="oph"></i></span><span class="dim"> for people in need.</span></h1>
-      <p class="h2x wrap" id="h2"><em>Free legal aid,</em> <em>medical camps,</em> <em>meals,</em> <em>disaster relief</em> <em>and education.</em></p>
+      <h1 class="h1x" id="h1"><span class="dim">{t('lawyers_doctors_and_teachers_turning_their')} </span><span class="word" id="word">{t('acti')}<span id="wo">{t('o')}</span>{t('n')}<i class="bl" id="bl"></i><i class="oph" id="oph"></i></span><span class="dim"> {t('for_people_in_need')}</span></h1>
+      <p class="h2x wrap" id="h2"><em>{t('free_legal_aid')}</em> <em>{t('medical_camps')}</em> <em>{t('meals')}</em> <em>{t('disaster_relief')}</em> <em>{t('and_education')}</em></p>
       <button class="down" id="down" aria-label="Scroll down"><svg viewBox="0 0 24 24"><path d="M12 4v15M6 13l6 6 6-6"/></svg></button>
     </div>
   </section>
@@ -87,9 +88,9 @@ const pillarColors =['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--t
   <section class="intro" id="about">
     <div class="wrap">
       <div>
-        <p class="big">Takweyat is a coalition of lawyers, doctors, educators and social workers who give their own time and skills to people who cannot afford help.</p>
+        <p class="big">{t('takweyat_is_a_coalition_of_lawyers')}</p>
         <div class="btns">
-          <a class="btn cream" href="/free-legal-aid/"><span>Get free legal aid</span><Arrow /></a>
+          <a class="btn cream" href="/free-legal-aid/"><span>{t('get_free_legal_aid')}</span><Arrow /></a>
         </div>
       </div>
       <Photo caption="Scales of justice, gavel and law books" video="/media/justice.mp4" poster="/media/justice.jpg" ratio="16 / 10" />
@@ -98,22 +99,22 @@ const pillarColors =['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--t
 
   <section class="band">
     <div class="wrap cols2 wide-left" style="align-items:end">
-      <h2 class="h2" data-rise>We don't ask for funds. We ask for your <span style="color:var(--raspberry)">expertise.</span></h2>
+      <h2 class="h2" data-rise>{t('we_don_t_ask_for_funds')} <span style="color:var(--raspberry)">{t('expertise')}</span></h2>
       <div data-rise>
-        <p class="lede" style="margin-bottom:28px">Lawyers, doctors, educators and social workers give their own time and skills where society needs them most.</p>
-        <div class="btns"><a class="btn teal" href="/get-involved/"><span>How you can contribute</span></a></div>
+        <p class="lede" style="margin-bottom:28px">{t('lawyers_doctors_educators_and_social_workers')}</p>
+        <div class="btns"><a class="btn teal" href="/get-involved/"><span>{t('how_you_can_contribute')}</span></a></div>
       </div>
     </div>
   </section>
 
   <section class="band bg-white">
     <div class="wrap">
-      <h2 class="h2" style="margin-bottom:40px">What we do</h2>
+      <h2 class="h2" style="margin-bottom:40px">{t('what_we_do')}</h2>
       <div class="tiles">
         {core.achievements.map((a, i) => (
           <a class="tile" href={tileHref(a.title)} style={`--c:${tileColors[i]};--w:${wipes[i]};--ic:url(/icons/${iconFor(a.title)}.svg)${imgFor(a.title) ? `;--img:url(${imgFor(a.title)})` : ''}`} data-rise><span class="tile-ic" aria-hidden="true"></span><h3>{a.title}</h3></a>
         ))}
-        <a class="tile last" href="/what-we-do/" data-rise><h3 style="display:flex;align-items:center;gap:10px">All our work <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 5l7 7-7 7"/></svg></h3></a>
+        <a class="tile last" href="/what-we-do/" data-rise><h3 style="display:flex;align-items:center;gap:10px">{t('all_our_work')} <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M14 5l7 7-7 7"/></svg></h3></a>
       </div>
     </div>
   </section>
@@ -121,8 +122,8 @@ const pillarColors =['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--t
   <section class="band">
     <div class="wrap">
       <div class="cols2 wide-left" style="margin-bottom:40px;align-items:end">
-        <h2 class="h2">Five Pillars of Our Work</h2>
-        <p class="lede">Each pillar has a goal, a roadmap and a set of strategic objectives.</p>
+        <h2 class="h2">{t('five_pillars_of_our_work')}</h2>
+        <p class="lede">{t('each_pillar_has_a_goal_a')}</p>
       </div>
       <PillarList />
     </div>
@@ -132,15 +133,15 @@ const pillarColors =['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--t
     <div class="wrap cols2" style="align-items:center">
       <Photo caption="Scales of justice, gavel and law books" video="/media/justice.mp4" poster="/media/justice.jpg" ratio="4 / 5" />
       <div>
-        <p class="small" style="font-weight:700;margin-bottom:10px">Free legal aid</p>
-        <h2 class="h2" style="margin-bottom:20px">Justice is a fundamental right, not a privilege.</h2>
-        <p class="lede">Our network of volunteer lawyers provides free counseling and court representation to people who cannot afford it.</p>
+        <p class="small" style="font-weight:700;margin-bottom:10px">{t('free_legal_aid_2')}</p>
+        <h2 class="h2" style="margin-bottom:20px">{t('justice_is_a_fundamental_right_not')}</h2>
+        <p class="lede">{t('our_network_of_volunteer_lawyers_provides')}</p>
         <div class="facts">
-          <div><b>Free</b><span>Pro bono counseling and representation</span></div>
-          <div><b>48 to 72 hours</b><span>For our committee to review your case</span></div>
-          <div><b>2 chambers</b><span>Islamabad and Gujar Khan</span></div>
+          <div><b>{t('free')}</b><span>{t('pro_bono_counseling_and_representation')}</span></div>
+          <div><b>{t('48_to_72_hours')}</b><span>{t('for_our_committee_to_review_your')}</span></div>
+          <div><b>{t('2_chambers')}</b><span>{t('islamabad_and_gujar_khan')}</span></div>
         </div>
-        <div class="btns"><a class="btn white" href="/free-legal-aid/"><span>Apply for legal aid</span><Arrow /></a></div>
+        <div class="btns"><a class="btn white" href="/free-legal-aid/"><span>{t('apply_for_legal_aid')}</span><Arrow /></a></div>
       </div>
     </div>
   </section>
@@ -148,8 +149,8 @@ const pillarColors =['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--t
   <section class="band bg-white">
     <div class="wrap">
       <div class="cols2 wide-left" style="margin-bottom:40px;align-items:end">
-        <h2 class="h2">Bring your profession to the cause</h2>
-        <p class="lede">Choose the network that matches your background. There are no membership fees, but we do ask for real time and effort.</p>
+        <h2 class="h2">{t('bring_your_profession_to_the_cause')}</h2>
+        <p class="lede">{t('choose_the_network_that_matches_your')}</p>
       </div>
       <div class="nets">
         {networks.map((n, i) => (
@@ -168,28 +169,28 @@ const pillarColors =['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--t
   <section class="band bg-charcoal quote">
     <div class="wrap qwrap">
       <figure>
-        <blockquote class="wf">“We do not ask for your funds; we ask for your expertise.”</blockquote>
-        <cite>From the founder’s message</cite>
-        <p style="margin-top:24px"><a class="more" href="/about/">Read the full message <Arrow /></a></p>
+        <blockquote class="wf">{t('we_do_not_ask_for_your')}</blockquote>
+        <cite>{t('from_the_founder_s_message')}</cite>
+        <p style="margin-top:24px"><a class="more" href="/about/">{t('read_the_full_message')} <Arrow /></a></p>
       </figure>
     </div>
   </section>
 
   <section class="band">
     <div class="wrap">
-      <h2 class="h2" style="margin-bottom:40px">Our long-term plans</h2>
+      <h2 class="h2" style="margin-bottom:40px">{t('our_long_term_plans')}</h2>
       <div class="grid" style="gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr))">
         <a class="planbig" href="/plans/education/" style="background:var(--teal);color:var(--paper)" data-rise>
           <span class="num">35</span>
-          <h3 class="h3">The Educational Plan: The Global Vision</h3>
-          <p>Thirty-five pillars across four phases, from rural literacy in Pakistan to a global open university.</p>
-          <span class="more" style="margin-top:auto;align-self:flex-start">Read the plan <Arrow /></span>
+          <h3 class="h3">{t('the_educational_plan_the_global_vision')}</h3>
+          <p>{t('thirty_five_pillars_across_four_phases')}</p>
+          <span class="more" style="margin-top:auto;align-self:flex-start">{t('read_the_plan')} <Arrow /></span>
         </a>
         <a class="planbig" href="/plans/justice/" style="background:var(--raspberry);color:var(--white)" data-rise>
           <span class="num">50</span>
-          <h3 class="h3">The Global Legal Aid and Justice Plan</h3>
-          <p>Fifty pillars across four phases, from domestic legal clinics to international law.</p>
-          <span class="more" style="margin-top:auto;align-self:flex-start">Read the plan <Arrow /></span>
+          <h3 class="h3">{t('the_global_legal_aid_and_justice')}</h3>
+          <p>{t('fifty_pillars_across_four_phases_from')}</p>
+          <span class="more" style="margin-top:auto;align-self:flex-start">{t('read_the_plan_2')} <Arrow /></span>
         </a>
       </div>
     </div>
@@ -198,18 +199,18 @@ const pillarColors =['var(--teal)', 'var(--raspberry)', 'var(--olive)', 'var(--t
   <section class="band bg-white">
     <div class="wrap cols2 wide-left">
       <div>
-        <h2 class="h2" style="margin-bottom:20px">Contact us</h2>
-        <p class="lede" style="margin-bottom:28px">Volunteer and membership inquiries, legal aid, and institutional collaboration all start here.</p>
-        <div class="btns"><a class="btn teal" href="/contact/"><span>Send a message</span><Arrow /></a></div>
+        <h2 class="h2" style="margin-bottom:20px">{t('contact_us')}</h2>
+        <p class="lede" style="margin-bottom:28px">{t('volunteer_and_membership_inquiries_legal_aid')}</p>
+        <div class="btns"><a class="btn teal" href="/contact/"><span>{t('send_a_message')}</span><Arrow /></a></div>
       </div>
       <div class="stack">
-        <div class="card paper"><h3>Email</h3><a href={`mailto:${site.email}`}><b>{site.email}</b></a></div>
+        <div class="card paper"><h3>{t('email')}</h3><a href={`mailto:${site.email}`}><b>{site.email}</b></a></div>
         {site.offices.map((o) => <div class="card paper"><h3>{o.name}</h3><p>{o.lines.join(', ')}</p></div>)}
       </div>
     </div>
   </section>
 
-  <div class="sticky-cta"><a class="btn" href="/free-legal-aid/"><span>Get free legal aid</span><Arrow /></a></div>
+  <div class="sticky-cta"><a class="btn" href="/free-legal-aid/"><span>{t('get_free_legal_aid_2')}</span><Arrow /></a></div>
 
   <script>
     import { gsap } from 'gsap';

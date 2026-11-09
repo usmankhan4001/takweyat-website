@@ -1,45 +1,46 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
-import { getCms } from '../lib/cms';
+import { getCms, copyFor } from '../lib/cms';
+const t = copyFor(await getCms(), 'media-kit');
 const { site } = await getCms();
 ---
-<Base title="Media kit" description="Logo files, a short description and contact details for journalists writing about Takweyat.">
-  <PageHead title="Media kit" tone="charcoal" lede="Everything a journalist or partner needs to describe Takweyat accurately." crumbs={[{ label: 'Press', href: '/press/' }]} />
+<Base title={t('media_kit')} description="Logo files, a short description and contact details for journalists writing about Takweyat.">
+  <PageHead title={t('media_kit_2')} tone="charcoal" lede="Everything a journalist or partner needs to describe Takweyat accurately." crumbs={[{ label: 'Press', href: '/press/' }]} />
   <section class="band">
     <div class="wrap">
-      <h2 class="h2" style="margin-bottom:28px">Short description</h2>
-      <p class="lede" style="max-width:70ch">Takweyat (تقویت) is a dedicated organization of individuals united by a single mission: to bring positive change and provide strength to society. Whatever the issue, we stand ready to empower communities, uplift the marginalized, and build a stronger, fairer world.</p>
+      <h2 class="h2" style="margin-bottom:28px">{t('short_description')}</h2>
+      <p class="lede" style="max-width:70ch">{t('takweyat_is_a_dedicated_organization_of')}</p>
     </div>
   </section>
   <section class="band bg-white">
     <div class="wrap">
-      <h2 class="h2" style="margin-bottom:28px">Logo</h2>
+      <h2 class="h2" style="margin-bottom:28px">{t('logo')}</h2>
       <div class="grid g2">
-        <div class="card paper"><img src="/logo.png" alt="Takweyat logo on a light background" width="380" /><p class="small">For light backgrounds</p><a class="more" href="/brand/takweyat-logo-teal.png" download>Download PNG</a></div>
-        <div class="card" style="background:var(--charcoal);color:var(--paper)"><img src="/brand/takweyat-logo-white.png" alt="Takweyat logo on a dark background" width="380" /><p class="small" style="color:inherit">For dark backgrounds</p><a class="more" href="/brand/takweyat-logo-white.png" download>Download PNG</a></div>
+        <div class="card paper"><img src="/logo.png" alt="Takweyat logo on a light background" width="380" /><p class="small">{t('for_light_backgrounds')}</p><a class="more" href="/brand/takweyat-logo-teal.png" download>{t('download_png')}</a></div>
+        <div class="card" style="background:var(--charcoal);color:var(--paper)"><img src="/brand/takweyat-logo-white.png" alt="Takweyat logo on a dark background" width="380" /><p class="small" style="color:inherit">{t('for_dark_backgrounds')}</p><a class="more" href="/brand/takweyat-logo-white.png" download>{t('download_png_2')}</a></div>
       </div>
     </div>
   </section>
   <section class="band">
     <div class="wrap">
-      <h2 class="h2" style="margin-bottom:28px">Brand kit</h2>
+      <h2 class="h2" style="margin-bottom:28px">{t('brand_kit')}</h2>
       <div class="grid g3">
-        <div class="card paper"><img src="/brand/takweyat-mark-512.png" alt="The Takweyat hands mark" width="160" height="160" /><p class="small">The mark</p><a class="more" href="/brand/takweyat-mark-512.png" download>Download PNG</a></div>
-        <div class="card paper"><img src="/brand/takweyat-logo-teal.png" alt="Takweyat logo in teal" width="300" /><p class="small">Logo, teal</p><a class="more" href="/brand/takweyat-logo-teal.png" download>Download PNG</a></div>
-        <div class="card" style="background:var(--teal);color:#fff"><img src="/brand/takweyat-logo-white.png" alt="Takweyat logo in white" width="300" /><p class="small" style="color:inherit">Logo, white</p><a class="more" href="/brand/takweyat-logo-white.png" download>Download PNG</a></div>
+        <div class="card paper"><img src="/brand/takweyat-mark-512.png" alt="The Takweyat hands mark" width="160" height="160" /><p class="small">{t('the_mark')}</p><a class="more" href="/brand/takweyat-mark-512.png" download>{t('download_png_3')}</a></div>
+        <div class="card paper"><img src="/brand/takweyat-logo-teal.png" alt="Takweyat logo in teal" width="300" /><p class="small">{t('logo_teal')}</p><a class="more" href="/brand/takweyat-logo-teal.png" download>{t('download_png_4')}</a></div>
+        <div class="card" style="background:var(--teal);color:#fff"><img src="/brand/takweyat-logo-white.png" alt="Takweyat logo in white" width="300" /><p class="small" style="color:inherit">{t('logo_white')}</p><a class="more" href="/brand/takweyat-logo-white.png" download>{t('download_png_5')}</a></div>
       </div>
       <ul class="swatches" aria-label="Brand colours">
-        <li style="--sw:#007A7A"><b>Teal</b><span>#007A7A</span></li>
-        <li style="--sw:#A21E66"><b>Raspberry</b><span>#A21E66</span></li>
-        <li style="--sw:#7B7B7B"><b>Slate</b><span>#7B7B7B</span></li>
-        <li style="--sw:#0B0902"><b>Charcoal</b><span>#0B0902</span></li>
+        <li style="--sw:#007A7A"><b>{t('teal')}</b><span>{t('007a7a')}</span></li>
+        <li style="--sw:#A21E66"><b>{t('raspberry')}</b><span>{t('a21e66')}</span></li>
+        <li style="--sw:#7B7B7B"><b>{t('slate')}</b><span>{t('7b7b7b')}</span></li>
+        <li style="--sw:#0B0902"><b>{t('charcoal')}</b><span>{t('0b0902')}</span></li>
       </ul>
     </div>
   </section>
   <section class="band tight">
     <div class="wrap">
-      <h2 class="h3" style="margin-bottom:12px">Contact</h2>
+      <h2 class="h3" style="margin-bottom:12px">{t('contact')}</h2>
       <p><a class="more" href={`mailto:${site.email}`}>{site.email}</a></p>
     </div>
   </section>

@@ -2,7 +2,8 @@
 import Base from '../../layouts/Base.astro';
 import Arrow from '../../components/Arrow.astro';
 import { coreSlugs } from '../../data/initiatives';
-import { getCms } from '../../lib/cms';
+import { getCms, copyFor } from '../../lib/cms';
+const t = copyFor(await getCms(), 'what-we-do-slug');
 const { core } = await getCms();
 
 const i = coreSlugs.indexOf(Astro.params.slug as string);
@@ -24,10 +25,10 @@ const deeper = i === 0
   <section class="pillar-hero" style={`--c:${colors[i]}`}>
     <div class="wrap phg-grid">
       <div class="ph-text">
-        <p class="crumbs"><a href="/what-we-do/">What we do</a> / Pillar {i + 1} of 5</p>
+        <p class="crumbs"><a href="/what-we-do/">{t('what_we_do')}</a> / Pillar {i + 1} of 5</p>
         <h1 class="h1">{p.title}</h1>
         <p class="lede">{p.goal}</p>
-        <div class="btns"><a class="btn white" href="#objectives"><span>See the objectives</span><Arrow /></a></div>
+        <div class="btns"><a class="btn white" href="#objectives"><span>{t('see_the_objectives')}</span><Arrow /></a></div>
       </div>
       <div class="ph-art"><img src={art} alt="" width="1600" height="1200" fetchpriority="high" /></div>
     </div>
@@ -35,7 +36,7 @@ const deeper = i === 0
 
   <section class="band road" style={`--c:${colors[i]}`}>
     <div class="wrap road-in">
-      <p class="small">Roadmap</p>
+      <p class="small">{t('roadmap')}</p>
       <p class="road-q">{p.roadmap}</p>
     </div>
   </section>
@@ -44,7 +45,7 @@ const deeper = i === 0
     <section class="band tight bg-white">
       <div class="wrap">
         <div class="card deeper" style={`--c:${colors[i]}`}>
-          <div><h3>Go deeper</h3><p>{deeper.text}</p></div>
+          <div><h3>{t('go_deeper')}</h3><p>{deeper.text}</p></div>
           <a class="btn teal" href={deeper.href}><span>{deeper.label}</span><Arrow /></a>
         </div>
       </div>
@@ -53,12 +54,12 @@ const deeper = i === 0
 
   <section class="band bg-white" id="objectives">
     <div class="wrap">
-      <h2 class="h2" style="margin-bottom:40px">Strategic objectives</h2>
+      <h2 class="h2" style="margin-bottom:40px">{t('strategic_objectives')}</h2>
       <ol class="objs" style={`--c:${colors[i]}`}>
         {p.objectives.map((o, n) => <li data-rise><b>{String(n + 1).padStart(2, '0')}</b><span>{o}</span></li>)}
       </ol>
       <div class="btns" style="margin-top:48px">
-        <a class="btn" href="/volunteer/"><span>Bring your profession to this work</span><Arrow /></a>
+        <a class="btn" href="/volunteer/"><span>{t('bring_your_profession_to_this_work')}</span><Arrow /></a>
       </div>
     </div>
   </section>

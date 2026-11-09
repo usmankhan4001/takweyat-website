@@ -4,15 +4,16 @@ import PageHead from '../../components/PageHead.astro';
 import LeadForm from '../../components/LeadForm.astro';
 import { press } from '../../data/forms';
 import Arrow from '../../components/Arrow.astro';
-import { getCms } from '../../lib/cms';
+import { getCms, copyFor } from '../../lib/cms';
+const t = copyFor(await getCms(), 'press');
 const { site, releases } = await getCms();
 ---
-<Base title="Press" description="Press releases and media resources from Takweyat International Organization.">
-  <PageHead img="/media/banners/press.jpg" title="Press" tone="teal" lede="News from Takweyat and everything a journalist needs." />
+<Base title={t('press')} description="Press releases and media resources from Takweyat International Organization.">
+  <PageHead img="/media/banners/press.jpg" title={t('press_2')} tone="teal" lede="News from Takweyat and everything a journalist needs." />
   <section class="band">
     <div class="wrap cols2 wide-left">
       <div>
-        <h2 class="h2" style="margin-bottom:28px">Press releases</h2>
+        <h2 class="h2" style="margin-bottom:28px">{t('press_releases')}</h2>
         <div class="stack">
           {releases.map((r) => (
             <a class="card" href={`/press/${r.slug}/`} data-rise>
@@ -24,15 +25,15 @@ const { site, releases } = await getCms();
         </div>
       </div>
       <aside class="card" style="--c:var(--teal)">
-        <h3>Media inquiries</h3>
-        <p>For interviews and information, write to <a href={`mailto:${site.email}`}><b>{site.email}</b></a>.</p>
-        <a class="btn teal" href="/media-kit/" style="align-self:flex-start"><span>Media kit</span><Arrow /></a>
+        <h3>{t('media_inquiries')}</h3>
+        <p>{t('for_interviews_and_information_write_to')} <a href={`mailto:${site.email}`}><b>{site.email}</b></a>.</p>
+        <a class="btn teal" href="/media-kit/" style="align-self:flex-start"><span>{t('media_kit')}</span><Arrow /></a>
       </aside>
     </div>
   </section>
   <section class="band bg-white" id="press-enquiry">
     <div class="wrap">
-      <div style="margin-bottom:36px"><h2 class="h2">Press enquiries</h2><p class="lede" style="margin-top:16px">Journalists and editors looking for information, interviews or images.</p></div>
+      <div style="margin-bottom:36px"><h2 class="h2">{t('press_enquiries')}</h2><p class="lede" style="margin-top:16px">{t('journalists_and_editors_looking_for_information')}</p></div>
       <LeadForm id="press" submit="Send Enquiry" fields={press} />
     </div>
   </section>

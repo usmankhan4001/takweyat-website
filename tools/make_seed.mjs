@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import { site } from '../src/data/site.ts';
 import { networks } from '../src/data/networks.ts';
 import { releases } from '../src/data/press.ts';
+import copyDefaults from '../src/data/copy.defaults.json' with { type: 'json' };
 const j = (f) => JSON.parse(fs.readFileSync(new URL(`../content/${f}.json`, import.meta.url), 'utf8'));
 const core = j('core-pillars'), edu = j('education-plan'), legal = j('legal-plan');
 const coreSlugs = ['education-and-youth', 'hunger-and-spiritual-enrichment', 'human-rights-and-justice', 'disaster-and-climate', 'healthcare-and-medical-security'];
@@ -37,7 +38,7 @@ const content = {
   networks: networks.map((n, i) => e(`net-${i}`, `network-${i + 1}`, { ...n, order: i })),
   releases: releases.map((r, i) => e(`rel-${i}`, r.slug, { title: r.title, date: r.date ?? '', summary: r.summary, pdf: r.pdf, order: i })),
   plans: [e('plan-edu', 'education', { title: edu.title, data: edu }), e('plan-justice', 'justice', { title: legal.title, data: legal })],
-  copy: [e('copy-core', 'core', { title: 'Core pillars page text', text: { heroBanner: core.heroBanner, achievementsIntro: core.achievementsIntro, pillarsIntro: core.pillarsIntro } })],
+  copy: [...Object.entries(copyDefaults).map(([page, text]) => e(`copy-${page}`, page, { title: `Page text: ${page}`, text })), e('copy-core', 'core', { title: 'Core pillars page text', text: { heroBanner: core.heroBanner, achievementsIntro: core.achievementsIntro, pillarsIntro: core.pillarsIntro } })],
 };
 fs.mkdirSync(new URL('../.emdash/', import.meta.url), { recursive: true });
 fs.writeFileSync(new URL('../.emdash/seed.json', import.meta.url), JSON.stringify({ version: '1', meta: { name: 'Takweyat' }, collections, content }));

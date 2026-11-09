@@ -3,23 +3,24 @@ import Base from '../../../layouts/Base.astro';
 import PageHead from '../../../components/PageHead.astro';
 import Arrow from '../../../components/Arrow.astro';
 import { eduGroups } from '../../../data/groups';
-import { getCms } from '../../../lib/cms';
+import { getCms, copyFor } from '../../../lib/cms';
+const t = copyFor(await getCms(), 'plans-education');
 const { edu } = await getCms();
 const P = new Map(edu.pillars.map((p) => [p.number, p]));
 const phaseColors = ['var(--teal)', 'var(--olive)', 'var(--raspberry)', 'var(--charcoal)'];
 ---
-<Base title="The Educational Plan" description="The Takweyat Educational Plan: The Global Vision. Four phases and 35 pillars of educational transformation.">
-  <PageHead title="The Educational Plan" lede="The Global Vision" tone="teal" crumbs={[{ label: 'Our plans', href: '/plans/' }]} tag="Plan: every pillar is a goal, not a finished project">
+<Base title={t('the_educational_plan')} description="The Takweyat Educational Plan: The Global Vision. Four phases and 35 pillars of educational transformation.">
+  <PageHead title={t('the_educational_plan_2')} lede="The Global Vision" tone="teal" crumbs={[{ label: 'Our plans', href: '/plans/' }]} tag="Plan: every pillar is a goal, not a finished project">
   </PageHead>
 
   <section class="band">
     <div class="wrap cols2">
       <div data-rise>
-        <h2 class="h2">Executive Summary</h2>
+        <h2 class="h2">{t('executive_summary')}</h2>
         <p class="lede" style="margin-top:20px">{edu.executiveSummary}</p>
       </div>
       <div data-rise>
-        <h2 class="h2">Our Ultimate Goal</h2>
+        <h2 class="h2">{t('our_ultimate_goal')}</h2>
         <p class="lede" style="margin-top:20px">{edu.ultimateGoal}</p>
       </div>
     </div>
@@ -43,7 +44,7 @@ const phaseColors = ['var(--teal)', 'var(--olive)', 'var(--raspberry)', 'var(--c
   <section class="band">
     <div class="wrap">
       <h2 class="h2" style="margin-bottom:12px">{edu.pillarsHeading}</h2>
-      <p class="lede" style="margin-bottom:44px">Grouped by theme so you can find your way. Each pillar opens to its ten commitments.</p>
+      <p class="lede" style="margin-bottom:44px">{t('grouped_by_theme_so_you_can')}</p>
       {eduGroups.map((g) => (
         <div class="group">
           <h3 class="h3">{g.name} <small>{g.pillars.length} pillars</small></h3>
@@ -61,8 +62,8 @@ const phaseColors = ['var(--teal)', 'var(--olive)', 'var(--raspberry)', 'var(--c
 
   <section class="band bg-teal tight">
     <div class="wrap cols2 wide-left">
-      <h2 class="h2">The whole plan, designed to read and keep</h2>
-      <div class="btns"><a class="btn cream" href="/whitepapers/"><span>Whitepapers</span><Arrow /></a></div>
+      <h2 class="h2">{t('the_whole_plan_designed_to_read')}</h2>
+      <div class="btns"><a class="btn cream" href="/whitepapers/"><span>{t('whitepapers')}</span><Arrow /></a></div>
     </div>
   </section>
 </Base>

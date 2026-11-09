@@ -4,7 +4,8 @@ import PageHead from '../../components/PageHead.astro';
 import LeadForm from '../../components/LeadForm.astro';
 import { partner } from '../../data/forms';
 import { statusLabel } from '../../data/initiatives';
-import { getCms } from '../../lib/cms';
+import { getCms, copyFor } from '../../lib/cms';
+const t = copyFor(await getCms(), 'initiatives');
 const { initiatives } = await getCms();
 const live = initiatives.filter((i) => i.status !== 'planned');
 const planned = initiatives.filter((i) => i.status === 'planned');
@@ -17,22 +18,22 @@ const groups = [
 ].map((g) => ({ ...g, items: planned.filter((i) => i.group === g.key) })).filter((g) => g.items.length);
 const phaseTag = (i: (typeof initiatives)[number]) => (i.phase ? i.phase.label.split(':')[0] : 'In the plans');
 ---
-<Base title="Initiatives" description="Takweyat's live platform, its active legal chambers, and the institutions and funds its plans set out to build.">
-  <PageHead img="/media/banners/initiatives.jpg" title="Initiatives" lede="What is live and active today, and what our plans set out to build." tone="teal" />
+<Base title={t('initiatives')} description="Takweyat's live platform, its active legal chambers, and the institutions and funds its plans set out to build.">
+  <PageHead img="/media/banners/initiatives.jpg" title={t('initiatives_2')} lede="What is live and active today, and what our plans set out to build." tone="teal" />
 
   <section class="band">
     <div class="wrap">
       <ul class="istats">
-        <li data-rise><b>{live.length}</b><span>Live and active today</span></li>
-        <li data-rise><b>{planned.length}</b><span>Planned in our two plans</span></li>
-        <li data-rise><b>{groups.length}</b><span>Areas: education, funds and legal</span></li>
+        <li data-rise><b>{live.length}</b><span>{t('live_and_active_today')}</span></li>
+        <li data-rise><b>{planned.length}</b><span>{t('planned_in_our_two_plans')}</span></li>
+        <li data-rise><b>{groups.length}</b><span>{t('areas_education_funds_and_legal')}</span></li>
       </ul>
     </div>
   </section>
 
   <section class="band" style="padding-top:0">
     <div class="wrap">
-      <h2 class="h2" style="margin-bottom:32px">Live and active</h2>
+      <h2 class="h2" style="margin-bottom:32px">{t('live_and_active')}</h2>
       <div class="feats">
         {live.map((i) => (
           <a class="feat" href={`/initiatives/${i.slug}/`} style={`--ic:url(/icons/${icon[i.slug]}.svg)`} data-rise>
@@ -40,7 +41,7 @@ const phaseTag = (i: (typeof initiatives)[number]) => (i.phase ? i.phase.label.s
             <div class="fb">
               <span class={`status ${i.status}`}>{statusLabel[i.status]}</span>
               <h3>{i.name}</h3>
-              <span class="go">Read more <i aria-hidden="true">→</i></span>
+              <span class="go">{t('read_more')} <i aria-hidden="true">→</i></span>
             </div>
           </a>
         ))}
@@ -51,8 +52,8 @@ const phaseTag = (i: (typeof initiatives)[number]) => (i.phase ? i.phase.label.s
   <section class="band bg-white">
     <div class="wrap">
       <div class="cols2 wide-left" style="margin-bottom:48px">
-        <h2 class="h2">Planned</h2>
-        <p class="lede">Institutions, programs and funds that the plans describe. They are goals, not finished projects.</p>
+        <h2 class="h2">{t('planned')}</h2>
+        <p class="lede">{t('institutions_programs_and_funds_that_the')}</p>
       </div>
       {groups.map((g, gi) => (
         <div class={`igroup${gi % 2 ? ' flip' : ''}`}>
@@ -72,7 +73,7 @@ const phaseTag = (i: (typeof initiatives)[number]) => (i.phase ? i.phase.label.s
   </section>
   <section class="band" id="partner">
     <div class="wrap">
-      <div style="margin-bottom:36px"><h2 class="h2">Partner with us</h2><p class="lede" style="margin-top:16px">For businesses, institutions and organisations that want to work alongside Takweyat.</p></div>
+      <div style="margin-bottom:36px"><h2 class="h2">{t('partner_with_us')}</h2><p class="lede" style="margin-top:16px">{t('for_businesses_institutions_and_organisations_that')}</p></div>
       <LeadForm id="partner" submit="Send Proposal" fields={partner} />
     </div>
   </section>
