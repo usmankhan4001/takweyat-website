@@ -3,4 +3,4 @@ dist
 .astro
 tools/pdf
 .env
-data/
+/data/
