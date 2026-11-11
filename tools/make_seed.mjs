@@ -21,7 +21,7 @@ const collections = [
     f('offices', 'Offices (list of {name, lines})', 'json'), f('nav', 'Main menu (list of {label, href})', 'json'), f('footer_links', 'Footer links (groups of {label, href})', 'json'),
   ], { sortOrder: 1 }),
   col('pillars', 'Core pillars', 'Pillar', [
-    f('title', 'Title', 'string', { required: true }), f('number', 'Number', 'integer'), f('goal', 'Goal', 'text'), f('roadmap', 'Roadmap', 'text'), f('objectives', 'Objectives (list of text)', 'json'),
+    f('title', 'Title', 'string', { required: true }), f('number', 'Number', 'integer'), f('goal', 'Goal', 'text'), f('roadmap', 'Roadmap', 'text'), f('objectives_text', 'Objectives (one per line)', 'text'),
   ], { sortOrder: 2 }),
   col('achievements', 'Achievements', 'Achievement', [f('title', 'Title', 'string', { required: true }), f('text', 'Text', 'text'), f('order', 'Order', 'integer')], { sortOrder: 3 }),
   col('networks', 'Volunteer networks', 'Network', [
@@ -36,7 +36,7 @@ const collections = [
 const e = (id, slug, data) => ({ id, slug, status: 'published', data });
 const content = {
   site: [e('site', 'site', { title: site.name, short: site.short, name_urdu: site.nameUrdu, email: site.email, phone: site.phone ?? '', whatsapp: site.whatsapp ?? '', helpline: site.helpline ?? '', boycott_platform: site.boycottPlatform, offices: site.offices, nav: site.nav, footer_links: site.footerLinks })],
-  pillars: core.pillars.map((p, i) => e(`pillar-${i}`, coreSlugs[i], { title: p.title, number: p.number, goal: p.goal, roadmap: p.roadmap, objectives: p.objectives })),
+  pillars: core.pillars.map((p, i) => e(`pillar-${i}`, coreSlugs[i], { title: p.title, number: p.number, goal: p.goal, roadmap: p.roadmap, objectives_text: p.objectives.join('\n') })),
   achievements: core.achievements.map((a, i) => e(`ach-${i}`, `achievement-${i + 1}`, { ...a, order: i })),
   networks: networks.map((n, i) => e(`net-${i}`, `network-${i + 1}`, { ...n, order: i })),
   releases: releases.map((r, i) => e(`rel-${i}`, r.slug, { title: r.title, date: r.date ?? '', summary: r.summary, pdf: r.pdf, order: i })),
@@ -45,4 +45,6 @@ const content = {
 };
 fs.mkdirSync(new URL('../.emdash/', import.meta.url), { recursive: true });
 fs.writeFileSync(new URL('../.emdash/seed.json', import.meta.url), JSON.stringify({ version: '1', meta: { name: 'Takweyat' }, collections, content }));
+// One-off patch for sites seeded before objectives became a text field: fills only that field on the existing pillars.
+fs.writeFileSync(new URL('../.emdash/seed-patch.json', import.meta.url), JSON.stringify({ version: '1', collections: collections.filter((c) => c.slug === 'pillars'), content: { pillars: content.pillars.map((p) => ({ ...p, data: { objectives_text: p.data.objectives_text } })) } }));
 console.log('seed written', Object.fromEntries(Object.entries(content).map(([k, v]) => [k, v.length])));

@@ -23,4 +23,4 @@ RUN mkdir -p data
 VOLUME /app/data
 EXPOSE 4321
 # Seed the CMS with the site content once per seed version (never overwrites edits), then start the server.
-CMD ["sh", "-c", "[ -f data/.seeded-v3 ] || (npx emdash seed -d $DATABASE_PATH .emdash/seed.json && touch data/.seeded-v3); exec node ./dist/server/entry.mjs"]
+CMD ["sh", "-c", "[ -f data/.seeded-v4 ] || (npx emdash seed -d $DATABASE_PATH .emdash/seed.json && npx emdash seed -d $DATABASE_PATH --on-conflict=update .emdash/seed-patch.json && touch data/.seeded-v4); exec node ./dist/server/entry.mjs"]

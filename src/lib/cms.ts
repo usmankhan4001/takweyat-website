@@ -34,7 +34,20 @@ async function load() {
   } : siteFile;
 
   const page = (slug: string) => copy.find((c: any) => c.slug === slug)?.text ?? {};
-  const doc = (slug: string, fallback: any) => { const v: any = page(slug); return v && Object.keys(v).length ? { ...fallback, ...v } : fallback; };
+  // shortcut: shape checks are shallow (arrays and required keys), not a full schema; upgrade if editors start breaking deeper fields.
+  const okField = (f: any) => f && typeof f.name === 'string' && typeof f.label === 'string';
+  const okGroup = (g: any) => g && typeof g.name === 'string' && Array.isArray(g.pillars);
+  const okPair = (p: any) => Array.isArray(p) && p.length === 2 && p.every((x) => typeof x === 'string');
+  const checks: Record<string, (v: any) => boolean> = {
+    forms: (v) => Array.isArray(v) && v.every(okField), eduGroups: (v) => Array.isArray(v) && v.every(okGroup), justiceGroups: (v) => Array.isArray(v) && v.every(okGroup),
+    scope: (v) => Array.isArray(v) && v.every(okPair), steps: (v) => Array.isArray(v) && v.every(okPair),
+  };
+  const doc = (slug: string, fallback: any) => {
+    const v: any = page(slug); if (!v || !Object.keys(v).length) return fallback;
+    const out: any = { ...fallback };
+    for (const [k, val] of Object.entries(v)) { const chk = slug === 'forms' ? checks.forms : checks[k]; if (!chk || chk(val)) out[k] = val; }
+    return out;
+  };
   const forms: any = doc('forms', { ...formsFile });
   const process: any = doc('legal-aid-process', { scope: processFile.scope, steps: processFile.steps });
   const groups: any = doc('plan-groups', { eduGroups: eduGroupsFile, justiceGroups: justiceGroupsFile });
@@ -43,11 +56,14 @@ async function load() {
     heroBanner: cp.heroBanner ?? coreFile.heroBanner, achievementsIntro: cp.achievementsIntro ?? coreFile.achievementsIntro,
     pillarsIntro: cp.pillarsIntro ?? coreFile.pillarsIntro,
     achievements: achievements.length ? [...achievements].sort(byOrder).map((a: any) => ({ title: a.title, text: a.text })) : coreFile.achievements,
-    pillars: [...pillars].sort((a: any, b: any) => a.number - b.number).map((p: any) => ({ number: p.number, title: p.title, goal: p.goal, roadmap: p.roadmap, objectives: p.objectives ?? [] })),
+    pillars: [...pillars].sort((a: any, b: any) => a.number - b.number).map((p: any) => ({ number: p.number, title: p.title, goal: p.goal, roadmap: p.roadmap, objectives: typeof p.objectives_text === 'string' && p.objectives_text.trim() ? p.objectives_text.split(/\r?\n/).map((l: string) => l.trim()).filter(Boolean) : p.objectives ?? [] })),
   } : coreFile;
 
-  const edu = plans.find((p: any) => p.slug === 'education')?.data ?? eduFile;
-  const legal = plans.find((p: any) => p.slug === 'justice')?.data ?? legalFile;
+  const okPlan = (d: any, n: number) => d && Array.isArray(d.pillars) && d.pillars.length >= n && Array.isArray(d.roadmap);
+  const eduRow = plans.find((p: any) => p.slug === 'education')?.data;
+  const edu = okPlan(eduRow, 1) ? eduRow : eduFile;
+  const legalRow = plans.find((p: any) => p.slug === 'justice')?.data;
+  const legal = okPlan(legalRow, 1) ? legalRow : legalFile;
   const nets = networks.length ? [...networks].sort(byOrder) : networksFile;
   const rels = releases.length ? [...releases].sort(byOrder).map((r: any) => ({ slug: r.slug, title: r.title, date: orNull(r.date), summary: r.summary, pdf: r.pdf })) : releasesFile;
   return { site, core, edu, legal, networks: nets, releases: rels, forms, process, groups, copy: page, initiatives: buildInitiatives({ edu, legal, core, site }) };
