@@ -14,4 +14,4 @@ function check(name: string, groups: Group[], total: number) {
 check('Education', eduGroups, 35);
 check('Justice', justiceGroups, 50);
 
-export const groupOf = (groups: Group[], n: number) => groups.find((g) => g.pillars.includes(n))!;
+export const groupOf = (groups: Group[], n: number) => groups.find((g) => g.pillars.includes(n)) ?? { name: '', pillars: [n] };

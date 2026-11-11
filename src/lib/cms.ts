@@ -8,6 +8,9 @@ import legalFile from '../../content/legal-plan.json';
 import { site as siteFile } from '../data/site';
 import { networks as networksFile } from '../data/networks';
 import { releases as releasesFile } from '../data/press';
+import * as formsFile from '../data/forms';
+import * as processFile from '../data/legalAid';
+import { eduGroups as eduGroupsFile, justiceGroups as justiceGroupsFile } from '../data/groups';
 import { buildInitiatives } from '../data/initiatives';
 import defaults from '../data/copy.defaults.json';
 
@@ -31,6 +34,10 @@ async function load() {
   } : siteFile;
 
   const page = (slug: string) => copy.find((c: any) => c.slug === slug)?.text ?? {};
+  const doc = (slug: string, fallback: any) => { const v: any = page(slug); return v && Object.keys(v).length ? { ...fallback, ...v } : fallback; };
+  const forms: any = doc('forms', { ...formsFile });
+  const process: any = doc('legal-aid-process', { scope: processFile.scope, steps: processFile.steps });
+  const groups: any = doc('plan-groups', { eduGroups: eduGroupsFile, justiceGroups: justiceGroupsFile });
   const cp: any = page('core');
   const core = pillars.length ? {
     heroBanner: cp.heroBanner ?? coreFile.heroBanner, achievementsIntro: cp.achievementsIntro ?? coreFile.achievementsIntro,
@@ -43,7 +50,7 @@ async function load() {
   const legal = plans.find((p: any) => p.slug === 'justice')?.data ?? legalFile;
   const nets = networks.length ? [...networks].sort(byOrder) : networksFile;
   const rels = releases.length ? [...releases].sort(byOrder).map((r: any) => ({ slug: r.slug, title: r.title, date: orNull(r.date), summary: r.summary, pdf: r.pdf })) : releasesFile;
-  return { site, core, edu, legal, networks: nets, releases: rels, copy: page, initiatives: buildInitiatives({ edu, legal, core, site }) };
+  return { site, core, edu, legal, networks: nets, releases: rels, forms, process, groups, copy: page, initiatives: buildInitiatives({ edu, legal, core, site }) };
 }
 
 let cache: { t: number; v: ReturnType<typeof load> } | undefined;

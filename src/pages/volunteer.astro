@@ -1,7 +1,7 @@
 ---
 import ActionPage from '../components/ActionPage.astro';
-import { volunteer } from '../data/forms';
 import { getCms, copyFor } from '../lib/cms';
+const { volunteer } = (await getCms()).forms;
 const t = copyFor(await getCms(), 'volunteer');
 ---
 <ActionPage title={t('become_a_volunteer')} id="volunteer" img="/media/banners/get-involved.jpg" headline="Become a volunteer" lede="We do not ask for funds. We ask for your skills. Tell us who you are in a few short questions." submit="Send My Details"

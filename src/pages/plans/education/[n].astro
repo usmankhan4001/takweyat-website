@@ -2,8 +2,9 @@
 import Base from '../../../layouts/Base.astro';
 import PageHead from '../../../components/PageHead.astro';
 import Arrow from '../../../components/Arrow.astro';
-import { eduGroups, groupOf } from '../../../data/groups';
+import { groupOf } from '../../../data/groups';
 import { getCms, copyFor } from '../../../lib/cms';
+const { eduGroups } = (await getCms()).groups;
 const t = copyFor(await getCms(), 'plans-education-n');
 const { edu } = await getCms();
 

@@ -1,7 +1,7 @@
 ---
 import ActionPage from '../components/ActionPage.astro';
-import { partner } from '../data/forms';
 import { getCms, copyFor } from '../lib/cms';
+const { partner } = (await getCms()).forms;
 const t = copyFor(await getCms(), 'partner');
 const { networks } = await getCms();
 ---

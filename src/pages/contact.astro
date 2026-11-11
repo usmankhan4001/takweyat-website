@@ -2,10 +2,9 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import LeadForm from '../components/LeadForm.astro';
-import { professions, subjects } from '../data/networks';
 import { getCms, copyFor } from '../lib/cms';
 const t = copyFor(await getCms(), 'contact');
-const { site } = await getCms();
+const { site, forms } = await getCms();
 ---
 <Base title={t('contact_us')} description="Volunteer and membership inquiries, free legal aid, and institutional collaboration with Takweyat International Organization.">
   <PageHead img="/media/banners/contact.jpg" title={t('contact_us_2')} tone="raspberry" lede="Volunteer and membership inquiries, legal aid, and institutional collaboration all start here." />
@@ -14,14 +13,7 @@ const { site } = await getCms();
     <div class="wrap cols2 wide-left">
       <div>
         <h2 class="h2" style="margin-bottom:28px">{t('digital_contact_membership_form')}</h2>
-        <LeadForm id="contact" submit="Send Message" fields={[
-          { name: 'name', label: 'Full Name', short: 'Name', help: 'So we know who to reply to.', ph: 'Your full name', required: true },
-          { name: 'email', label: 'Email Address', short: 'Email', help: 'We will reply to this address.', ph: 'name@example.com', type: 'email', required: true },
-          { name: 'phone', label: 'Phone Number', short: 'Phone', help: 'Only if you would like a call. You can skip this.', ph: '03XX XXXXXXX', type: 'tel' },
-          { name: 'profession', label: 'Profession / Area of Expertise', short: 'Profession', help: 'Choose the one that fits you best.', type: 'select', options: professions, required: true },
-          { name: 'subject', label: 'Subject', short: 'Subject', help: 'What is your message about?', type: 'select', options: subjects, required: true },
-          { name: 'message', label: 'Message', short: 'Message', ph: 'Write here...', type: 'textarea', hint: 'Tell us how you would like to contribute your skills', required: true },
-        ]} />
+        <LeadForm id="contact" submit="Send Message" fields={forms.contact} />
       </div>
       <aside class="stack">
         <div class="card" style="--c:var(--raspberry)">

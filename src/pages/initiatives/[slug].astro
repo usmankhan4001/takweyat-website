@@ -3,8 +3,8 @@ import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
 import Arrow from '../../components/Arrow.astro';
 import { statusLabel } from '../../data/initiatives';
-import { scope, steps } from '../../data/legalAid';
 import { getCms, copyFor } from '../../lib/cms';
+const { scope, steps } = (await getCms()).process;
 const t = copyFor(await getCms(), 'initiatives-slug');
 const { site, initiatives } = await getCms();
 

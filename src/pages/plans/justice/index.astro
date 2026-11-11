@@ -2,8 +2,8 @@
 import Base from '../../../layouts/Base.astro';
 import PageHead from '../../../components/PageHead.astro';
 import Arrow from '../../../components/Arrow.astro';
-import { justiceGroups } from '../../../data/groups';
 import { getCms, copyFor } from '../../../lib/cms';
+const { justiceGroups } = (await getCms()).groups;
 const t = copyFor(await getCms(), 'plans-justice');
 const { legal } = await getCms();
 const P = new Map(legal.pillars.map((p) => [p.number, p]));

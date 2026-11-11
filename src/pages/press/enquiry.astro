@@ -1,7 +1,7 @@
 ---
 import ActionPage from '../../components/ActionPage.astro';
-import { press } from '../../data/forms';
 import { getCms, copyFor } from '../../lib/cms';
+const { press } = (await getCms()).forms;
 const t = copyFor(await getCms(), 'press-enquiry');
 ---
 <ActionPage title={t('press_enquiries')} id="press" img="/media/banners/press.jpg" headline="Press enquiries" lede="Journalists and editors looking for information, interviews or images." submit="Send Enquiry"

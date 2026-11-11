@@ -2,8 +2,8 @@
 import Base from '../../../layouts/Base.astro';
 import PageHead from '../../../components/PageHead.astro';
 import Arrow from '../../../components/Arrow.astro';
-import { eduGroups } from '../../../data/groups';
 import { getCms, copyFor } from '../../../lib/cms';
+const { eduGroups } = (await getCms()).groups;
 const t = copyFor(await getCms(), 'plans-education');
 const { edu } = await getCms();
 const P = new Map(edu.pillars.map((p) => [p.number, p]));

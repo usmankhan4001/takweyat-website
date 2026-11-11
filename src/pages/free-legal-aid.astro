@@ -3,9 +3,9 @@ import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import LeadForm from '../components/LeadForm.astro';
 import Photo from '../components/Photo.astro';
-import { legalAid } from '../data/forms';
-import { scope, steps } from '../data/legalAid';
 import { getCms, copyFor } from '../lib/cms';
+const { scope, steps } = (await getCms()).process;
+const { legalAid } = (await getCms()).forms;
 const t = copyFor(await getCms(), 'free-legal-aid');
 const { site } = await getCms();
 const eligibility = [

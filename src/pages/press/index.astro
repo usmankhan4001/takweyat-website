@@ -2,9 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
 import LeadForm from '../../components/LeadForm.astro';
-import { press } from '../../data/forms';
 import Arrow from '../../components/Arrow.astro';
 import { getCms, copyFor } from '../../lib/cms';
+const { press } = (await getCms()).forms;
 const t = copyFor(await getCms(), 'press');
 const { site, releases } = await getCms();
 ---

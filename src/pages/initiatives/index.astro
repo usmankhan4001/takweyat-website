@@ -2,9 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import PageHead from '../../components/PageHead.astro';
 import LeadForm from '../../components/LeadForm.astro';
-import { partner } from '../../data/forms';
 import { statusLabel } from '../../data/initiatives';
 import { getCms, copyFor } from '../../lib/cms';
+const { partner } = (await getCms()).forms;
 const t = copyFor(await getCms(), 'initiatives');
 const { initiatives } = await getCms();
 const live = initiatives.filter((i) => i.status !== 'planned');

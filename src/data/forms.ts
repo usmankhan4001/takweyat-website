@@ -1,3 +1,4 @@
+import { professions, subjects } from './networks.ts';
 // Questions for every guided form. One place, so a form can appear on its own page and inside a related page.
 // Labels on the legal aid and contact forms are the documents' own words. Helper lines, examples and short names are interface copy.
 export type FormField = {
@@ -44,4 +45,13 @@ export const press: FormField[] = [
 export const updates: FormField[] = [
   { name: 'email', label: 'Which email should we use?', short: 'Email', help: 'We will only write when there is real news.', ph: 'name@example.com', type: 'email', required: true },
   { name: 'name', label: 'And your name?', short: 'Name', help: 'Optional. So we can greet you properly.', ph: 'Your name' },
+];
+
+export const contact: FormField[] = [
+      { name: 'name', label: 'Full Name', short: 'Name', help: 'So we know who to reply to.', ph: 'Your full name', required: true },
+      { name: 'email', label: 'Email Address', short: 'Email', help: 'We will reply to this address.', ph: 'name@example.com', type: 'email', required: true },
+      { name: 'phone', label: 'Phone Number', short: 'Phone', help: 'Only if you would like a call. You can skip this.', ph: '03XX XXXXXXX', type: 'tel' },
+      { name: 'profession', label: 'Profession / Area of Expertise', short: 'Profession', help: 'Choose the one that fits you best.', type: 'select', options: professions, required: true },
+      { name: 'subject', label: 'Subject', short: 'Subject', help: 'What is your message about?', type: 'select', options: subjects, required: true },
+      { name: 'message', label: 'Message', short: 'Message', ph: 'Write here...', type: 'textarea', hint: 'Tell us how you would like to contribute your skills', required: true },
 ];

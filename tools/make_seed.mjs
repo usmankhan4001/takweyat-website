@@ -3,6 +3,9 @@
 import fs from 'node:fs';
 import { site } from '../src/data/site.ts';
 import { networks } from '../src/data/networks.ts';
+import * as forms from '../src/data/forms.ts';
+import { scope, steps } from '../src/data/legalAid.ts';
+import { eduGroups, justiceGroups } from '../src/data/groups.ts';
 import { releases } from '../src/data/press.ts';
 import copyDefaults from '../src/data/copy.defaults.json' with { type: 'json' };
 const j = (f) => JSON.parse(fs.readFileSync(new URL(`../content/${f}.json`, import.meta.url), 'utf8'));
@@ -38,7 +41,7 @@ const content = {
   networks: networks.map((n, i) => e(`net-${i}`, `network-${i + 1}`, { ...n, order: i })),
   releases: releases.map((r, i) => e(`rel-${i}`, r.slug, { title: r.title, date: r.date ?? '', summary: r.summary, pdf: r.pdf, order: i })),
   plans: [e('plan-edu', 'education', { title: edu.title, data: edu }), e('plan-justice', 'justice', { title: legal.title, data: legal })],
-  copy: [...Object.entries(copyDefaults).map(([page, text]) => e(`copy-${page}`, page, { title: `Page text: ${page}`, text })), e('copy-core', 'core', { title: 'Core pillars page text', text: { heroBanner: core.heroBanner, achievementsIntro: core.achievementsIntro, pillarsIntro: core.pillarsIntro } })],
+  copy: [...Object.entries(copyDefaults).map(([page, text]) => e(`copy-${page}`, page, { title: `Page text: ${page}`, text })), e('copy-forms', 'forms', { title: 'Form questions', text: { ...forms } }), e('copy-legal-aid-process', 'legal-aid-process', { title: 'Legal aid scope and steps', text: { scope, steps } }), e('copy-plan-groups', 'plan-groups', { title: 'Plan pillar groups', text: { eduGroups, justiceGroups } }), e('copy-core', 'core', { title: 'Core pillars page text', text: { heroBanner: core.heroBanner, achievementsIntro: core.achievementsIntro, pillarsIntro: core.pillarsIntro } })],
 };
 fs.mkdirSync(new URL('../.emdash/', import.meta.url), { recursive: true });
 fs.writeFileSync(new URL('../.emdash/seed.json', import.meta.url), JSON.stringify({ version: '1', meta: { name: 'Takweyat' }, collections, content }));

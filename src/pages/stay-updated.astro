@@ -1,7 +1,7 @@
 ---
 import ActionPage from '../components/ActionPage.astro';
-import { updates } from '../data/forms';
 import { getCms, copyFor } from '../lib/cms';
+const { updates } = (await getCms()).forms;
 const t = copyFor(await getCms(), 'stay-updated');
 ---
 <ActionPage title={t('stay_updated')} id="updates" img="/media/banners/press.jpg" headline="Stay updated" lede="A short email when something important happens. No fundraising." submit="Subscribe"
